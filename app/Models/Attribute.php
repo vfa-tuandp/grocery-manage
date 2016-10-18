@@ -4,7 +4,7 @@ namespace App\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ItemAttribute extends Model
+class Attribute extends Model
 {
     //
 }
