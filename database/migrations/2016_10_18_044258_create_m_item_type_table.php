@@ -12,7 +12,7 @@ class CreateMInventoryTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('m_inventory_type', function (Blueprint $table) {
+        Schema::create('m_item_type', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('company_id');
             $table->string('name');
@@ -27,6 +27,6 @@ class CreateMInventoryTypeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('m_inventory_type');
+        Schema::drop('m_item_type');
     }
 }
