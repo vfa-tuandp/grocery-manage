@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMInventoryTypeTable extends Migration
+class CreateMItemTypeTable extends Migration
 {
     /**
      * Run the migrations.
