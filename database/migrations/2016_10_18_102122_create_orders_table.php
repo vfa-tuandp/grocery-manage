@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePurchaseReceiptsTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class CreatePurchaseReceiptsTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_receipts', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('company_id');
-            $table->integer('supplier_id');
+            $table->integer('customer_id');
             $table->dateTime('datetime');
             $table->boolean('vat');
             $table->float('total');
@@ -33,6 +33,6 @@ class CreatePurchaseReceiptsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('purchase_receipts');
+        Schema::drop('orders');
     }
 }
