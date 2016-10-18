@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInventoriesTable extends Migration
+class CreateMInventoryTypeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,10 @@ class CreateInventoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('m_inventory_type', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id');
             $table->integer('company_id');
             $table->string('name');
-            $table->tinyInteger('inventory_type_id');
-            $table->string('unit', 100);
-            $table->integer('quantity');
-            $table->float('price_out_hint')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class CreateInventoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('inventories');
+        Schema::drop('m_inventory_type');
     }
 }
