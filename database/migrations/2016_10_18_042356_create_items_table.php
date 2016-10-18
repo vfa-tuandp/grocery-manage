@@ -19,7 +19,7 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->tinyInteger('item_type_id');
             $table->string('unit', 100);
-            $table->integer('quantity');
+            $table->integer('quantity')->default(0);
             $table->float('price_out_hint')->nullable();
             $table->timestamps();
         });
