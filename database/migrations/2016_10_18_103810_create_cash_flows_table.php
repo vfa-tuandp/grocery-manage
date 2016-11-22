@@ -17,7 +17,7 @@ class CreateCashFlowsTable extends Migration
             $table->tinyInteger('type');
             $table->dateTime('datetime');
             $table->string('cashflowable_type');
-            $table->integer('cashflowable_id');
+            $table->integer('cashflowable_id')->unsigned();
             $table->string('content');
             $table->string('note');
             $table->timestamps();

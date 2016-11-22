@@ -14,8 +14,8 @@ class CreateItemPropertiesTable extends Migration
     {
         Schema::create('item_properties', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('property_id');
-            $table->integer('item_id');
+            $table->integer('property_id')->unsigned();
+            $table->integer('item_id')->unsigned();
             $table->integer('value');
             $table->timestamps();
         });

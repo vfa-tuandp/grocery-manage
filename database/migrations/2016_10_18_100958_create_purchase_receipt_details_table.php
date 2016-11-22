@@ -14,8 +14,8 @@ class CreatePurchaseReceiptDetailsTable extends Migration
     {
         Schema::create('purchase_receipt_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('purchase_receipt_id');
-            $table->integer('item_id');
+            $table->integer('purchase_receipt_id')->unsigned();
+            $table->integer('item_id')->unsigned();
             $table->float('quantity');
             $table->float('price');
             $table->float('reduction_on_item')->nullable();

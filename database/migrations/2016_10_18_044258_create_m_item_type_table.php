@@ -14,7 +14,7 @@ class CreateMItemTypeTable extends Migration
     {
         Schema::create('m_item_type', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id');
+            $table->integer('company_id')->unsigned();
             $table->string('name');
             $table->timestamps();
         });
