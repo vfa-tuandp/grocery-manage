@@ -14,10 +14,10 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id');
-            $table->integer('company_id');
+            $table->integer('category_id')->unsigned();
+            $table->integer('company_id')->unsigned();
             $table->string('name');
-            $table->tinyInteger('item_type_id');
+            $table->integer('item_type_id')->unsigned();
             $table->string('unit', 100);
             $table->integer('quantity')->default(0);
             $table->float('price_out_hint')->nullable();

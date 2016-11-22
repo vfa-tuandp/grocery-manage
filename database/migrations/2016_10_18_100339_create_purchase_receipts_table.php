@@ -14,8 +14,8 @@ class CreatePurchaseReceiptsTable extends Migration
     {
         Schema::create('purchase_receipts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id');
-            $table->integer('supplier_id');
+            $table->integer('company_id')->unsigned();
+            $table->integer('supplier_id')->unsigned();
             $table->dateTime('datetime');
             $table->boolean('vat');
             $table->float('total');

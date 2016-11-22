@@ -14,8 +14,8 @@ class CreateItemAttributeTable extends Migration
     {
         Schema::create('item_attribute', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('item_id');
-            $table->integer('item_attribute_id');
+            $table->integer('item_id')->unsigned();
+            $table->integer('item_attribute_id')->unsigned();
         });
     }
 
