@@ -17,9 +17,10 @@ class CreateItemsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->integer('company_id')->unsigned();
             $table->string('name');
-            $table->integer('item_type_id')->unsigned();
+//            $table->integer('item_type_id')->unsigned();
             $table->string('unit', 100);
-            $table->integer('quantity')->default(0);
+            $table->integer('in_stock')->default(0);
+            $table->float('price_in_hint')->nullable();
             $table->float('price_out_hint')->nullable();
             $table->timestamps();
         });

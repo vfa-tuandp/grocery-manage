@@ -335,12 +335,12 @@
             </li>
             <!-- END ANGULARJS LINK -->
             <li class="heading">
-                <h3 class="uppercase">Features</h3>
+                <h3 class="uppercase">Mặt hàng</h3>
             </li>
             <li>
                 <a href="javascript:;">
                     <i class="icon-settings"></i>
-                    <span class="title">Form Stuff</span>
+                    <span class="title">Danh mục</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
@@ -391,7 +391,7 @@
             <li>
                 <a href="javascript:;">
                     <i class="icon-briefcase"></i>
-                    <span class="title">Data Tables</span>
+                    <span class="title">Sản phẩm</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
@@ -428,7 +428,7 @@
             <li>
                 <a href="javascript:;">
                     <i class="icon-wallet"></i>
-                    <span class="title">Portlets</span>
+                    <span class="title">Dịch vụ đi kèm sp</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
