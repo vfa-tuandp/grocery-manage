@@ -16,7 +16,7 @@ class AddForeignKeysToItemsTable extends Migration
 
             $table->foreign('company_id', 'fk_item_company1')->references('id')->on('companies')->onUpdate('NO ACTION')->onDelete('cascade');
             $table->foreign('category_id', 'fk_item_category1')->references('id')->on('categories')->onUpdate('NO ACTION')->onDelete('cascade');
-            $table->foreign('item_type_id', 'fk_item_item_type1')->references('id')->on('m_item_type')->onUpdate('NO ACTION')->onDelete('cascade');
+//            $table->foreign('item_type_id', 'fk_item_item_type1')->references('id')->on('m_item_type')->onUpdate('NO ACTION')->onDelete('cascade');
         });
     }
 
@@ -31,7 +31,7 @@ class AddForeignKeysToItemsTable extends Migration
 
             $table->dropForeign('fk_item_company1');
             $table->dropForeign('fk_item_category1');
-            $table->dropForeign('fk_item_item_type1');
+//            $table->dropForeign('fk_item_item_type1');
         });
     }
 }
