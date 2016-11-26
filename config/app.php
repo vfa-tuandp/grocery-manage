@@ -158,6 +158,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        \App\Providers\RepositoryServiceProvider::class,
 
     ],
 
