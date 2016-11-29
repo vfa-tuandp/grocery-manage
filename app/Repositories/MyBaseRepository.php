@@ -19,5 +19,4 @@ abstract class MyBaseRepository extends BaseRepository
         $this->applyScope();
         return $this->model->select($select);
     }
-
 }

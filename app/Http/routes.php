@@ -13,8 +13,7 @@
 
 Route::get('/', function () {
         return view('index');
-    }
-);
+});
 
 Route::group(['middleware' => 'auth'], function () {
         Route::get('/category', 'CategoryController@index');
@@ -22,9 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/ajax/category/{id}', 'CategoryController@destroy');
         Route::post('/ajax/category', 'CategoryController@store');
         Route::put('/ajax/category/{id}', 'CategoryController@update');
-
-    }
-);
+});
 
 Route::auth();
 

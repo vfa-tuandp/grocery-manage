@@ -8,7 +8,6 @@
 
 namespace App\Services\Category\Actions;
 
-
 use App\Services\Category\Tasks\DeleteCategoryTsk;
 
 class DeleteCategoryAct

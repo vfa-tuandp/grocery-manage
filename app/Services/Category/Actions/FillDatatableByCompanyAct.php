@@ -9,7 +9,7 @@ class FillDatatableByCompanyAct
 
     private $fillDatatableTsk;
 
-    public function __construct (FillDatatableTsk $fillDatatableTsk)
+    public function __construct(FillDatatableTsk $fillDatatableTsk)
     {
         $this->fillDatatableTsk = $fillDatatableTsk;
     }

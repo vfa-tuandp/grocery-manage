@@ -16,7 +16,7 @@ class ListCategoryAct
      *
      * @param ListCategoryTsk $listCategoryTask
      */
-    public function __construct (ListCategoryTsk $listCategoryTask)
+    public function __construct(ListCategoryTsk $listCategoryTask)
     {
         $this->listCategoryTask = $listCategoryTask;
     }

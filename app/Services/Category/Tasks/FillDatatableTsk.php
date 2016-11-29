@@ -12,7 +12,7 @@ class FillDatatableTsk
      */
     private $categoryRepo;
 
-    public function __construct (CategoryRepo $categoryRepo)
+    public function __construct(CategoryRepo $categoryRepo)
     {
         $this->categoryRepo = $categoryRepo;
     }

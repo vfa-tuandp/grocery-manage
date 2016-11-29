@@ -11,7 +11,7 @@ class NewCategoryAct
      */
     private $newCategoryTsk;
 
-    public function __construct (NewCategoryTsk $newCategoryTsk)
+    public function __construct(NewCategoryTsk $newCategoryTsk)
     {
         $this->newCategoryTsk = $newCategoryTsk;
     }
