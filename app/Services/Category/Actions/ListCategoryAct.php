@@ -2,21 +2,21 @@
 
 namespace App\Services\Category\Actions;
 
-use App\Services\Category\Tasks\ListCategoryTask;
+use App\Services\Category\Tasks\ListCategoryTsk;
 
-class ListCategoryAction
+class ListCategoryAct
 {
     /**
-     * @var ListCategoryTask
+     * @var ListCategoryTsk
      */
     private $listCategoryTask;
 
     /**
      * ListCategoryAction constructor.
      *
-     * @param ListCategoryTask $listCategoryTask
+     * @param ListCategoryTsk $listCategoryTask
      */
-    public function __construct (ListCategoryTask $listCategoryTask)
+    public function __construct (ListCategoryTsk $listCategoryTask)
     {
         $this->listCategoryTask = $listCategoryTask;
     }

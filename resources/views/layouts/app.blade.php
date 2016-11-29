@@ -14,6 +14,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta content="" name="description"/>
     <meta content="" name="author"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -109,13 +110,21 @@
 <script src="{{ asset('assets/admin/layout/scripts/layout.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/layout/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/admin/pages/scripts/table-editable.js') }}"></script>
+
+<!-- My Datatable js file-->
+<script src="{{ asset('assets/my-js/jquery-dateFormat.min.js') }}"></script>
+<script src="{{ asset('assets/my-js/category-datatable.js') }}"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         QuickSidebar.init(); // init quick sidebar
         Demo.init(); // init demo features
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
     });
 </script>
 @yield('my_scripts')

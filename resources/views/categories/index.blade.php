@@ -59,159 +59,25 @@
                 <thead>
                 <tr>
                     <th>
-                        Username
                     </th>
                     <th>
-                        Full Name
+                        Danh mục
                     </th>
                     <th>
-                        Points
+                        Ngày tạo
                     </th>
                     <th>
-                        Notes
+                        Ngày cập nhật
                     </th>
                     <th>
-                        Edit
+                        Sửa
                     </th>
                     <th>
-                        Delete
+                        Xóa
                     </th>
+
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        zlex
-                    </td>
-                    <td>
-                        Alex Nilson
-                    </td>
-                    <td>
-                        1234
-                    </td>
-                    <td class="center">
-                        power user
-                    </td>
-                    <td>
-                        <a class="edit" href="javascript:;">
-                            Edit </a>
-                    </td>
-                    <td>
-                        <a class="delete" href="javascript:;">
-                            Delete </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        lisa
-                    </td>
-                    <td>
-                        Lisa Wong
-                    </td>
-                    <td>
-                        434
-                    </td>
-                    <td class="center">
-                        new user
-                    </td>
-                    <td>
-                        <a class="edit" href="javascript:;">
-                            Edit </a>
-                    </td>
-                    <td>
-                        <a class="delete" href="javascript:;">
-                            Delete </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        nick12
-                    </td>
-                    <td>
-                        Nick Roberts
-                    </td>
-                    <td>
-                        232
-                    </td>
-                    <td class="center">
-                        power user
-                    </td>
-                    <td>
-                        <a class="edit" href="javascript:;">
-                            Edit </a>
-                    </td>
-                    <td>
-                        <a class="delete" href="javascript:;">
-                            Delete </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        goldweb
-                    </td>
-                    <td>
-                        Sergio Jackson
-                    </td>
-                    <td>
-                        132
-                    </td>
-                    <td class="center">
-                        elite user
-                    </td>
-                    <td>
-                        <a class="edit" href="javascript:;">
-                            Edit </a>
-                    </td>
-                    <td>
-                        <a class="delete" href="javascript:;">
-                            Delete </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        webriver
-                    </td>
-                    <td>
-                        Antonio Sanches
-                    </td>
-                    <td>
-                        462
-                    </td>
-                    <td class="center">
-                        new user
-                    </td>
-                    <td>
-                        <a class="edit" href="javascript:;">
-                            Edit </a>
-                    </td>
-                    <td>
-                        <a class="delete" href="javascript:;">
-                            Delete </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        gist124
-                    </td>
-                    <td>
-                        Nick Roberts
-                    </td>
-                    <td>
-                        62
-                    </td>
-                    <td class="center">
-                        new user
-                    </td>
-                    <td>
-                        <a class="edit" href="javascript:;">
-                            Edit </a>
-                    </td>
-                    <td>
-                        <a class="delete" href="javascript:;">
-                            Delete </a>
-                    </td>
-                </tr>
-                </tbody>
             </table>
         </div>
     </div>

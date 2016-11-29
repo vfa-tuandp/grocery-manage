@@ -4,7 +4,7 @@ namespace App\Services\Category\Tasks;
 
 use App\Repositories\Category\CategoryRepo;
 
-class ListCategoryTask
+class NewCategoryTsk
 {
     /**
      * @var CategoryRepo
@@ -15,11 +15,9 @@ class ListCategoryTask
     {
         $this->categoryRepo = $categoryRepo;
     }
-
-    public function byCompanyId($companyId = null)
+    
+    public function run(array $data)
     {
-        $companyId = $companyId ? : auth()->user()->company_id;
-
-        return $this->categoryRepo->findByField('company_id', $companyId);
+        return $this->categoryRepo->create($data);
     }
 }
