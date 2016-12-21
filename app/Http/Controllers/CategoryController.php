@@ -16,8 +16,6 @@ class CategoryController extends Controller
 {
     public function index()
     {
-//        $categories = $this->listCategory->run();
-        
         return view('categories.index');
     }
 

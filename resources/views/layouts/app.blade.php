@@ -114,6 +114,7 @@
 <!-- My Datatable js file-->
 <script src="{{ asset('assets/my-js/jquery-dateFormat.min.js') }}"></script>
 <script src="{{ asset('assets/my-js/category-datatable.js') }}"></script>
+<script src="{{ asset('assets/my-js/item-datatable.js') }}"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
