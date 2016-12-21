@@ -22,12 +22,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/ajax/category', 'CategoryController@store');
     Route::put('/ajax/category/{id}', 'CategoryController@update');
 
-    Route::get('/item', 'ItemController@index');
+    Route::get('/item', 'ItemController@index')->name('item.index');
     Route::get('/ajax/item', 'ItemController@fillDatatable');
     Route::get('/item/{id}/edit', 'ItemController@edit');
+    Route::put('/item/{id}', 'ItemController@update')->name('item.update');
     Route::delete('/ajax/item/{id}', 'ItemController@destroy');
-//    Route::post('/ajax/category', 'CategoryController@store');
-//    Route::put('/ajax/category/{id}', 'CategoryController@update');
+    Route::get('/item/create', 'ItemController@create');
+    Route::post('/item', 'ItemController@store')->name('item.store');
+    //    Route::post('/ajax/category', 'CategoryController@store');
 });
 
 Route::auth();

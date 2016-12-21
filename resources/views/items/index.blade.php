@@ -8,6 +8,15 @@
 @section('page_content')
     <!-- BEGIN EXAMPLE TABLE PORTLET-->
     <div class="portlet box blue-madison">
+        @if (Session::has('success'))
+            <div class="alert alert-success fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>
+                    {{ Session::get('success') }}
+                </strong>
+            </div>
+            <div></div>
+        @endif
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-globe"></i>Responsive Table With Expandable details

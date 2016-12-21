@@ -18,8 +18,7 @@ class ListCategoryTsk
 
     public function byCompanyId($companyId = null)
     {
-        $companyId = $companyId ? : auth()->user()->company_id;
-
+        $companyId ? : $companyId = auth()->user()->company_id;
         return $this->categoryRepo->findByField('company_id', $companyId);
     }
 }

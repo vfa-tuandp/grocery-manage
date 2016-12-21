@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         foreach ($tables as $table) {
             $tableName = $table->{'Tables_in_' . env('DB_DATABASE')};
+            if ($tableName == 'migrations') continue;
             DB::table($tableName)->truncate();
         }
 

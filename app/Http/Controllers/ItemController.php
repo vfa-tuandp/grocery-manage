@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-//use App\Http\Requests\StoreItemRequest;
-//use App\Http\Requests\UpdateItemRequest;
-//use App\Services\Item\Actions\DeleteItemAct;
+use App\Http\Requests\StoreItemRequest;
+use App\Http\Requests\UpdateItemRequest;
+use App\Services\Item\Actions\CreateItemAct;
+use App\Services\Item\Actions\DeleteItemAct;
+use App\Services\Item\Actions\EditItemAct;
 use App\Services\Item\Actions\FillDatatableByCompanyAct;
-//use App\Services\Item\Actions\NewItemAct;
-//use App\Services\Item\Actions\UpdateItemAct;
-use Illuminate\Http\Request;
+use App\Services\Item\Actions\StoreItemAct;
+use App\Services\Item\Actions\UpdateItemAct;
 
 use App\Http\Requests;
 
@@ -24,30 +25,34 @@ class ItemController extends Controller
         return $datatable->run();
     }
 
-    public function edit($id)
+    public function edit($id, EditItemAct $editItemAct)
     {
-        dd(123);
+        list($item, $categories) = $editItemAct->run($id);
+        return view('items.edit', ['item' => $item, 'categories' => $categories]);
     }
-//
-//    public function destroy($id, DeleteItemAct $deleteItemAct)
-    public function destroy($id)
+
+    public function update(UpdateItemRequest $request, $id, UpdateItemAct $updateItemAct)
     {
-//        $deleteItemAct->run($id);
-        dd(456);
+        $updateItemAct->run($id, $request->all());
+        return redirect()->back()->with('success', 'Cập nhật thành công!!');
     }
-//
-//    public function store(StoreItemRequest $request, NewItemAct $newItem)
-//    {
-//        if ($request->ajax()) {
-//            $itemId = $newItem->run(['name' => $request->get('data')[1]]);
-//            return $itemId;
-//        }
-//    }
-//
-//    public function update(UpdateItemRequest $request, $id, UpdateItemAct $updateItemAct)
-//    {
-//        if ($request->ajax()) {
-//            $updateItemAct->run(['name' => $request->get('data')[1]], $id);
-//        }
-//    }
+
+    public function destroy($id, DeleteItemAct $deleteItemAct)
+    {
+        $deleteItemAct->run($id);
+    }
+
+    public function create(CreateItemAct $createItemAct)
+    {
+        $categories = $createItemAct->run();
+
+        return view('items.create', ['categories' => $categories]);
+    }
+
+    public function store(StoreItemRequest $request, StoreItemAct $storeItemAct)
+    {
+        $storeItemAct->run($request->all());
+
+        return redirect()->route('item.index')->with('success', 'Thêm sản phẩm mới thành công!!');
+    }
 }
