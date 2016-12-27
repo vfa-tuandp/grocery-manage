@@ -15,15 +15,19 @@ var TableCustomer = function () {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
-            jqTds[3].innerHTML = '<a class="edit" href="">Save</a>';
-            jqTds[4].innerHTML = '<a class="cancel" href="">Cancel</a>';
+            jqTds[1].innerHTML = '<input type="text" class="form-control input-medium" value="' + aData[2] + '">';
+            jqTds[2].innerHTML = '<input type="text" class="form-control input-medium" value="' + aData[3] + '">';
+            jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
+            jqTds[4].innerHTML = '<input type="text" class="form-control input-large" value="' + aData[5] + '">';
+            jqTds[5].innerHTML = '<a class="edit" href="">Save</a>';
+            jqTds[6].innerHTML = '<a class="cancel" href="">Cancel</a>';
         }
 
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
             oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
-            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
-            oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 5, false);
+            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 6, false);
+            oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 7, false);
             oTable.fnDraw();
         }
 
@@ -103,8 +107,7 @@ var TableCustomer = function () {
                 }
             }
             oTable.fnSort([[0, "asc"]]);
-            var now = $.format.date(new Date(), "dd/MM/yyyy");
-            var aiNew = oTable.fnAddData(['', '', now, now, '', '']);
+            var aiNew = oTable.fnAddData(['','','','','','','','']);
             var nRow = oTable.fnGetNodes(aiNew[0]);
             editRow(oTable, nRow);
             nEditing = nRow;
