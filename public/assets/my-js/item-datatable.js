@@ -22,8 +22,8 @@ var TableAdvanced = function () {
                 {data: "price_in_hint"},
                 {data: "price_out_hint"},
                 {data: "in_stock"},
-                {data: "edit"},
-                {data: "delete"}
+                {data: "edit", orderable: false, searchable: false},
+                {data: "delete", orderable: false, searchable: false}
             ],
 
             "order": [

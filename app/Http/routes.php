@@ -1,22 +1,11 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
 Route::get('/', function () {
         return view('index');
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/category', 'CategoryController@index');
+    Route::get('/category', 'CategoryController@index')->name('category.index');
     Route::get('/ajax/category', 'CategoryController@fillDatatable')->name('category.data');
     Route::delete('/ajax/category/{id}', 'CategoryController@destroy');
     Route::post('/ajax/category', 'CategoryController@store');
@@ -29,7 +18,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/ajax/item/{id}', 'ItemController@destroy');
     Route::get('/item/create', 'ItemController@create');
     Route::post('/item', 'ItemController@store')->name('item.store');
-    //    Route::post('/ajax/category', 'CategoryController@store');
+
+    Route::get('/customer', 'CustomerController@index')->name('customer.index');
+    Route::get('/ajax/customer', 'CustomerController@fillDatatable')->name('customer.data');
+//    Route::delete('/ajax/customer/{id}', 'CustomerController@destroy');
+//    Route::post('/ajax/customer', 'CustomerController@store');
+//    Route::put('/ajax/customer/{id}', 'CustomerController@update');
 });
 
 Route::auth();
