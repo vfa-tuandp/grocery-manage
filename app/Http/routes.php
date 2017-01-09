@@ -21,9 +21,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/customer', 'CustomerController@index')->name('customer.index');
     Route::get('/ajax/customer', 'CustomerController@fillDatatable')->name('customer.data');
-//    Route::delete('/ajax/customer/{id}', 'CustomerController@destroy');
+    Route::delete('/ajax/customer/{id}', 'CustomerController@destroy');
 //    Route::post('/ajax/customer', 'CustomerController@store');
-//    Route::put('/ajax/customer/{id}', 'CustomerController@update');
+    Route::put('/ajax/customer/{id}', 'CustomerController@update');
 });
 
 Route::auth();

@@ -26,6 +26,10 @@ var TableCustomer = function () {
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
             oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
+            oTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
+            oTable.fnUpdate(jqInputs[2].value, nRow, 3, false);
+            oTable.fnUpdate(jqInputs[3].value, nRow, 4, false);
+            oTable.fnUpdate(jqInputs[4].value, nRow, 5, false);
             oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 6, false);
             oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 7, false);
             oTable.fnDraw();
@@ -34,7 +38,11 @@ var TableCustomer = function () {
         function cancelEditRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
             oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
-            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 3, false);
+            oTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
+            oTable.fnUpdate(jqInputs[2].value, nRow, 3, false);
+            oTable.fnUpdate(jqInputs[3].value, nRow, 4, false);
+            oTable.fnUpdate(jqInputs[4].value, nRow, 5, false);
+            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 6, false);
             oTable.fnDraw();
         }
 
@@ -50,8 +58,8 @@ var TableCustomer = function () {
             },
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "All"] // change per page values here
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
             ],
 
             // Or you can use remote translation file
@@ -60,7 +68,7 @@ var TableCustomer = function () {
             //},
 
             // set the initial value
-            "pageLength": 5,
+            "pageLength": 10,
 
             "ordering": true,
 
@@ -121,10 +129,10 @@ var TableCustomer = function () {
             }
 
             var nRow = $(this).parents('tr')[0];
-            var categoryId = oTable.fnGetData(nRow)[0];
+            var customerId = oTable.fnGetData(nRow)[0];
             $.ajax({
                 type: "DELETE",
-                url: "/ajax/category/" + categoryId,
+                url: "/ajax/customer/" + customerId,
                 success: function(msg) {
                     alert("Deleted");
                     oTable.fnDeleteRow(nRow);
@@ -186,7 +194,7 @@ var TableCustomer = function () {
                     return ;
                 }
                 $.ajax({
-                    url: "/ajax/category/" + aData[0],
+                    url: "/ajax/customer/" + aData[0],
                     type: "PUT",
                     data: {data: aData},
                     error: function(xhr, status, error) {

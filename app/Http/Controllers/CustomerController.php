@@ -23,11 +23,11 @@ class CustomerController extends Controller
     {
         return $datatable->run();
     }
-//
-//    public function destroy($id, DeleteCustomerAct $deleteCustomerAct)
-//    {
-//        $deleteCustomerAct->run($id);
-//    }
+
+    public function destroy($id, DeleteCustomerAct $deleteCustomerAct)
+    {
+        $deleteCustomerAct->run($id);
+    }
 //
 //    public function store(StoreCustomerRequest $request, NewCustomerAct $newCustomer)
 //    {
@@ -36,11 +36,11 @@ class CustomerController extends Controller
 //            return $customerId;
 //        }
 //    }
-//
-//    public function update(UpdateCustomerRequest $request, $id, UpdateCustomerAct $updateCustomerAct)
-//    {
-//        if ($request->ajax()) {
-//            $updateCustomerAct->run(['name' => $request->get('data')[1]], $id);
-//        }
-//    }
+
+    public function update(UpdateCustomerRequest $request, $id, UpdateCustomerAct $updateCustomerAct)
+    {
+        if ($request->ajax()) {
+            $updateCustomerAct->run($request->all(), $id);
+        }
+    }
 }
