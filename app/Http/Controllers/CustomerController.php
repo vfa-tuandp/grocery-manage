@@ -23,11 +23,11 @@ class CustomerController extends Controller
     {
         return $datatable->run();
     }
-//
-//    public function destroy($id, DeleteCustomerAct $deleteCustomerAct)
-//    {
-//        $deleteCustomerAct->run($id);
-//    }
+
+    public function destroy($id, DeleteCustomerAct $deleteCustomerAct)
+    {
+        $deleteCustomerAct->run($id);
+    }
 //
 //    public function store(StoreCustomerRequest $request, NewCustomerAct $newCustomer)
 //    {

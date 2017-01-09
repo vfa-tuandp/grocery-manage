@@ -121,10 +121,10 @@ var TableCustomer = function () {
             }
 
             var nRow = $(this).parents('tr')[0];
-            var categoryId = oTable.fnGetData(nRow)[0];
+            var customerId = oTable.fnGetData(nRow)[0];
             $.ajax({
                 type: "DELETE",
-                url: "/ajax/category/" + categoryId,
+                url: "/ajax/customer/" + customerId,
                 success: function(msg) {
                     alert("Deleted");
                     oTable.fnDeleteRow(nRow);
