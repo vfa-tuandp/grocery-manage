@@ -50,6 +50,11 @@
                             <span class="badge badge-roundless badge-danger">new</span>Khách hàng<br>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('supplier.index') }}">
+                            <span class="badge badge-roundless badge-danger">new</span>Nhà cung cấp<br>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>
