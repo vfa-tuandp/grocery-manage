@@ -72,6 +72,10 @@
                         <a href="{{ route('item.index') }}">
                             Hàng hóa</a>
                     </li>
+                    <li>
+                        <a href="{{ route('item.create') }}">
+                            Tạo hàng hóa mới</a>
+                    </li>
                 </ul>
             </li>
             <li>
