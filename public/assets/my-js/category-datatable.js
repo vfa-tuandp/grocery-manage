@@ -183,7 +183,8 @@ var TableEditable = function () {
                             location.reload();
                         },
                         success: function (newCategoryId) {
-                            oTable.fnUpdate(newCategoryId, nRow, 0, false)
+                            oTable.fnUpdate(newCategoryId, nRow, 0, false)l
+                            nNew = false;
                         }
                     });
                     return ;

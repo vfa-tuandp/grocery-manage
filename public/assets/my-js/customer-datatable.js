@@ -180,15 +180,16 @@ var TableCustomer = function () {
                 var aData = oTable.fnGetData(nRow);
                 if (nNew) {
                     $.ajax({
-                        url: "/ajax/category",
+                        url: "/ajax/customer",
                         type: "POST",
                         data: {data: aData},
                         error: function(xhr, status, error) {
                             alert('Có lỗi');
                             location.reload();
                         },
-                        success: function (newCategoryId) {
-                            oTable.fnUpdate(newCategoryId, nRow, 0, false)
+                        success: function (newCustomerId) {
+                            oTable.fnUpdate(newCustomerId, nRow, 0, false);
+                            nNew = false;
                         }
                     });
                     return ;
