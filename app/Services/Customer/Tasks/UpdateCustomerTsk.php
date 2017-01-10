@@ -19,7 +19,6 @@ class UpdateCustomerTsk
 
     public function run(array $data, $customerId)
     {
-        \Log::info($data);
         $formatData = [
             'name' => $data['data'][1],
             'company' => $data['data'][2],

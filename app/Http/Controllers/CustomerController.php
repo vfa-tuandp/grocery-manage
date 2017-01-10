@@ -28,14 +28,14 @@ class CustomerController extends Controller
     {
         $deleteCustomerAct->run($id);
     }
-//
-//    public function store(StoreCustomerRequest $request, NewCustomerAct $newCustomer)
-//    {
-//        if ($request->ajax()) {
-//            $customerId = $newCustomer->run(['name' => $request->get('data')[1]]);
-//            return $customerId;
-//        }
-//    }
+
+    public function store(StoreCustomerRequest $request, NewCustomerAct $newCustomer)
+    {
+        if ($request->ajax()) {
+            $customerId = $newCustomer->run($request->get('data'));
+            return $customerId;
+        }
+    }
 
     public function update(UpdateCustomerRequest $request, $id, UpdateCustomerAct $updateCustomerAct)
     {
