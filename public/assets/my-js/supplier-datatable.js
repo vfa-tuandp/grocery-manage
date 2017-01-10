@@ -1,7 +1,6 @@
-var TableEditable = function () {
+var TableSupplier = function () {
 
     var handleTable = function () {
-
         function restoreRow(oTable, nRow) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
@@ -16,26 +15,38 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
-            jqTds[3].innerHTML = '<a class="edit" href="">Save</a>';
-            jqTds[4].innerHTML = '<a class="cancel" href="">Cancel</a>';
+            jqTds[1].innerHTML = '<input type="text" class="form-control input-medium" value="' + aData[2] + '">';
+            jqTds[2].innerHTML = '<input type="text" class="form-control input-medium" value="' + aData[3] + '">';
+            jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
+            jqTds[4].innerHTML = '<input type="text" class="form-control input-large" value="' + aData[5] + '">';
+            jqTds[5].innerHTML = '<a class="edit" href="">Save</a>';
+            jqTds[6].innerHTML = '<a class="cancel" href="">Cancel</a>';
         }
 
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
             oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
-            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
-            oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 5, false);
+            oTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
+            oTable.fnUpdate(jqInputs[2].value, nRow, 3, false);
+            oTable.fnUpdate(jqInputs[3].value, nRow, 4, false);
+            oTable.fnUpdate(jqInputs[4].value, nRow, 5, false);
+            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 6, false);
+            oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 7, false);
             oTable.fnDraw();
         }
 
         function cancelEditRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
             oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
-            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 3, false);
+            oTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
+            oTable.fnUpdate(jqInputs[2].value, nRow, 3, false);
+            oTable.fnUpdate(jqInputs[3].value, nRow, 4, false);
+            oTable.fnUpdate(jqInputs[4].value, nRow, 5, false);
+            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 6, false);
             oTable.fnDraw();
         }
 
-        var table = $('#sample_editable_1');
+        var table = $('#supplier_table');
         var oTable = table.dataTable({
 
             // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
@@ -43,12 +54,12 @@ var TableEditable = function () {
             // So when dropdowns used the scrollable div should be removed. 
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
             "ajax": {
-                url : '/ajax/category'
+                url : '/ajax/supplier'
             },
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "All"] // change per page values here
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
             ],
 
             // Or you can use remote translation file
@@ -57,7 +68,7 @@ var TableEditable = function () {
             //},
 
             // set the initial value
-            "pageLength": 5,
+            "pageLength": 10,
 
             "ordering": true,
 
@@ -78,16 +89,11 @@ var TableEditable = function () {
                 [0, 'desc']
             ] // set first column as a default sort by asc
         });
-        var tableWrapper = $("#sample_editable_1_wrapper");
-
-        tableWrapper.find(".dataTables_length select").select2({
-            showSearchInput: true //hide search box with special css class
-        }); // initialize select2 dropdown
 
         var nEditing = null;
         var nNew = false;
 
-        $('#sample_editable_1_new').click(function (e) {
+        $('#supplier_table_new').click(function (e) {
             e.preventDefault();
 
             if (nEditing) {
@@ -109,8 +115,7 @@ var TableEditable = function () {
                 }
             }
             oTable.fnSort([[0, "asc"]]);
-            var now = $.format.date(new Date(), "dd/MM/yyyy");
-            var aiNew = oTable.fnAddData(['', '', now, now, '', '']);
+            var aiNew = oTable.fnAddData(['','','','','','','','']);
             var nRow = oTable.fnGetNodes(aiNew[0]);
             editRow(oTable, nRow);
             nEditing = nRow;
@@ -124,10 +129,10 @@ var TableEditable = function () {
             }
 
             var nRow = $(this).parents('tr')[0];
-            var categoryId = oTable.fnGetData(nRow)[0];
+            var supplierId = oTable.fnGetData(nRow)[0];
             $.ajax({
                 type: "DELETE",
-                url: "/ajax/category/" + categoryId,
+                url: "/ajax/supplier/" + supplierId,
                 success: function(msg) {
                     alert("Deleted");
                     oTable.fnDeleteRow(nRow);
@@ -175,22 +180,22 @@ var TableEditable = function () {
                 var aData = oTable.fnGetData(nRow);
                 if (nNew) {
                     $.ajax({
-                        url: "/ajax/category",
+                        url: "/ajax/supplier",
                         type: "POST",
                         data: {data: aData},
                         error: function(xhr, status, error) {
                             alert('Có lỗi');
                             location.reload();
                         },
-                        success: function (newCategoryId) {
-                            oTable.fnUpdate(newCategoryId, nRow, 0, false);
+                        success: function (newSupplierId) {
+                            oTable.fnUpdate(newSupplierId, nRow, 0, false);
                             nNew = false;
                         }
                     });
                     return ;
                 }
                 $.ajax({
-                    url: "/ajax/category/" + aData[0],
+                    url: "/ajax/supplier/" + aData[0],
                     type: "PUT",
                     data: {data: aData},
                     error: function(xhr, status, error) {
@@ -214,7 +219,6 @@ var TableEditable = function () {
         init: function () {
             handleTable();
         }
-
     };
 
 }();

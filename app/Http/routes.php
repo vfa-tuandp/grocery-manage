@@ -24,6 +24,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/ajax/customer/{id}', 'CustomerController@destroy');
     Route::post('/ajax/customer', 'CustomerController@store');
     Route::put('/ajax/customer/{id}', 'CustomerController@update');
+
+    Route::get('/supplier', 'SupplierController@index')->name('supplier.index');
+    Route::get('/ajax/supplier', 'SupplierController@fillDatatable')->name('supplier.data');
+    Route::delete('/ajax/supplier/{id}', 'SupplierController@destroy');
+    Route::post('/ajax/supplier', 'SupplierController@store');
+    Route::put('/ajax/supplier/{id}', 'SupplierController@update');
 });
 
 Route::auth();
