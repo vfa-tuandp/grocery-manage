@@ -30,6 +30,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/ajax/supplier/{id}', 'SupplierController@destroy');
     Route::post('/ajax/supplier', 'SupplierController@store');
     Route::put('/ajax/supplier/{id}', 'SupplierController@update');
+
+    Route::get('/order/create', 'OrderController@create')->name('order.create');
+
 });
 
 Route::auth();

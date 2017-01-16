@@ -117,6 +117,7 @@
 <script src="{{ asset('assets/my-js/customer-datatable.js') }}"></script>
 <script src="{{ asset('assets/my-js/supplier-datatable.js') }}"></script>
 <script src="{{ asset('assets/my-js/item-datatable.js') }}"></script>
+<script src="{{ asset('assets/my-js/order-create.js') }}"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

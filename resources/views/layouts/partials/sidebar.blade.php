@@ -80,6 +80,27 @@
             </li>
             <li>
                 <a href="javascript:;">
+                    <i class="icon-briefcase"></i>
+                    <span class="title">Đơn hàng</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="{{ route('order.create') }}">
+                            Tạo đơn hàng mới</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('item.index') }}">
+                            Hàng hóa</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('item.create') }}">
+                            Tạo hàng hóa mới</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
                     <i class="icon-wallet"></i>
                     <span class="title">Dịch vụ đi kèm sp</span>
                     <span class="arrow "></span>
