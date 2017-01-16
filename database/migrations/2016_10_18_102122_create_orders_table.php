@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->integer('customer_id')->unsigned();
             $table->dateTime('datetime');
             $table->boolean('vat');
-            $table->float('total');
+            $table->float('total')->default(0);
             $table->float('reduction')->nullable();
             $table->float('other_cost')->nullable();
             $table->text('note')->nullable();
