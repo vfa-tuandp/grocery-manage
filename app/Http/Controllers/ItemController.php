@@ -8,6 +8,7 @@ use App\Services\Item\Actions\CreateItemAct;
 use App\Services\Item\Actions\DeleteItemAct;
 use App\Services\Item\Actions\EditItemAct;
 use App\Services\Item\Actions\FillDatatableByCompanyAct;
+use App\Services\Item\Actions\GetItemsByCategoryIdAct;
 use App\Services\Item\Actions\StoreItemAct;
 use App\Services\Item\Actions\UpdateItemAct;
 
@@ -54,5 +55,13 @@ class ItemController extends Controller
         $storeItemAct->run($request->all());
 
         return redirect()->route('item.index')->with('success', 'Thêm sản phẩm mới thành công!!');
+    }
+
+    public function getItemByCategoryId($categoryId, GetItemsByCategoryIdAct $listItemAct)
+    {
+        if (request()->ajax()) {
+            $items = $listItemAct->run($categoryId);
+            return $items;
+        }
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\Item\Actions;
 
 use App\Services\Category\Tasks\ListCategoryTsk;
-use App\Services\Item\Tasks\GetItemTsk;
+use App\Services\Item\Tasks\GetItemsTsk;
 
 class EditItemAct
 {
@@ -13,7 +13,7 @@ class EditItemAct
      */
     private $listCategoryTsk;
 
-    public function __construct(GetItemTsk $getItemTsk, ListCategoryTsk $listCategoryTsk)
+    public function __construct(GetItemsTsk $getItemTsk, ListCategoryTsk $listCategoryTsk)
     {
         $this->getItemTsk = $getItemTsk;
         $this->listCategoryTsk = $listCategoryTsk;
@@ -21,7 +21,7 @@ class EditItemAct
 
     public function run($itemId)
     {
-        $item = $this->getItemTsk->byId($itemId);
+        $item = $this->getItemTsk->getOneById($itemId);
         $categories = $this->listCategoryTsk->byCompanyId($item->company_id);
         return [$item, $categories];
     }

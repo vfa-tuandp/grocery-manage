@@ -4,7 +4,7 @@ namespace App\Services\Item\Tasks;
 
 use App\Repositories\Item\ItemRepo;
 
-class GetItemTsk
+class GetItemsTsk
 {
     /**
      * @var ItemRepo
@@ -16,8 +16,15 @@ class GetItemTsk
         $this->itemRepo = $itemRepo;
     }
 
-    public function byId($itemId)
+    public function getOneById($itemId)
     {
         return $this->itemRepo->find($itemId);
+    }
+
+    public function byCategoryId($categoryId, $companyId = null)
+    {
+        $companyId ?: $companyId = auth()->user()->company_id;
+
+        return $this->itemRepo->findWhere(['category_id' => $categoryId, 'company_id' => $companyId]);
     }
 }

@@ -10,6 +10,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/ajax/category/{id}', 'CategoryController@destroy');
     Route::post('/ajax/category', 'CategoryController@store');
     Route::put('/ajax/category/{id}', 'CategoryController@update');
+    Route::get('/ajax/category/{id}/items', 'ItemController@getItemByCategoryId');
+
 
     Route::get('/item', 'ItemController@index')->name('item.index');
     Route::get('/ajax/item', 'ItemController@fillDatatable');

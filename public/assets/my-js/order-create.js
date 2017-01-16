@@ -6,7 +6,6 @@ var CreateOrder = function () {
             return;
         }
 
-
         $(".form_datetime").datetimepicker({
             autoclose: true,
             format: "dd/mm/yyyy - hh:ii",
@@ -23,18 +22,19 @@ var CreateOrder = function () {
 
     var handleTemplate = function () {
         //define template
+        console.log(12312312);
         var template = $('#create-order-form .row.section:first').clone();
 
         //define counter
         var sectionsCount = 0;
 
-        $('#addsection').on('click', '.addsection', function() {
+        $('#addsection').on('click', '.addsection', function () {
 
             //increment
             sectionsCount++;
 
             //loop through each input
-            var section = template.clone().find(':input').each(function(){
+            var section = template.clone().find(':input').each(function () {
 
                 //set id to store the updated section number
                 var newId = this.id + sectionsCount;
@@ -51,17 +51,7 @@ var CreateOrder = function () {
                 .appendTo('#create-order-form');
             return false;
         });
-
-        //remove section
-        $('#create-order-form .remove').on('click', '.remove', function() {
-            //fade out section
-            $(this).parent().fadeOut(300, function(){
-                //remove parent element (main section)
-                $(this).parent().parent().empty();
-                return false;
-            });
-            return false;
-        });
+        
     }
 
     return {
