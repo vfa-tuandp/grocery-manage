@@ -1,11 +1,9 @@
 var CreateOrder = function () {
 
     var handleDatetimePicker = function () {
-
         if (!jQuery().datetimepicker) {
             return;
         }
-
         $(".form_datetime").datetimepicker({
             autoclose: true,
             format: "dd/mm/yyyy - hh:ii",
@@ -22,7 +20,6 @@ var CreateOrder = function () {
 
     var handleTemplate = function () {
         //define template
-        console.log(12312312);
         var template = $('#create-order-form .row.section:first').clone();
 
         //define counter
@@ -45,13 +42,19 @@ var CreateOrder = function () {
                 //update id
                 this.id = newId;
 
-            }).end()
+            }).end().appendTo('#create-order-form');
 
-            //inject new section
-                .appendTo('#create-order-form');
+            section.find('.my-currency').each(function () {
+                $(this).priceFormat({
+                    prefix: '',
+                    thousandsSeparator: '.',
+                    suffix: '',
+                    centsLimit: 0
+                });
+            });
             return false;
         });
-        
+
     }
 
     return {

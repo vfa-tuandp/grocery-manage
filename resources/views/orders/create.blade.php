@@ -76,30 +76,94 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input">
-                                <select class="form-control select2me" id="customer_id" name="customer_id">
-                                    @foreach ($customers as $customer)
-                                        <option value="{{ $customer->id }}">
-                                            <b>{{ $customer->name }}</b> ------------ {{ $customer->company }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <label for="category">Khách hàng</label>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group form-md-line-input">
+                                        <select class="form-control select2me" id="customer_id" name="customer_id">
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">
+                                                    <b>{{ $customer->name }}</b> --- {{ $customer->company }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <label for="category">Khách hàng</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="md-checkbox md-checkbox-inline">
+                                            <input onchange="calculateTotal();" type="checkbox" id="vat" name="vat" class="md-check">
+                                            <label for="vat">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                                Tính VAT?</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <div class="form-group form-md-line-input">
-                                <div class="md-checkbox md-checkbox-inline">
-                                    <input type="checkbox" id="vat" name="vat" class="md-check">
-                                    <label for="vat">
-                                        <span></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span>
-                                        Tính VAT?</label>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="alert alert-info text-center" id="total">
+                                        <strong>Thành Tiền!!</strong>
+                                        <input type="hidden" name="total">
+                                    </div>
+                                </div>
+                                <div class="col-md-5 group-tools">
+                                    <a onclick="showHideOrderNote();" class="btn btn-circle btn-icon-only btn-default"
+                                       href="javascript:;">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row" id="order-note-field" hidden>
+                        <div class="col-md-3">
+                            <div class="form-group form-md-line-input">
+                                <div class="input-group">
+                                    <input onblur="calculateTotal();" type="text"
+                                           class="form-control my-currency"
+                                           id="other_cost"
+                                           name="other_cost"
+                                           placeholder="Chi phí khác trên đơn hàng">
+                                    <span class="help-block">Chi phí khác trên đơn hàng</span>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-usd"></i>
+                                            </span>
+                                    <label for="other_cost"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group form-md-line-input">
+                                <div class="input-group">
+                                    <input onblur="calculateTotal();" type="text"
+                                           class="form-control my-currency"
+                                           id="reduction"
+                                           name="reduction"
+                                           placeholder="Giảm giá trên đơn hàng">
+                                    <span class="help-block">Giảm giá trên đơn hàng</span>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-usd"></i>
+                                            </span>
+                                    <label for="reduction"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input">
+                                        <textarea class="form-control" name="note" id="note"
+                                                  placeholder="Ghi chú của đơn hàng"></textarea>
+                                <span class="help-block">Ghi chú của đơn hàng</span>
+                                <label for="note"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
 
                     <div class="row section">
                         <div class="col-md-5">
@@ -113,101 +177,144 @@
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
-                                        <label for="category">Loại hàng</label>
+                                        {{--<label for="category_id">Loại hàng</label>--}}
                                     </div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-7">
                                     <div class="form-group form-md-line-input">
-                                        <select onchange="selectItem(this)" class="form-control list-items" id="item_id"
+                                        <select onchange="selectItem(this);" class="form-control list-items"
+                                                id="item_id"
                                                 name="item_id[]">
                                         </select>
-                                        <label for="product_name">Mặt hàng</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group form-md-line-input">
-                                        <input type="text" disabled class="form-control" id="unit" name="unit[]"
-                                               placeholder="Đvt">
-                                        <label for=unit>Đvt</label>
+                                        {{--<label for="item_id">Mặt hàng</label>--}}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-5 number-field">
+                        <div class="col-md-4 number-field">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
-                                        <input type="number" class="form-control" id="price_out"
-                                               name="price_out[]"
-                                               placeholder="Giá bán ra">
-                                        <label for="price_out_hint">Đơn giá</label>
+                                        <div class="input-group">
+                                            <input onblur="calculateSum(this);" type="text"
+                                                   class="form-control my-currency" id="price"
+                                                   name="price[]" placeholder="Đơn giá">
+                                            <span class="help-block">Đơn giá</span>
+                                            <label for="price"></label>
+                                            <span class="input-group-addon">
+											    <i class="fa fa-usd"></i>
+											</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
-                                        <input type="number" class="form-control" id="quantity"
-                                               name="quantity[]"
-                                               placeholder="Giá bán ra">
-                                        <label for="price_out_hint">SL</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group form-md-line-input">
-                                        <input type="number" class="form-control" id="quantity"
-                                               name="quantity[]"
-                                               placeholder="Giá bán ra">
-                                        <label for="price_out_hint">Chi phí khác</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group form-md-line-input">
-                                        <input type="number" class="form-control" id="quantity"
-                                               name="quantity[]"
-                                               placeholder="Giá bán ra">
-                                        <label for="price_out_hint">Giảm giá</label>
+                                        <div class="input-group right-addon">
+                                            <input onchange="calculateSum(this);" type="number" min="1"
+                                                   class="form-control"
+                                                   id="quantity"
+                                                   name="quantity[]" placehoder="SL">
+                                            <label for=""></label>
+                                            <span class="help-block">SL</span>
+                                            <span class="input-group-addon unit"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-7">
                                     <div class="form-group form-md-line-input">
-                                        <input type="number" readonly disabled class="form-control" id="quantity1"
-                                               name="quantity[]"
-                                               placeholder="">
-                                        <label for="price_out_hint">Thành tiền</label>
+                                        <div class="input-group">
+                                            <input type="text" min="0" readonly disabled
+                                                   class="form-control my-currency" id="sum"
+                                                   name="sum[]"
+                                                   placeholder="Tổng">
+                                            <label for="sum">Tổng</label>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-usd"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 group-tools">
+                                    <a onclick="showHideNote(this);" class="btn btn-circle btn-icon-only btn-default"
+                                       href="javascript:;">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <a onclick="deleteField(this); "
+                                       class="btn btn-circle btn-icon-only btn-default remove"
+                                       href="javascript:;">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 note-field" hidden>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="input-group">
+                                            <input onblur="calculateSum(this);" type="text"
+                                                   class="form-control my-currency"
+                                                   id="other_cost_on_item"
+                                                   name="other_cost_on_item[]"
+                                                   placeholder="Chi phí khác">
+                                            <span class="help-block">Chi phí khác</span>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-usd"></i>
+                                            </span>
+                                            <label for="other_cost_on_item"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="input-group">
+                                            <input onblur="calculateSum(this);" type="text"
+                                                   class="form-control my-currency"
+                                                   id="reduction_on_item"
+                                                   name="reduction_on_item[]"
+                                                   placeholder="Giảm giá">
+                                            <span class="help-block">Giảm giá</span>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-usd"></i>
+                                            </span>
+                                            <label for="reduction_on_item"></label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <a onclick="showHideNote(this);" class="btn btn-circle btn-icon-only blue"
-                                       href="javascript:;">
-                                        <i class="icon-speech"></i>
-                                    </a>
-                                    <a onclick="deleteField(this); " class="btn btn-circle btn-icon-only red remove"
-                                       href="javascript:;">
-                                        <i class="icon-trash"></i>
-                                    </a>
+                                    <div class="form-group form-md-line-input">
+                                        <textarea class="form-control" name="note_on_item[]" id="note_on_item"
+                                                  placeholder="Ghi chú"></textarea>
+                                        <span class="help-block">Ghi chú</span>
+                                        <label for="note_on_item"></label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 note-field" hidden>
-                            <div class="form-group form-md-line-input">
-                                        <textarea class="form-control"
-                                                  placeholder="Description"></textarea>
-                                <label for="form_control_1">Ghi chú cho sản phẩm này</label>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
-
-                <div id="addsection" class="form-actions noborder">
-                    <a class="btn blue addsection">Thêm</a>
-                </div>
-                <div class="form-actions noborder">
-                    <button type="submit" class="btn blue">Tạo mới</button>
+                <div class="row">
+                    <div class="col-md-1">
+                        <div id="addsection" class="form-actions noborder pull-right">
+                            <a class="btn btn-circle btn-icon-only blue addsection">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-actions noborder">
+                            <button type="submit" class="btn yellow">
+                                Tạo mới
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -232,6 +339,10 @@
 
         function showHideNote(el) {
             $(el).closest('.section').find('.note-field').toggle("slide");
+        }
+
+        function showHideOrderNote() {
+            $('#order-note-field').toggle("slide");
         }
 
         function deleteField(el) {
@@ -263,7 +374,6 @@
                                 .attr("value", value.id)
                                 .text(value.name));
                     });
-                    console.log(itemSelect);
                     selectItem(itemSelect[0]);
                 }
             });
@@ -273,9 +383,52 @@
             var selectedItem = $.grep(itemsByCategory, function (e) {
                 return e.id == el.value;
             });
+            var rowSection = $(el).closest('.row.section');
+            rowSection.find("input[name^='price']").val(selectedItem[0].price_out_hint);
+            var quantityEl = rowSection.find("input[name^='quantity']");
+            quantityEl.val(1);
+            quantityEl.parent().find('.unit').text(selectedItem[0].unit);
 
-            $(el).closest('.row').find("input[name^='unit']").val(selectedItem[0].unit);
-            $(el).closest('.row.section').find("input[name^='price_out']").val(selectedItem[0].price_out_hint);
+            calculateSum(el);
+        }
+
+        function calculateSum(el) {
+            var rowSection = $(el).closest('.row.section');
+            var sum = Number(rowSection.find("input[name^='price']").first().unmask())
+                    * rowSection.find("input[name^='quantity']").first().val()
+                    + Number(rowSection.find("input[name^='other_cost_on_item']").first().unmask())
+                    - Number(rowSection.find("input[name^='reduction_on_item']").first().unmask());
+
+            rowSection.find("input[name^='sum']").val(sum).priceFormat({
+                prefix: '',
+                thousandsSeparator: '.',
+                centsLimit: 0,
+                suffix: '',
+                allowNegative: true
+            });
+
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            var total = 0;
+            $('#create-order-form').find(".row.section input[name^='sum']").each(function () {
+                total += Number($(this).unmask());
+            });
+
+            var vatRate = $('#vat').is(":checked") ? 110 : 100;
+            total = Number((total + Number($('#other_cost').unmask())) * vatRate / 100)
+                    - Number($('#reduction').unmask());
+
+            $('#total strong').text(Number(total)).priceFormat({
+                prefix: '',
+                thousandsSeparator: '.',
+                centsLimit: 0,
+                suffix: ' đ',
+                allowNegative: true
+            });
+
+            $("#total input[name^='total']").val(total);
         }
     </script>
 
@@ -283,5 +436,15 @@
         jQuery(document).ready(function () {
             CreateOrder.init();
         });
+        var currencyEls = $(".row.section, #order-note-field").find('.my-currency');
+        currencyEls.each(function () {
+            $(this).priceFormat({
+                prefix: '',
+                thousandsSeparator: ',',
+                suffix: '',
+                centsLimit: 0
+            });
+        });
+
     </script>
 @endsection
