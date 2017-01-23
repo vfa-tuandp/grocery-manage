@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="portlet-body form">
-            <form role="form" action="{{ route('item.store') }}" method="POST">
+            <form id="createNewOrderForm" role="form" action="{{ route('order.store') }}" method="POST">
                 {{ csrf_field() }}
                 <div class="form-body" id="create-order-form">
                     <div class="row">
@@ -303,14 +303,14 @@
                 <div class="row">
                     <div class="col-md-1">
                         <div id="addsection" class="form-actions noborder pull-right">
-                            <a class="btn btn-circle btn-icon-only blue addsection">
+                            <a class="btn disabled btn-circle btn-icon-only blue addsection">
                                 <i class="fa fa-plus"></i>
                             </a>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-actions noborder">
-                            <button type="submit" class="btn yellow">
+                            <button id="createNewOrder" class="btn yellow">
                                 Tạo mới
                             </button>
                         </div>
@@ -349,6 +349,7 @@
             $(el).closest('.section').fadeOut(300, function () {
                 //remove parent element (main section)
                 $(this).empty();
+                $('#addsection .addsection').removeClass("disabled");
                 return false;
             });
             return false;
@@ -374,6 +375,7 @@
                                 .attr("value", value.id)
                                 .text(value.name));
                     });
+                    $('#addsection .addsection').removeClass("disabled");
                     selectItem(itemSelect[0]);
                 }
             });
@@ -444,6 +446,65 @@
                 suffix: '',
                 centsLimit: 0
             });
+        });
+
+        $('#createNewOrder').click(function (e) {
+            e.preventDefault();
+            swal({
+                title: 'Tạo đơn hàng này ?',
+                text: "Hãy chắc chắn các thông tin nhập vào là đúng",
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ok tạo mới!',
+                cancelButtonText: 'Chờ tí, để xem lại',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-cancel',
+                buttonsStyling: false
+            }).then(function () {
+                var form = $("#createNewOrderForm");
+                var rowData = [];
+                form.find('.row.section').each(function() {
+                    rowData.push({
+                        "item_id": $(this).find("select[name^='item_id']").val(),
+                        "price": $(this).find("input[name^='price']").val(),
+                        "quantity": $(this).find("input[name^='quantity']").val(),
+                        "other_cost_on_item": $(this).find("input[name^='other_cost_on_item']").val(),
+                        "reduction_on_item": $(this).find("input[name^='reduction_on_item']").val(),
+                        "note_on_item": $(this).find("input[name^='note_on_item']").val(),
+                        "sum": $(this).find("input[name^='sum']").val()
+                    });
+                });
+
+                var data = {
+                    "datetime": form.find("input[name='datetime']").val(),
+                    "customer_id": form.find("select[name='customer_id']").val(),
+                    "vat": form.find("checkbox[name='vat']").val(),
+                    "total": form.find("input[name='total']").val(),
+                    "other_cost": form.find("input[name='other_cost']").val(),
+                    "reduction": form.find("input[name='reduction']").val(),
+                    "note": form.find("input[name='note']").val(),
+                    "data_item": rowData
+                };
+
+                console.log(data);
+                swal(
+                        'Đã tạo mới!',
+                        'Đơn hàng này đã được tạo thành công',
+                        'success'
+                )
+            }, function (dismiss) {
+                // dismiss can be 'cancel', 'overlay',
+                // 'close', and 'timer'
+                if (dismiss === 'cancel') {
+                    swal(
+                            'Ok',
+                            'Hãy kiểm tra cẩn thận',
+                            'error'
+                    )
+                }
+            })
         });
 
     </script>

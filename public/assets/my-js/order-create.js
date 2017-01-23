@@ -52,6 +52,7 @@ var CreateOrder = function () {
                     centsLimit: 0
                 });
             });
+            $(this).addClass("disabled");
             return false;
         });
 

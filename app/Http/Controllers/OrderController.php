@@ -12,7 +12,9 @@ namespace App\Http\Controllers;
 //use App\Services\Order\Actions\UpdateOrderAct;
 
 use App\Http\Requests;
+use App\Http\Requests\StoreOrderRequest;
 use App\Services\Order\Actions\CreateOrderAct;
+use App\Services\Order\Actions\StoreOrderAct;
 
 class OrderController extends Controller
 {
@@ -50,10 +52,11 @@ class OrderController extends Controller
         return view('orders.create', compact('categories', 'customers'));
     }
 
-//    public function store(StoreOrderRequest $request, StoreOrderAct $storeOrderAct)
-//    {
-//        $storeOrderAct->run($request->all());
-//
-//        return redirect()->route('order.index')->with('success', 'Thêm sản phẩm mới thành công!!');
-//    }
+    public function store(StoreOrderRequest $request, StoreOrderAct $storeOrderAct)
+    {
+        dd($request->all());
+        $storeOrderAct->run($request->all());
+
+        return redirect()->route('order.index')->with('success', 'Thêm sản phẩm mới thành công!!');
+    }
 }

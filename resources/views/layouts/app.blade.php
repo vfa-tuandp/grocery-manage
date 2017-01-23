@@ -33,6 +33,7 @@
     <link id="style_color" href="{{ asset('assets/admin/layout/css/themes/darkblue.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/admin/layout/css/custom.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/my-css.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/sweetalert2.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
 </head>
@@ -113,6 +114,7 @@
 <script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
 
 <!-- My Datatable js file-->
+<script src="{{ asset('assets/my-js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/my-js/jquery.priceformat.min.js') }}"></script>
 <script src="{{ asset('assets/my-js/jquery-dateFormat.min.js') }}"></script>
 <script src="{{ asset('assets/my-js/category-datatable.js') }}"></script>
