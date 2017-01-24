@@ -35,7 +35,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/order/create', 'OrderController@create')->name('order.create');
     Route::post('/ajax/order/store', 'OrderController@store')->name('order.store');
-
 });
 
 Route::auth();

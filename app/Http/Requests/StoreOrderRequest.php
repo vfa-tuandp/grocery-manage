@@ -24,7 +24,10 @@ class StoreOrderRequest extends Request
     public function rules()
     {
         return [
-//            'data.1' => 'required'
+            'datetime' => 'required',
+            'customer_id' => 'required',
+            'total' => 'required',
+            'items.*.item_id' => 'required',
         ];
     }
 }

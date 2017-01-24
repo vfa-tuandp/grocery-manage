@@ -54,9 +54,8 @@ class OrderController extends Controller
 
     public function store(StoreOrderRequest $request, StoreOrderAct $storeOrderAct)
     {
-        dd($request->all());
-        $storeOrderAct->run($request->all());
-
-        return redirect()->route('order.index')->with('success', 'Thêm sản phẩm mới thành công!!');
+        if ($request->ajax()) {
+            $storeOrderAct->run($request->all());
+        }
     }
 }

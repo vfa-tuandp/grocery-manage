@@ -27,6 +27,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\Item\ItemRepo::class, \App\Repositories\Item\ItemRepoEloquent::class);
         $this->app->bind(\App\Repositories\Customer\CustomerRepo::class, \App\Repositories\Customer\CustomerRepoEloquent::class);
         $this->app->bind(\App\Repositories\Supplier\SupplierRepo::class, \App\Repositories\Supplier\SupplierRepoEloquent::class);
+        $this->app->bind(\App\Repositories\Order\OrderRepo::class, \App\Repositories\Order\OrderRepoEloquent::class);
+        $this->app->bind(\App\Repositories\OrderDetail\OrderDetailRepo::class, \App\Repositories\OrderDetail\OrderDetailRepoEloquent::class);
         //:end-bindings:
     }
 }
