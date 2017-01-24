@@ -11,7 +11,7 @@ class GetItemsByCategoryIdAct
      */
     private $getItemsTsk;
 
-    public function __construct (GetItemsTsk $getItemsTsk)
+    public function __construct(GetItemsTsk $getItemsTsk)
     {
         $this->getItemsTsk = $getItemsTsk;
     }

@@ -442,7 +442,7 @@
         currencyEls.each(function () {
             $(this).priceFormat({
                 prefix: '',
-                thousandsSeparator: ',',
+                thousandsSeparator: '.',
                 suffix: '',
                 centsLimit: 0
             });
@@ -466,34 +466,61 @@
                 var form = $("#createNewOrderForm");
                 var rowData = [];
                 form.find('.row.section').each(function() {
+                    var itemId = $(this).find("select[name^='item_id']").val();
+                    if (!itemId) {
+                        return true;
+                    }
                     rowData.push({
                         "item_id": $(this).find("select[name^='item_id']").val(),
-                        "price": $(this).find("input[name^='price']").val(),
+                        "price": Number($(this).find("input[name^='price']").unmask()),
                         "quantity": $(this).find("input[name^='quantity']").val(),
-                        "other_cost_on_item": $(this).find("input[name^='other_cost_on_item']").val(),
-                        "reduction_on_item": $(this).find("input[name^='reduction_on_item']").val(),
-                        "note_on_item": $(this).find("input[name^='note_on_item']").val(),
-                        "sum": $(this).find("input[name^='sum']").val()
+                        "other_cost_on_item": Number($(this).find("input[name^='other_cost_on_item']").unmask()),
+                        "reduction_on_item": Number($(this).find("input[name^='reduction_on_item']").unmask()),
+                        "note_on_item": $(this).find("textarea[name^='note_on_item']").val(),
+                        "sum": Number($(this).find("input[name^='sum']").unmask())
                     });
                 });
 
                 var data = {
                     "datetime": form.find("input[name='datetime']").val(),
                     "customer_id": form.find("select[name='customer_id']").val(),
-                    "vat": form.find("checkbox[name='vat']").val(),
+                    "vat": form.find("input[name='vat']").is(':checked'),
                     "total": form.find("input[name='total']").val(),
-                    "other_cost": form.find("input[name='other_cost']").val(),
-                    "reduction": form.find("input[name='reduction']").val(),
-                    "note": form.find("input[name='note']").val(),
-                    "data_item": rowData
+                    "other_cost": Number(form.find("input[name='other_cost']").unmask()),
+                    "reduction": Number(form.find("input[name='reduction']").unmask()),
+                    "note": form.find("textarea[name='note']").val(),
+                    "items": rowData
                 };
 
-                console.log(data);
-                swal(
-                        'Đã tạo mới!',
-                        'Đơn hàng này đã được tạo thành công',
-                        'success'
-                )
+                $.ajax({
+                    url:"/ajax/order/store",
+                    data: data,
+                    type: "POST",
+                    success:function(data) {
+                        swal(
+                                'Đã tạo mới!',
+                                'Đơn hàng này đã được tạo thành công',
+                                'success'
+                        ).then(function () {
+                            location.reload();
+                        })
+                    },
+                    error: function(xhr,status,error) {
+                        var errors = xhr.responseJSON;
+                        var errorsString = '';
+                        $.each( errors, function( key, value ) {
+                            errorsString += '<li>' + value[0] + '</li>'; //showing only the first error.
+                        });
+                        swal(
+                                'Đệt, có lỗi',
+                                errorsString,
+                                'error'
+                        )
+
+                    }
+                });
+
+
             }, function (dismiss) {
                 // dismiss can be 'cancel', 'overlay',
                 // 'close', and 'timer'
