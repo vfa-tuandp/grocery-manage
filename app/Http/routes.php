@@ -10,6 +10,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/ajax/category/{id}', 'CategoryController@destroy');
     Route::post('/ajax/category', 'CategoryController@store');
     Route::put('/ajax/category/{id}', 'CategoryController@update');
+    Route::get('/ajax/category/{id}/items', 'ItemController@getItemByCategoryId');
+
 
     Route::get('/item', 'ItemController@index')->name('item.index');
     Route::get('/ajax/item', 'ItemController@fillDatatable');
@@ -30,6 +32,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/ajax/supplier/{id}', 'SupplierController@destroy');
     Route::post('/ajax/supplier', 'SupplierController@store');
     Route::put('/ajax/supplier/{id}', 'SupplierController@update');
+
+    Route::get('/order/create', 'OrderController@create')->name('order.create');
+    Route::post('/ajax/order/store', 'OrderController@store')->name('order.store');
 });
 
 Route::auth();
