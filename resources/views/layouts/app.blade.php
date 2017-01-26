@@ -109,8 +109,10 @@
 @yield('page_level_plugins')
 <!-- END PAGE LEVEL PLUGINS -->
 <script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/scripts/datatable.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/layout/scripts/layout.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/layout/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
 
 <!-- My Datatable js file-->
@@ -122,6 +124,7 @@
 <script src="{{ asset('assets/my-js/supplier-datatable.js') }}"></script>
 <script src="{{ asset('assets/my-js/item-datatable.js') }}"></script>
 <script src="{{ asset('assets/my-js/order-create.js') }}"></script>
+<script src="{{ asset('assets/my-js/table-ajax.js') }}"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

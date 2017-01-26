@@ -1,34 +1,35 @@
 <?php
 
-namespace App\Services\Item\Tasks;
+namespace App\Services\Order\Tasks;
 
-use App\Repositories\Item\ItemRepo;
+use App\Repositories\Order\OrderRepo;
 use Yajra\Datatables\Datatables;
 
 class FillDatatableTsk
 {
     /**
-     * @var ItemRepo
+     * @var OrderRepo
      */
-    private $itemRepo;
+    private $orderRepo;
 
-    public function __construct(ItemRepo $itemRepo)
+    public function __construct(OrderRepo $orderRepo)
     {
-        $this->itemRepo = $itemRepo;
+        $this->orderRepo = $orderRepo;
     }
 
-    public function byCompanyId($companyId = null)
+    public function byCompanyId($request = null, $companyId = null)
     {
         $companyId = $companyId ? : auth()->user()->company_id;
-        $query = $this->itemRepo->with('category')
+
+        $query = $this->orderRepo->with('customer')
             ->scopeQuery(function ($scope) use ($companyId) {
-                return $scope->where('company_id', $companyId)
-                ->orderBy('created_at', 'desc');
-            })->makeQueryBuilder();
+                $scope->select([]);
+                return $scope->where('orders.company_id', $companyId);
+            })->makeQueryBuilder(['orders.id', 'customers.name', 'datetime', 'other_cost', 'reduction', 'note', 'vat', 'total', 'customer_id']);
 
         $result = Datatables::of($query)
-            ->addColumn('edit', '<td><a class="edit" href="javascript:;">Edit </a></td>')
-            ->addColumn('delete', '<td><a class="delete" href="javascript:;">Delete </a></td>')
+//            ->addColumn('edit', '<td><a class="edit" href="javascript:;">Edit </a></td>')
+//            ->addColumn('delete', '<td><a class="delete" href="javascript:;">Delete </a></td>')
             ->make(true);
         return $result;
     }

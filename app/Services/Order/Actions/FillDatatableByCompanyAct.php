@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Item\Actions;
+namespace App\Services\Order\Actions;
 
-use App\Services\Item\Tasks\FillDatatableTsk;
+use App\Services\Order\Tasks\FillDatatableTsk;
 
 class FillDatatableByCompanyAct
 {
@@ -14,10 +14,10 @@ class FillDatatableByCompanyAct
         $this->fillDatatableTsk = $fillDatatableTsk;
     }
     
-    public function run()
+    public function run($request)
     {
-        $itemData = $this->fillDatatableTsk->byCompanyId();
+        $orderData = $this->fillDatatableTsk->byCompanyId($request);
 
-        return $itemData;
+        return $orderData;
     }
 }

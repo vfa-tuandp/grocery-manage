@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/ajax/supplier', 'SupplierController@store');
     Route::put('/ajax/supplier/{id}', 'SupplierController@update');
 
+    Route::get('/order', 'OrderController@index')->name('order.index');
+    Route::get('/ajax/order', 'OrderController@fillDatatable')->name('order.data');
     Route::get('/order/create', 'OrderController@create')->name('order.create');
     Route::post('/ajax/order/store', 'OrderController@store')->name('order.store');
 });
