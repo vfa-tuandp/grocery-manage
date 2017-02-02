@@ -15,4 +15,9 @@ class Order extends Model
         'reduction',
         'note',
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

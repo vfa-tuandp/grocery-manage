@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 //use App\Services\Order\Actions\CreateOrderAct;
 //use App\Services\Order\Actions\DeleteOrderAct;
 //use App\Services\Order\Actions\EditOrderAct;
-//use App\Services\Order\Actions\FillDatatableByCompanyAct;
+use App\Services\Order\Actions\FillDatatableByCompanyAct;
 //use App\Services\Order\Actions\StoreOrderAct;
 //use App\Services\Order\Actions\UpdateOrderAct;
 
@@ -15,19 +15,20 @@ use App\Http\Requests;
 use App\Http\Requests\StoreOrderRequest;
 use App\Services\Order\Actions\CreateOrderAct;
 use App\Services\Order\Actions\StoreOrderAct;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-//    public function index()
-//    {
-//        return view('orders.index');
-//    }
-//
-//    public function fillDatatable(FillDatatableByCompanyAct $datatable)
-//    {
-//        return $datatable->run();
-//    }
-//
+    public function index()
+    {
+        return view('orders.index');
+    }
+
+    public function fillDatatable(FillDatatableByCompanyAct $datatable, Request $request)
+    {
+        return $datatable->run($request->all());
+    }
+
 //    public function edit($id, EditOrderAct $editOrderAct)
 //    {
 //        list($order, $categories) = $editOrderAct->run($id);
