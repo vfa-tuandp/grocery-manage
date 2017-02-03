@@ -20,7 +20,7 @@ class OrderSeeder extends Seeder
                     [
                         'company_id'  => $companyId,
                         'customer_id' => $faker->randomElement($listCustomerId),
-                        'datetime'    => $faker->dateTime,
+                        'datetime'    => $faker->dateTimeThisDecade,
                         'vat'         => $faker->boolean(),
                         'reduction'   => $faker->randomFloat(null, 0, 99),
                         'other_cost'  => $faker->randomFloat(null, 0, 99),

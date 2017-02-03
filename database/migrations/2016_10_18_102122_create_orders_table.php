@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->integer('customer_id')->unsigned();
-            $table->dateTime('datetime');
+            $table->timestamp('datetime');
             $table->boolean('vat');
             $table->float('total')->default(0);
             $table->float('reduction')->nullable();

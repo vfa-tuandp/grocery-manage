@@ -15,11 +15,10 @@ var TableAjax = function () {
             src: $("#datatable_ajax"),
             onSuccess: function (grid, response) {
                 console.log(grid, response);
-                // grid:        grid object
-                // response:    json object of server side ajax response
-                // execute some code after table records loaded
+                $('#all_total strong').text(response.all_total);
             },
             onError: function (grid) {
+                console.log('error roi');
                 // execute some code on network or other general error  
             },
             onDataLoad: function(grid) {
@@ -46,7 +45,7 @@ var TableAjax = function () {
                     "type": "GET"
                 },
                 "order": [
-                    [1, "asc"]
+                    [2, "asc"]
                 ], // set first column as a default sort by asc
                 "columns": [
                     {data: "id"},
@@ -56,7 +55,8 @@ var TableAjax = function () {
                     {data: "reduction"},
                     {data: "note"},
                     {data: "vat"},
-                    {data: "total"}
+                    {data: "total"},
+                    {data: 'detail', name: 'detail', orderable: false, searchable: false}
                 ],
             }
         });

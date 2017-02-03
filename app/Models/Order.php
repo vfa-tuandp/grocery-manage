@@ -16,6 +16,10 @@ class Order extends Model
         'note',
     ];
 
+    protected $dates = [
+        'datetime'
+    ];
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

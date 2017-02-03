@@ -67,30 +67,31 @@
                 <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
                     <thead>
                     <tr role="row" class="heading">
-                        <th width="5%">
+                        <th width="10%">
                             Mã
                         </th>
-                        <th width="15%">
+                        <th width="25%">
                             Khách hàng
                         </th>
                         <th width="15%">
-                            Ngày
+                            Ngày hóa đơn
                         </th>
-                        <th width="10%">
-                            Chi phí khác
+                        <th width="5%">
+                            CP khác
                         </th>
-                        <th width="10%">
+                        <th width="5%">
                             Giảm giá
                         </th>
                         <th width="10%">
                             Ghi chú
                         </th>
-                        <th width="10%">
+                        <th width="3%">
                             VAT?
                         </th>
-                        <th width="10%">
+                        <th width="20%">
                             Tổng cộng
                         </th>
+                        <th>Tools</th>
                     </tr>
                     <tr role="row" class="filter">
                         <td>
@@ -113,20 +114,20 @@
 											</span>
                             </div>
                         </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            
+                            <div id="all_total">
+                                <strong></strong>
+                            </div>
                         </td>
                         <td>
                             <div class="margin-bottom-5">
-                                <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i> Search</button>
+                                <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i></button>
                             </div>
-                            <button class="btn btn-sm red filter-cancel"><i class="fa fa-times"></i> Reset</button>
+                            <button class="btn btn-sm red filter-cancel"><i class="fa fa-times"></i></button>
                         </td>
                     </tr>
                     </thead>
