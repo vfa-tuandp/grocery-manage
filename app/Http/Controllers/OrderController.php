@@ -14,6 +14,7 @@ use App\Services\Order\Actions\FillDatatableByCompanyAct;
 use App\Http\Requests;
 use App\Http\Requests\StoreOrderRequest;
 use App\Services\Order\Actions\CreateOrderAct;
+use App\Services\Order\Actions\GetOrderDetailByOrderIdAct;
 use App\Services\Order\Actions\StoreOrderAct;
 use Illuminate\Http\Request;
 
@@ -57,6 +58,13 @@ class OrderController extends Controller
     {
         if ($request->ajax()) {
             $storeOrderAct->run($request->all());
+        }
+    }
+
+    public function getOrderDetail($id, GetOrderDetailByOrderIdAct $getOrderDetailByOrderIdAct)
+    {
+        if (request()->ajax()) {
+            return $getOrderDetailByOrderIdAct->run($id);
         }
     }
 }

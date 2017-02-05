@@ -53,42 +53,87 @@ var TableAjax = function () {
                     {data: "datetime"},
                     {data: "other_cost"},
                     {data: "reduction"},
-                    {data: "note"},
                     {data: "vat"},
                     {data: "total"},
-                    {data: 'detail', name: 'detail', orderable: false, searchable: false}
+                    {data: "note"},
+                    {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control"}
                 ],
             }
         });
 
-        // handle group actionsubmit button click
-        grid.getTableWrapper().on('click', '.table-group-action-submit', function (e) {
-            e.preventDefault();
-            var action = $(".table-group-action-input", grid.getTableWrapper());
-            if (action.val() != "" && grid.getSelectedRowsCount() > 0) {
-                grid.setAjaxParam("customActionType", "group_action");
-                grid.setAjaxParam("customActionName", action.val());
-                grid.setAjaxParam("id", grid.getSelectedRows());
-                grid.getDataTable().ajax.reload();
-                grid.clearAjaxParams();
-            } else if (action.val() == "") {
-                Metronic.alert({
-                    type: 'danger',
-                    icon: 'warning',
-                    message: 'Please select an action',
-                    container: grid.getTableWrapper(),
-                    place: 'prepend'
+        // Array to track the ids of the details displayed rows
+        var detailRows = [];
+
+        $('#datatable_ajax tbody').on( 'click', 'tr td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = grid.getDataTable().row( tr );
+            var idx = $.inArray( tr.attr('id'), detailRows );
+
+            if ( row.child.isShown() ) {
+                tr.removeClass( 'details' );
+                row.child.hide();
+
+                // Remove from the 'open' array
+                detailRows.splice( idx, 1 );
+            }
+            else {
+                var orderDetail = {};
+                tr.addClass( 'details' );
+                $.when(getOrderDetail(row.data().id)).done(function (data) {
+                    orderDetail = data;
+                    row.child( format( row.data(), orderDetail ) ).show();
                 });
-            } else if (grid.getSelectedRowsCount() === 0) {
-                Metronic.alert({
-                    type: 'danger',
-                    icon: 'warning',
-                    message: 'No record selected',
-                    container: grid.getTableWrapper(),
-                    place: 'prepend'
-                });
+
+
+                // Add to the 'open' array
+                if ( idx === -1 ) {
+                    detailRows.push( tr.attr('id') );
+                }
             }
         });
+
+        function format ( d, orderDetail ) {
+            var tbody = '';
+             $(orderDetail).each(function (index, value) {
+                 tbody += '<tr>' +
+                     '<td>' + value.item.name + '</td>' +
+                     '<td>' + value.quantity + '</td>' +
+                     '<td>' + value.item.unit + '</td>' +
+                     '<td>' + value.price + '</td>' +
+                     '<td>' + value.other_cost_on_item + '</td>' +
+                     '<td>' + value.reduction_on_item + '</td>' +
+                     '<td>' + value.sum + '</td>' +
+                     '<td>' + value.note_on_item + '</td>' +
+                     '</tr>';
+             });
+
+            return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                '<thead>' +
+                    '<tr>' +
+                    '<th>Sản phẩm</th>' +
+                    '<th>Số lượng</th>' +
+                    '<th>ĐVT</th>' +
+                    '<th>Giá bán</th>' +
+                    '<th>CP khác</th>' +
+                    '<th>Giảm giá</th>' +
+                    '<th>Tổng</th>' +
+                    '<th>Ghi chú</th>' +
+                    '</tr>' +
+                '</thead>' +
+                '<tbody>' + tbody + '</tbody>' +
+                '</table>';
+        }
+
+        function getOrderDetail(order_id) {
+            return $.ajax({
+                url:"/ajax/order/" + order_id + "/order_detail",
+                type: "GET",
+                success:function(data) {
+                },
+                error: function(xhr,status,error) {
+                }
+            });
+        }
     }
 
     return {

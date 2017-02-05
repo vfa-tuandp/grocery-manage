@@ -5,6 +5,8 @@
     <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
     <link rel="stylesheet" type="text/css"
           href="../../assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="../../assets/global/plugins/datatables/media/css/jquery.dataTables.min.css"/>
 @endsection
 
 @section('page_content')
@@ -82,14 +84,14 @@
                         <th width="5%">
                             Giảm giá
                         </th>
-                        <th width="10%">
-                            Ghi chú
-                        </th>
                         <th width="3%">
                             VAT?
                         </th>
                         <th width="20%">
                             Tổng cộng
+                        </th>
+                        <th width="10%">
+                            Ghi chú
                         </th>
                         <th>Tools</th>
                     </tr>
@@ -117,12 +119,12 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
                         <td>
                             <div id="all_total">
                                 <strong></strong>
                             </div>
                         </td>
+                        <td></td>
                         <td>
                             <div class="margin-bottom-5">
                                 <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i></button>
