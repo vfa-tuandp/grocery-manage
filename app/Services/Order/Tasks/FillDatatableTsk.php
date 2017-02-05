@@ -57,7 +57,11 @@ class FillDatatableTsk
                 ->editColumn('total', function ($query) {
                     return number_format($query->total, 0, ",", ".") . ' đ';
                 })
-                ->addColumn('detail', '<td><a class="detail" href="javascript:;"><i class="glyphicon glyphicon-th-list"></i></a></td>')
+                ->addColumn(
+                    'detail',
+                    '<td><a class="detail" href="javascript:;"><i class="glyphicon glyphicon-th-list"></i></a></td>' .
+                    '&nbsp;&nbsp;<td><a class="edit" href="javascript:;"><i class="glyphicon glyphicon glyphicon-pencil"></i></a></td>'
+                )
                 ->with(['all_total' => number_format($allTotal, 0, ",", ".") . ' đ'])
                 ->make(true);
 

@@ -64,7 +64,7 @@ var TableAjax = function () {
         // Array to track the ids of the details displayed rows
         var detailRows = [];
 
-        $('#datatable_ajax tbody').on( 'click', 'tr td.details-control', function () {
+        $('#datatable_ajax tbody').on( 'click', 'tr td.details-control .detail', function () {
             var tr = $(this).closest('tr');
             var row = grid.getDataTable().row( tr );
             var idx = $.inArray( tr.attr('id'), detailRows );
