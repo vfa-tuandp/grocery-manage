@@ -16,4 +16,9 @@ class OrderDetail extends Model
         'note_on_item',
         'sum'
     ];
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

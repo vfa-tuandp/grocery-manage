@@ -86,6 +86,10 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
+                        <a href="{{ route('order.index') }}">
+                            Xem đơn hàng</a>
+                    </li>
+                    <li>
                         <a href="{{ route('order.create') }}">
                             Tạo đơn hàng mới</a>
                     </li>

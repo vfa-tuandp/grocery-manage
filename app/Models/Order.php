@@ -15,4 +15,13 @@ class Order extends Model
         'reduction',
         'note',
     ];
+
+    protected $dates = [
+        'datetime'
+    ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }
