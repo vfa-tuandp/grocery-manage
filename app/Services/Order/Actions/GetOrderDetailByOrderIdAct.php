@@ -11,7 +11,7 @@ class GetOrderDetailByOrderIdAct
      */
     private $getOrderDetailTsk;
 
-    public function __construct (GetOrderDetailTsk $getOrderDetailTsk)
+    public function __construct(GetOrderDetailTsk $getOrderDetailTsk)
     {
         $this->getOrderDetailTsk = $getOrderDetailTsk;
     }

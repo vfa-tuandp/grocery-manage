@@ -21,6 +21,6 @@ class GetOrderDetailTsk
         if (!empty($relations)) {
             return $this->orderDetailRepo->with($relations)->findByField('order_id', $orderId);
         }
-        return $this->orderDetailRepo->findByField('order_id', $orderId);        
+        return $this->orderDetailRepo->findByField('order_id', $orderId);
     }
 }
