@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 //use App\Services\Order\Actions\CreateOrderAct;
 //use App\Services\Order\Actions\DeleteOrderAct;
 //use App\Services\Order\Actions\EditOrderAct;
+use App\Services\Order\Actions\EditOrderAct;
 use App\Services\Order\Actions\FillDatatableByCompanyAct;
 //use App\Services\Order\Actions\StoreOrderAct;
 //use App\Services\Order\Actions\UpdateOrderAct;
@@ -30,12 +31,13 @@ class OrderController extends Controller
         return $datatable->run($request->all());
     }
 
-//    public function edit($id, EditOrderAct $editOrderAct)
-//    {
-//        list($order, $categories) = $editOrderAct->run($id);
-//        return view('orders.edit', ['order' => $order, 'categories' => $categories]);
-//    }
-//
+    public function edit($id, EditOrderAct $editOrderAct)
+    {
+        list($categories, $customers, $currentOrder) = $editOrderAct->run($id);
+
+        return view('orders.edit', compact('categories', 'customers', 'currentOrder'));
+    }
+
 //    public function update(UpdateOrderRequest $request, $id, UpdateOrderAct $updateOrderAct)
 //    {
 //        $updateOrderAct->run($id, $request->all());
@@ -57,7 +59,10 @@ class OrderController extends Controller
     public function store(StoreOrderRequest $request, StoreOrderAct $storeOrderAct)
     {
         if ($request->ajax()) {
-            $storeOrderAct->run($request->all());
+            $result = $storeOrderAct->run($request->all());
+            if (!$result) {
+                return response()->json(['error' => ['Lỗi rồi']], 422);
+            }
         }
     }
 

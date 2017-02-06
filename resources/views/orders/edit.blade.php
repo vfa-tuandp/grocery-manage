@@ -25,7 +25,7 @@
         <div class="portlet-title">
             <div class="caption font-red-sunglo">
                 <i class="icon-settings font-red-sunglo"></i>
-                <span class="caption-subject bold uppercase"> Tạo đơn hàng mới</span>
+                <span class="caption-subject bold uppercase">Sửa đơn hàng</span>
             </div>
             <div class="actions">
                 <div class="btn-group">
@@ -63,7 +63,7 @@
                         <div class="col-md-3">
                             <div class="form-group form-md-line-input">
                                 <div class="input-group date form_datetime">
-                                    <input type="text" readonly size="16" class="form-control" name="datetime">
+                                    <input type="text" readonly size="16" class="form-control" name="datetime" value="{{ $currentOrder->datetime }}">
                                     <label for="category">Ngày hóa đơn</label>
 
                                     <span class="input-group-btn">
@@ -81,9 +81,9 @@
                                     <div class="form-group form-md-line-input">
                                         <select class="form-control select2me" id="customer_id" name="customer_id">
                                             @foreach ($customers as $customer)
-                                                <option value="{{ $customer->id }}">
-                                                    <b>{{ $customer->name }}</b> --- {{ $customer->company }}
-                                                </option>
+                                                    <option value="{{ $customer->id }}" @if($customer->id == $currentOrder->customer_id) selected @endif>
+                                                        <b>{{ $customer->name }}</b> --- {{ $customer->company }}
+                                                    </option>
                                             @endforeach
                                         </select>
                                         <label for="category">Khách hàng</label>
@@ -92,7 +92,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input">
                                         <div class="md-checkbox md-checkbox-inline">
-                                            <input onchange="calculateTotal();" type="checkbox" id="vat" name="vat" class="md-check">
+                                            <input onchange="calculateTotal();" type="checkbox" id="vat" name="vat" class="md-check" @if($currentOrder->vat) checked @endif>
+
+
                                             <label for="vat">
                                                 <span></span>
                                                 <span class="check"></span>
@@ -107,8 +109,8 @@
                             <div class="row">
                                 <div class="col-md-7">
                                     <div class="alert alert-info text-center" id="total">
-                                        <strong>Thành Tiền!!</strong>
-                                        <input type="hidden" name="total">
+                                        <strong>{{ $currentOrder->total }}</strong>
+                                        <input type="hidden" name="total" value="{{ $currentOrder->total }}">
                                     </div>
                                 </div>
                                 <div class="col-md-5 group-tools">
@@ -120,7 +122,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="order-note-field" hidden>
+                    <div class="row" id="order-note-field" @if (!$currentOrder->other_cost && !$currentOrder->reduction && !$currentOrder->note) hidden @endif>
                         <div class="col-md-3">
                             <div class="form-group form-md-line-input">
                                 <div class="input-group">
@@ -128,7 +130,9 @@
                                            class="form-control my-currency"
                                            id="other_cost"
                                            name="other_cost"
-                                           placeholder="Chi phí khác trên đơn hàng">
+                                           placeholder="Chi phí khác trên đơn hàng"
+                                           value="{{ $currentOrder->other_cost }}"
+                                    >
                                     <span class="help-block">Chi phí khác trên đơn hàng</span>
                                             <span class="input-group-addon">
                                                 <i class="fa fa-usd"></i>
@@ -144,7 +148,9 @@
                                            class="form-control my-currency"
                                            id="reduction"
                                            name="reduction"
-                                           placeholder="Giảm giá trên đơn hàng">
+                                           placeholder="Giảm giá trên đơn hàng"
+                                            value="{{ $currentOrder->reduction }}"
+                                    >
                                     <span class="help-block">Giảm giá trên đơn hàng</span>
                                             <span class="input-group-addon">
                                                 <i class="fa fa-usd"></i>
@@ -156,7 +162,7 @@
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input">
                                         <textarea class="form-control" name="note" id="note"
-                                                  placeholder="Ghi chú của đơn hàng"></textarea>
+                                                  placeholder="Ghi chú của đơn hàng">@if ($currentOrder->note) {{ $currentOrder->note }} @endif</textarea>
                                 <span class="help-block">Ghi chú của đơn hàng</span>
                                 <label for="note"></label>
                             </div>
@@ -164,8 +170,8 @@
                     </div>
 
                     <hr>
-
-                    <div class="row section">
+                {{--This is just a template--}}
+                    <div class="row section" hidden>
                         <div class="col-md-5">
                             <div class="row">
                                 <div class="col-md-5">
@@ -299,6 +305,145 @@
                         </div>
 
                     </div>
+                {{--end template--}}
+
+                @foreach ($currentOrder->orderDetails as $orderDetail)
+                        <div class="row section">
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group form-md-line-input has-info">
+                                        <select onchange="getItems(this);" class="form-control" id="category_id"
+                                                name="category_id[]">
+                                            <option value="0">--Select category--</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}" @if($orderDetail->item->category->id == $category->id) selected @endif>{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        {{--<label for="category_id">Loại hàng</label>--}}
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group form-md-line-input">
+                                        <select onchange="selectItem(this);" class="form-control list-items"
+                                                id="item_id"
+                                                name="item_id[]">
+                                            <option value="{{ $orderDetail->item_id }}"></option>
+                                        </select>
+                                        {{--<label for="item_id">Mặt hàng</label>--}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 number-field">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="input-group">
+                                            <input onblur="calculateSum(this);" type="text"
+                                                   class="form-control my-currency" id="price" value="{{ $orderDetail->price }}"
+                                                   name="price[]" placeholder="Đơn giá">
+                                            <span class="help-block">Đơn giá</span>
+                                            <label for="price"></label>
+                                            <span class="input-group-addon">
+											    <i class="fa fa-usd"></i>
+											</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="input-group right-addon">
+                                            <input onchange="calculateSum(this);" type="number" min="1"
+                                                   class="form-control"
+                                                   id="quantity" value="{{ $orderDetail->quantity }}"
+                                                   name="quantity[]" placehoder="SL">
+                                            <label for=""></label>
+                                            <span class="help-block">SL</span>
+                                            <span class="input-group-addon unit"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="input-group">
+                                            <input type="text" min="0" readonly disabled
+                                                   class="form-control my-currency" id="sum"
+                                                   name="sum[]" value="{{ $orderDetail->sum }}"
+                                                   placeholder="Tổng">
+                                            <label for="sum">Tổng</label>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-usd"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 group-tools">
+                                    <a onclick="showHideNote(this);" class="btn btn-circle btn-icon-only btn-default"
+                                       href="javascript:;">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <a onclick="deleteField(this); "
+                                       class="btn btn-circle btn-icon-only btn-default remove"
+                                       href="javascript:;">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 note-field" @if(!$orderDetail->reduction_on_item && !$orderDetail->note_on_item && !$orderDetail->other_cost_on_item) hidden @endif>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="input-group">
+                                            <input onblur="calculateSum(this);" type="text"
+                                                   class="form-control my-currency"
+                                                   id="other_cost_on_item"
+                                                   name="other_cost_on_item[]" value="{{ $orderDetail->other_cost_on_item }}"
+                                                   placeholder="Chi phí khác">
+                                            <span class="help-block">Chi phí khác</span>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-usd"></i>
+                                            </span>
+                                            <label for="other_cost_on_item"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="input-group">
+                                            <input onblur="calculateSum(this);" type="text"
+                                                   class="form-control my-currency"
+                                                   id="reduction_on_item"
+                                                   name="reduction_on_item[]" value="{{ $orderDetail->reduction_on_item }}"
+                                                   placeholder="Giảm giá">
+                                            <span class="help-block">Giảm giá</span>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-usd"></i>
+                                            </span>
+                                            <label for="reduction_on_item"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input">
+                                        <textarea class="form-control" name="note_on_item[]" id="note_on_item"
+                                                  placeholder="Ghi chú">{{ $orderDetail->note_on_item }}</textarea>
+                                        <span class="help-block">Ghi chú</span>
+                                        <label for="note_on_item"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    @endforeach
                 </div>
                 <div class="row">
                     <div class="col-md-1">
@@ -335,6 +480,7 @@
 
 @section('my_scripts')
     <script>
+        var dirty = false;
         var itemsByCategory = [];
 
         function showHideNote(el) {
@@ -370,14 +516,24 @@
                 success: function (data) {
                     itemsByCategory = $.merge(itemsByCategory, data);
                     var itemSelect = $(el).closest('.row').find('.list-items');
+                    var choosenId = itemSelect.find(":selected").val();
                     itemSelect.empty();
                     $.each(data, function (key, value) {
-                        itemSelect.append($("<option></option>")
-                                .attr("value", value.id)
-                                .text(value.name));
+                        if (choosenId == value.id) {
+                            itemSelect.append($("<option></option>")
+                                    .attr("value", value.id)
+                                    .attr("selected", "selected")
+                                    .text(value.name));
+                        } else {
+                            itemSelect.append($("<option></option>")
+                                    .attr("value", value.id)
+                                    .text(value.name));
+                        }
                     });
                     $('#addsection .addsection').removeClass("disabled");
-                    selectItem(itemSelect[0]);
+                    if (dirty) {
+                        selectItem(itemSelect[0]);
+                    }
                 }
             });
         }
@@ -437,7 +593,24 @@
 
     <script>
         jQuery(document).ready(function () {
-            CreateOrder.init();
+            EditOrder.init();
+            $('#total strong').priceFormat({
+                prefix: '',
+                thousandsSeparator: '.',
+                centsLimit: 0,
+                suffix: ' đ',
+                allowNegative: true
+            });
+            var categoriesSelect = $(".row.section").find("select[name^='category_id']");
+            categoriesSelect.each(function() {
+                getItems($(this).find(":selected")[0]);
+            });
+            if (!dirty) {
+                setTimeout(function () {
+                    dirty = true;
+                }, 2000)
+            }
+
         });
         var currencyEls = $(".row.section, #order-note-field").find('.my-currency');
         currencyEls.each(function () {

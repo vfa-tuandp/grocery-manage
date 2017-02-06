@@ -134,6 +134,12 @@ var TableAjax = function () {
                 }
             });
         }
+
+        $('#datatable_ajax tbody').on( 'click', 'tr td.details-control .edit', function () {
+            var tr = $(this).closest('tr');
+            var row = grid.getDataTable().row( tr );
+            location.href = '/category';
+        });
     }
 
     return {

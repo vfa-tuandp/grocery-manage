@@ -124,6 +124,7 @@
 <script src="{{ asset('assets/my-js/supplier-datatable.js') }}"></script>
 <script src="{{ asset('assets/my-js/item-datatable.js') }}"></script>
 <script src="{{ asset('assets/my-js/order-create.js') }}"></script>
+<script src="{{ asset('assets/my-js/order-edit.js') }}"></script>
 <script src="{{ asset('assets/my-js/table-ajax.js') }}"></script>
 <script>
     jQuery(document).ready(function() {
