@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ajax/order/{id}/order_detail', 'OrderController@getOrderDetail');
     Route::get('/order/{id}/edit', 'OrderController@edit');
     Route::put('/ajax/order/{id}', 'OrderController@update');
+    Route::delete('/ajax/order/{id}', 'OrderController@destroy');
 });
 
 Route::auth();

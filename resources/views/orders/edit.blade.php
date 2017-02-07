@@ -456,11 +456,18 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-1">
                         <div class="form-actions noborder">
                             <button id="createNewOrder" class="btn yellow">
                                 Cập nhật
                             </button>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div id="destroy_order" class="form-actions noborder pull-right">
+                            <a onclick="destroyOrder();" class="btn btn-circle btn-icon-only red">
+                                <i class="fa fa-trash"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -591,6 +598,61 @@
             });
 
             $("#total input[name^='total']").val(total);
+        }
+
+        function destroyOrder() {
+            swal({
+                title: 'Xóa đơn hàng này?',
+                text: "Xóa một phát là mất luôn.. ",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ok xóa!',
+                cancelButtonText: 'Chờ tí, để xem lại',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-cancel',
+                buttonsStyling: false
+            }).then(function () {
+                $.ajax({
+                    url:"/ajax/order/" + $("#createNewOrderForm").find("input[name='order_id']").val(),
+                    type: "DELETE",
+                    success:function(data) {
+                        swal(
+                                'Đã xóa!',
+                                'Đơn hàng đã được xóa',
+                                'success'
+                        ).then(function () {
+                            location.href = '/order';
+                        });
+                    },
+                    error: function(xhr,status,error) {
+                        var errors = xhr.responseJSON;
+                        var errorsString = '';
+                        $.each( errors, function( key, value ) {
+                            errorsString += '<li>' + value[0] + '</li>'; //showing only the first error.
+                        });
+                        swal(
+                                'Đệt, có lỗi',
+                                errorsString,
+                                'error'
+                        )
+
+                    }
+                });
+
+
+            }, function (dismiss) {
+                // dismiss can be 'cancel', 'overlay',
+                // 'close', and 'timer'
+                if (dismiss === 'cancel') {
+                    swal(
+                            'Ok',
+                            'Hãy kiểm tra cẩn thận',
+                            'error'
+                    )
+                }
+            })
         }
     </script>
 

@@ -47,11 +47,12 @@ class OrderController extends Controller
             return response()->json(['error' => ['Lỗi rồi']], 422);
         }
     }
-//
-//    public function destroy($id, DeleteOrderAct $deleteOrderAct)
-//    {
-//        $deleteOrderAct->run($id);
-//    }
+
+    public function destroy($id, DeleteOrderAct $deleteOrderAct)
+    {
+        dd(321);
+        $deleteOrderAct->run($id);
+    }
 
     public function create(CreateOrderAct $createOrderAct)
     {
