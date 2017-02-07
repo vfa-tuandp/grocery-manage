@@ -6,7 +6,7 @@ var EditOrder = function () {
         }
         $(".form_datetime").datetimepicker({
             autoclose: true,
-            format: "dd/mm/yyyy - hh:ii",
+            format: "dd-mm-yyyy hh:ii",
             pickerPosition: "bottom-left",
             todayBtn: true,
             useCurrent: false

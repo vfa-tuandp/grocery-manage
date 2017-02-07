@@ -14,6 +14,7 @@ class Order extends Model
         'other_cost',
         'reduction',
         'note',
+        'vat',
     ];
 
     protected $dates = [

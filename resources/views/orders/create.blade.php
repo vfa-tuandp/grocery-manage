@@ -485,7 +485,7 @@
                 var data = {
                     "datetime": form.find("input[name='datetime']").val(),
                     "customer_id": form.find("select[name='customer_id']").val(),
-                    "vat": form.find("input[name='vat']").is(':checked'),
+                    "vat": form.find("input[name='vat']").is(':checked') ? 1 : 0,
                     "total": form.find("input[name='total']").val(),
                     "other_cost": Number(form.find("input[name='other_cost']").unmask()),
                     "reduction": Number(form.find("input[name='reduction']").unmask()),

@@ -63,7 +63,7 @@
                         <div class="col-md-3">
                             <div class="form-group form-md-line-input">
                                 <div class="input-group date form_datetime">
-                                    <input type="text" readonly size="16" class="form-control" name="datetime" value="{{ $currentOrder->datetime }}">
+                                    <input type="text" readonly size="16" class="form-control" name="datetime" value="{{ $currentOrder->datetime->format('d-m-Y H:i') }}">
                                     <label for="category">Ngày hóa đơn</label>
 
                                     <span class="input-group-btn">
@@ -111,6 +111,7 @@
                                     <div class="alert alert-info text-center" id="total">
                                         <strong>{{ $currentOrder->total }}</strong>
                                         <input type="hidden" name="total" value="{{ $currentOrder->total }}">
+                                        <input type="hidden" name="order_id" value="{{ $currentOrder->id }}">
                                     </div>
                                 </div>
                                 <div class="col-md-5 group-tools">
@@ -235,6 +236,7 @@
                                 <div class="col-md-7">
                                     <div class="form-group form-md-line-input">
                                         <div class="input-group">
+                                            <input type="hidden" name="order_detail_id[]" value="0">
                                             <input type="text" min="0" readonly disabled
                                                    class="form-control my-currency" id="sum"
                                                    name="sum[]"
@@ -373,6 +375,7 @@
                                 <div class="col-md-7">
                                     <div class="form-group form-md-line-input">
                                         <div class="input-group">
+                                            <input type="hidden" name="order_detail_id" value="{{ $orderDetail->id }}">
                                             <input type="text" min="0" readonly disabled
                                                    class="form-control my-currency" id="sum"
                                                    name="sum[]" value="{{ $orderDetail->sum }}"
@@ -456,7 +459,7 @@
                     <div class="col-md-3">
                         <div class="form-actions noborder">
                             <button id="createNewOrder" class="btn yellow">
-                                Tạo mới
+                                Cập nhật
                             </button>
                         </div>
                     </div>
@@ -625,7 +628,7 @@
         $('#createNewOrder').click(function (e) {
             e.preventDefault();
             swal({
-                title: 'Tạo đơn hàng này ?',
+                title: 'Cập nhật đơn hàng này ?',
                 text: "Hãy chắc chắn các thông tin nhập vào là đúng",
                 type: 'info',
                 showCancelButton: true,
@@ -639,12 +642,14 @@
             }).then(function () {
                 var form = $("#createNewOrderForm");
                 var rowData = [];
+                var orderId = form.find("input[name='order_id']").val();
                 form.find('.row.section').each(function() {
                     var itemId = $(this).find("select[name^='item_id']").val();
                     if (!itemId) {
                         return true;
                     }
                     rowData.push({
+                        "id": $(this).find("input[name^='order_detail_id']").val(),
                         "item_id": $(this).find("select[name^='item_id']").val(),
                         "price": Number($(this).find("input[name^='price']").unmask()),
                         "quantity": $(this).find("input[name^='quantity']").val(),
@@ -658,7 +663,7 @@
                 var data = {
                     "datetime": form.find("input[name='datetime']").val(),
                     "customer_id": form.find("select[name='customer_id']").val(),
-                    "vat": form.find("input[name='vat']").is(':checked'),
+                    "vat": form.find("input[name='vat']").is(':checked') ? 1 : 0,
                     "total": form.find("input[name='total']").val(),
                     "other_cost": Number(form.find("input[name='other_cost']").unmask()),
                     "reduction": Number(form.find("input[name='reduction']").unmask()),
@@ -667,17 +672,17 @@
                 };
 
                 $.ajax({
-                    url:"/ajax/order/store",
+                    url:"/ajax/order/" + orderId,
                     data: data,
-                    type: "POST",
+                    type: "PUT",
                     success:function(data) {
                         swal(
-                                'Đã tạo mới!',
-                                'Đơn hàng này đã được tạo thành công',
+                                'Cập nhật thành công!',
+                                'Đơn hàng này đã được cập nhật thành công',
                                 'success'
                         ).then(function () {
-                            location.reload();
-                        })
+                            location.href = '/order';
+                        });
                     },
                     error: function(xhr,status,error) {
                         var errors = xhr.responseJSON;

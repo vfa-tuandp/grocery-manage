@@ -6,14 +6,21 @@ var CreateOrder = function () {
         }
         $(".form_datetime").datetimepicker({
             autoclose: true,
-            format: "dd/mm/yyyy - hh:ii",
+            format: "dd-mm-yyyy hh:ii",
             pickerPosition: "bottom-left",
             todayBtn: true,
             useCurrent: false
         });
         var now = new Date();
+        var currentHours = now.getHours();
+        var currentMins = now.getMinutes();
+
+        if (currentHours < 10)  currentHours = '0'+currentHours;
+        if (currentMins < 10)  currentMins = '0'+currentMins;
+
         $(".form_datetime input[type=text]").val(
-            now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes()
+            now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear() + ' ' +
+            currentHours + ':' + currentMins
         );
     }
 

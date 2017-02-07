@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 //use App\Services\Order\Actions\CreateOrderAct;
 //use App\Services\Order\Actions\DeleteOrderAct;
 //use App\Services\Order\Actions\EditOrderAct;
+use App\Http\Requests\UpdateOrderRequest;
 use App\Services\Order\Actions\EditOrderAct;
 use App\Services\Order\Actions\FillDatatableByCompanyAct;
 //use App\Services\Order\Actions\StoreOrderAct;
@@ -17,6 +18,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Services\Order\Actions\CreateOrderAct;
 use App\Services\Order\Actions\GetOrderDetailByOrderIdAct;
 use App\Services\Order\Actions\StoreOrderAct;
+use App\Services\Order\Actions\UpdateOrderAct;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -38,11 +40,13 @@ class OrderController extends Controller
         return view('orders.edit', compact('categories', 'customers', 'currentOrder'));
     }
 
-//    public function update(UpdateOrderRequest $request, $id, UpdateOrderAct $updateOrderAct)
-//    {
-//        $updateOrderAct->run($id, $request->all());
-//        return redirect()->back()->with('success', 'Cập nhật thành công!!');
-//    }
+    public function update(UpdateOrderRequest $request, $id, UpdateOrderAct $updateOrderAct)
+    {
+        $result = $updateOrderAct->run($request->all(), $id);
+        if (!$result) {
+            return response()->json(['error' => ['Lỗi rồi']], 422);
+        }
+    }
 //
 //    public function destroy($id, DeleteOrderAct $deleteOrderAct)
 //    {
