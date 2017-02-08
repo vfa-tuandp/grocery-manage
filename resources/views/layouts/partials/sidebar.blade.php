@@ -77,7 +77,11 @@
                 <ul class="sub-menu">
                     <li>
                         <a href="{{ route('order.create') }}">
-                            Đơn hàng mới!</a>
+                            Bán hàng!</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('purchase.create') }}">
+                            Nhập hàng!</a>
                     </li>
                     <li>
                         <a href="{{ route('category.index') }}">
@@ -90,6 +94,10 @@
                     <li>
                         <a href="{{ route('order.index') }}">
                             QL đơn hàng</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('purchase.index') }}">
+                            QL nhập hàng</a>
                     </li>
                     <li>
                         <a href="{{ route('item.create') }}">
