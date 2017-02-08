@@ -41,6 +41,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/order/{id}/edit', 'OrderController@edit');
     Route::put('/ajax/order/{id}', 'OrderController@update');
     Route::delete('/ajax/order/{id}', 'OrderController@destroy');
+
+    Route::get('/purchase', 'PurchaseReceiptController@index')->name('purchase.index');
+    Route::get('/ajax/purchase', 'PurchaseReceiptController@fillDatatable')->name('purchase.data');
+    Route::get('/purchase/create', 'PurchaseReceiptController@create')->name('purchase.create');
+    Route::post('/ajax/purchase/store', 'PurchaseReceiptController@store')->name('purchase.store');
+    Route::get('/ajax/purchase/{id}/purchase_detail', 'PurchaseReceiptController@getPurchaseReceiptDetail');
+    Route::get('/purchase/{id}/edit', 'PurchaseReceiptController@edit');
+    Route::put('/ajax/purchase/{id}', 'PurchaseReceiptController@update');
+    Route::delete('/ajax/purchase/{id}', 'PurchaseReceiptController@destroy');
 });
 
 Route::auth();
