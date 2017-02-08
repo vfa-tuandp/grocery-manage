@@ -36,7 +36,7 @@
                 <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
             <li class="heading">
-                <h3 class="uppercase">Mặt hàng</h3>
+                <h3 class="uppercase">Bảng quản lý</h3>
             </li>
             <li>
                 <a href="javascript:;">
@@ -47,62 +47,69 @@
                 <ul class="sub-menu">
                     <li>
                         <a href="{{ route('customer.index') }}">
-                            <span class="badge badge-roundless badge-danger">new</span>Khách hàng<br>
+                            <span class="badge badge-roundless badge-danger">new</span>Thêm khách hàng<br>
                         </a>
                     </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-briefcase"></i>
+                    <span class="title">Nhà cung cấp</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
                     <li>
                         <a href="{{ route('supplier.index') }}">
-                            <span class="badge badge-roundless badge-danger">new</span>Nhà cung cấp<br>
+                            <span class="badge badge-roundless badge-danger">new</span>Thêm nhà cung cấp<br>
                         </a>
                     </li>
                 </ul>
             </li>
+
             <li>
                 <a href="javascript:;">
                     <i class="icon-briefcase"></i>
-                    <span class="title">Sản phẩm</span>
+                    <span class="title">Hàng hóa</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li>
-                        <a href="{{ route('category.index') }}">
-                            Danh mục</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('item.index') }}">
-                            Hàng hóa</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('item.create') }}">
-                            Tạo hàng hóa mới</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="icon-briefcase"></i>
-                    <span class="title">Đơn hàng</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="{{ route('order.index') }}">
-                            Xem đơn hàng</a>
-                    </li>
                     <li>
                         <a href="{{ route('order.create') }}">
-                            Tạo đơn hàng mới</a>
+                            Đơn hàng mới!</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('category.index') }}">
+                            QL mặt hàng</a>
                     </li>
                     <li>
                         <a href="{{ route('item.index') }}">
-                            Hàng hóa</a>
+                            QL sản phẩm</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('order.index') }}">
+                            QL đơn hàng</a>
                     </li>
                     <li>
                         <a href="{{ route('item.create') }}">
-                            Tạo hàng hóa mới</a>
+                            Thêm sản phẩm mới</a>
                     </li>
+
                 </ul>
             </li>
+
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-briefcase"></i>
+                    <span class="title">Thống kê</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    {{--code herre --}}
+                </ul>
+            </li>
+
             <li>
                 <a href="javascript:;">
                     <i class="icon-wallet"></i>
