@@ -58,7 +58,7 @@ class FillDatatableTsk
                 ->editColumn('total', function ($query) {
                     return number_format($query->total, 0, ",", ".") . ' đ';
                 })
-                ->addColumn('detail',function ($query) {
+                ->addColumn('detail', function ($query) {
                     return '<td><a class="detail" href="javascript:;"><i class="glyphicon glyphicon-th-list"></i></a></td>' .
                     '&nbsp;&nbsp;<td><a class="edit" href="/order/' . $query->id . '/edit"><i class="glyphicon glyphicon glyphicon-pencil"></i></a></td>';
                 })
@@ -81,11 +81,11 @@ class FillDatatableTsk
         }
 
         if (!empty($request['order_date_from'])) {
-            $query->where('datetime', '>=', Carbon::createFromFormat('d/m/Y', $request['order_date_from']));
+            $query->where('datetime', '>=', Carbon::createFromFormat('d/m/Y', $request['order_date_from'])->startOfDay());
         }
 
         if (!empty($request['order_date_to'])) {
-            $query->where('datetime', '<=', Carbon::createFromFormat('d/m/Y', $request['order_date_to']));
+            $query->where('datetime', '<=', Carbon::createFromFormat('d/m/Y', $request['order_date_to'])->endOfDay());
         }
 
         return $query;

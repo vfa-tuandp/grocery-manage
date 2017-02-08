@@ -49,6 +49,6 @@ if (!function_exists('formatDate')) {
 if (!function_exists('parseFromDateTimePicker')) {
     function parseFromDateTimePicker($dateTime)
     {
-       return Carbon\Carbon::createFromFormat('d-m-Y H:i', $dateTime);
+        return Carbon\Carbon::createFromFormat('d-m-Y H:i', $dateTime);
     }
 }

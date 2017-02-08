@@ -301,14 +301,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-1">
+                    <div class="col-md-1 col-xs-2">
                         <div id="addsection" class="form-actions noborder pull-right">
                             <a class="btn disabled btn-circle btn-icon-only blue addsection">
                                 <i class="fa fa-plus"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-xs-10">
                         <div class="form-actions noborder">
                             <button id="createNewOrder" class="btn yellow">
                                 Tạo mới

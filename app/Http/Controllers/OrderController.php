@@ -8,6 +8,7 @@ namespace App\Http\Controllers;
 //use App\Services\Order\Actions\DeleteOrderAct;
 //use App\Services\Order\Actions\EditOrderAct;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Services\Order\Actions\DeleteOrderAct;
 use App\Services\Order\Actions\EditOrderAct;
 use App\Services\Order\Actions\FillDatatableByCompanyAct;
 //use App\Services\Order\Actions\StoreOrderAct;
@@ -50,7 +51,6 @@ class OrderController extends Controller
 
     public function destroy($id, DeleteOrderAct $deleteOrderAct)
     {
-        dd(321);
         $deleteOrderAct->run($id);
     }
 

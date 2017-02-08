@@ -449,22 +449,22 @@
                     @endforeach
                 </div>
                 <div class="row">
-                    <div class="col-md-1">
+                    <div class="col-md-1 col-xs-2">
                         <div id="addsection" class="form-actions noborder pull-right">
                             <a class="btn disabled btn-circle btn-icon-only blue addsection">
                                 <i class="fa fa-plus"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-1 col-xs-8">
                         <div class="form-actions noborder">
-                            <button id="createNewOrder" class="btn yellow">
+                            <button id="createNewOrder" class="btn btn-block yellow">
                                 Cập nhật
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-1">
-                        <div id="destroy_order" class="form-actions noborder pull-right">
+                    <div class="col-md-1 col-xs-2">
+                        <div id="destroy_order" class="form-actions noborder pull-left">
                             <a onclick="destroyOrder();" class="btn btn-circle btn-icon-only red">
                                 <i class="fa fa-trash"></i>
                             </a>

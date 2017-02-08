@@ -21,7 +21,7 @@ class UpdateOrderDetailTsk
         $existsOrderDetails = $order->orderDetails;
 
         foreach ($existsOrderDetails as $existsOrderDetail) {
-            $dataToUpdate = array_where($data, function($key, $value) use ($existsOrderDetail) {
+            $dataToUpdate = array_where($data, function ($key, $value) use ($existsOrderDetail) {
                 return $value['id'] == $existsOrderDetail->id;
             });
             if ($dataToUpdate) {
@@ -30,7 +30,7 @@ class UpdateOrderDetailTsk
             }
             $existsOrderDetail->delete();
         }
-        $newOrderDetailData = array_where($data, function($key, $value) {
+        $newOrderDetailData = array_where($data, function ($key, $value) {
             return $value['id'] == false;
         });
         if (empty($newOrderDetailData)) {
