@@ -49,10 +49,6 @@ if (!function_exists('formatDate')) {
 if (!function_exists('parseFromDateTimePicker')) {
     function parseFromDateTimePicker($dateTime)
     {
-        list($date, $time) = explode('-', $dateTime);
-        list($day, $month, $year) = explode('/', trim($date));
-        list($hour, $min) = explode(':', trim($time));
-        
-        return Carbon\Carbon::create($year, $month, $day, $hour, $min);
+        return Carbon\Carbon::createFromFormat('d-m-Y H:i', $dateTime);
     }
 }

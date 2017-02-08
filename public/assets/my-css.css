@@ -16,3 +16,10 @@ hr { display: block;
     border: none;
     border-top: 1px dashed #ff6d1a;
 }
+
+.row.section {
+    margin-top: 15px;
+    padding-top: 15px;
+    background: #96ffff;
+    background-repeat:no-repeat;
+}

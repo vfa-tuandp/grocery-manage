@@ -37,8 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ajax/order', 'OrderController@fillDatatable')->name('order.data');
     Route::get('/order/create', 'OrderController@create')->name('order.create');
     Route::post('/ajax/order/store', 'OrderController@store')->name('order.store');
-
     Route::get('/ajax/order/{id}/order_detail', 'OrderController@getOrderDetail');
+    Route::get('/order/{id}/edit', 'OrderController@edit');
+    Route::put('/ajax/order/{id}', 'OrderController@update');
+    Route::delete('/ajax/order/{id}', 'OrderController@destroy');
 });
 
 Route::auth();

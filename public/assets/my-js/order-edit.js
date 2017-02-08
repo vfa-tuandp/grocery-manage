@@ -1,4 +1,4 @@
-var CreateOrder = function () {
+var EditOrder = function () {
 
     var handleDatetimePicker = function () {
         if (!jQuery().datetimepicker) {
@@ -11,23 +11,16 @@ var CreateOrder = function () {
             todayBtn: true,
             useCurrent: false
         });
-        var now = new Date();
-        var currentHours = now.getHours();
-        var currentMins = now.getMinutes();
-
-        if (currentHours < 10)  currentHours = '0'+currentHours;
-        if (currentMins < 10)  currentMins = '0'+currentMins;
-
-        $(".form_datetime input[type=text]").val(
-            now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear() + ' ' +
-            currentHours + ':' + currentMins
-        );
+        // var now = new Date();
+        // $(".form_datetime input[type=text]").val(
+        //     now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes()
+        // );
     }
 
 
     var handleTemplate = function () {
         //define template
-        var template = $('#create-order-form .row.section:first').clone();
+        var template = $('#create-order-form .row.section:first').clone().removeAttr('hidden');
 
         //define counter
         var sectionsCount = 0;
@@ -59,6 +52,7 @@ var CreateOrder = function () {
                     centsLimit: 0
                 });
             });
+            calculateTotal();
             $(this).addClass("disabled");
             return false;
         });

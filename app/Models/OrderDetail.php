@@ -21,4 +21,24 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    public function getPriceAttribute($price)
+    {
+        return number_format($price, 0, ',', '.');
+    }
+
+    public function getSumAttribute($sum)
+    {
+        return number_format($sum, 0, ',', '.');
+    }
+
+    public function getReductionOnItemAttribute($reductionOnItem)
+    {
+        return number_format($reductionOnItem, 0, ',', '.');
+    }
+
+    public function getOtherCostOnItemAttribute($otherCostOnItem)
+    {
+        return number_format($otherCostOnItem, 0, ',', '.');
+    }
 }

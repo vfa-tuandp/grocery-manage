@@ -30,9 +30,10 @@ class StoreOrderAct
             $newOrder = $this->createOrderTsk->run($data);
             $this->createOrderDetailTsk->run($data['items'], $newOrder->id);
             \DB::commit();
+            return true;
         } catch (\Exception $e) {
             \DB::rollBack();
-            throw new \RuntimeException('co loi');
+            return false;
         }
     }
 }
