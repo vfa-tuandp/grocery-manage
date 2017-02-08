@@ -50,7 +50,7 @@ class FillDatatableTsk
 
         $result = Datatables::of($query)
                 ->editColumn('datetime', function ($query) {
-                    return $query->created_at->format('d/m/Y H:i:s');
+                    return $query->datetime->format('d/m/Y H:i:s');
                 })
                 ->editColumn('vat', function ($query) {
                     return $query->vat ? 'Có' : 'Không';

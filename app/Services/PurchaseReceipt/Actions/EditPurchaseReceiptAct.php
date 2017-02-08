@@ -35,7 +35,6 @@ class EditPurchaseReceiptAct
         $listSupplier = $this->listSupplierTsk->byCompanyId();
         
         $currentPurchaseReceipt = $this->getPurchaseReceiptTsk->byId($purchaseReceiptId, ['purchaseReceiptDetails', 'purchaseReceiptDetails.item.category']);
-
         if ($currentPurchaseReceipt->company_id != auth()->user()->company_id) {
             App::abort(404);
         }

@@ -28,9 +28,9 @@ class PurchaseReceiptController extends Controller
 
     public function edit($id, EditPurchaseReceiptAct $editPurchaseReceiptAct)
     {
-        list($categories, $suppliers, $currentPurchaseReceipt) = $editPurchaseReceiptAct->run($id);
+        list($categories, $suppliers, $currentPurchase) = $editPurchaseReceiptAct->run($id);
 
-        return view('purchaseReceipts.edit', compact('categories', 'suppliers', 'currentPurchaseReceipt'));
+        return view('purchaseReceipts.edit', compact('categories', 'suppliers', 'currentPurchase'));
     }
 
     public function update(UpdatePurchaseReceiptRequest $request, $id, UpdatePurchaseReceiptAct $updatePurchaseReceiptAct)

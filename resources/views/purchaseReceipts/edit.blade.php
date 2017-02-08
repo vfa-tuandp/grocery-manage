@@ -11,7 +11,7 @@
 
 @section('page_content')
     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-    <div class="portlet light bpurchaseed">
+    <div class="portlet light bordered">
         @if (count($errors) > 0)
             <div class="alert alert-danger fade in">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -309,7 +309,7 @@
                     </div>
                 {{--end template--}}
 
-                @foreach ($currentPurchase->purchaseDetails as $purchaseDetail)
+                @foreach ($currentPurchase->purchaseReceiptDetails as $purchaseDetail)
                         <div class="row section">
                         <div class="col-md-5">
                             <div class="row">
@@ -450,21 +450,21 @@
                 </div>
                 <div class="row">
                     <div class="col-md-1 col-xs-2">
-                        <div id="addsection" class="form-actions nobpurchase pull-right">
+                        <div id="addsection" class="form-actions noborder pull-right">
                             <a class="btn disabled btn-circle btn-icon-only blue addsection">
                                 <i class="fa fa-plus"></i>
                             </a>
                         </div>
                     </div>
                     <div class="col-md-1 col-xs-8">
-                        <div class="form-actions nobpurchase">
+                        <div class="form-actions noborder">
                             <button id="createNewPurchase" class="btn btn-block yellow">
                                 Cập nhật
                             </button>
                         </div>
                     </div>
                     <div class="col-md-1 col-xs-2">
-                        <div id="destroy_purchase" class="form-actions nobpurchase pull-left">
+                        <div id="destroy_purchase" class="form-actions noborder pull-left">
                             <a onclick="destroyPurchase();" class="btn btn-circle btn-icon-only red">
                                 <i class="fa fa-trash"></i>
                             </a>
@@ -553,7 +553,7 @@
                 return e.id == el.value;
             });
             var rowSection = $(el).closest('.row.section');
-            rowSection.find("input[name^='price']").val(selectedItem[0].price_out_hint);
+            rowSection.find("input[name^='price']").val(selectedItem[0].price_in_hint);
             var quantityEl = rowSection.find("input[name^='quantity']");
             quantityEl.val(1);
             quantityEl.parent().find('.unit').text(selectedItem[0].unit);

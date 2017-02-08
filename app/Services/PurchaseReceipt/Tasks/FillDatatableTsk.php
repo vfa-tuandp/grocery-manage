@@ -50,7 +50,7 @@ class FillDatatableTsk
 
         $result = Datatables::of($query)
                 ->editColumn('datetime', function ($query) {
-                    return $query->created_at->format('d/m/Y H:i:s');
+                    return $query->datetime->format('d/m/Y H:i:s');
                 })
                 ->editColumn('vat', function ($query) {
                     return $query->vat ? 'Có' : 'Không';
@@ -60,7 +60,7 @@ class FillDatatableTsk
                 })
                 ->addColumn('detail', function ($query) {
                     return '<td><a class="detail" href="javascript:;"><i class="glyphicon glyphicon-th-list"></i></a></td>' .
-                    '&nbsp;&nbsp;<td><a class="edit" href="/purchaseReceipt/' . $query->id . '/edit"><i class="glyphicon glyphicon glyphicon-pencil"></i></a></td>';
+                    '&nbsp;&nbsp;<td><a class="edit" href="/purchase/' . $query->id . '/edit"><i class="glyphicon glyphicon glyphicon-pencil"></i></a></td>';
                 })
                 ->with(['all_total' => number_format($allTotal, 0, ",", ".") . ' đ'])
                 ->make(true);
