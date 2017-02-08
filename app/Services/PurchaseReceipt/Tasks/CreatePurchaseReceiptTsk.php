@@ -20,7 +20,7 @@ class CreatePurchaseReceiptTsk
     {
         $data['datetime'] = parseFromDateTimePicker($data['datetime']);
         $data['company_id'] = auth()->user()->company_id;
-dd(123);
+
         return $this->purchaseReceiptRepo->create($data);
     }
 }

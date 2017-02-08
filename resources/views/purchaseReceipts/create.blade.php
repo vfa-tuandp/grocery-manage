@@ -11,7 +11,7 @@
 
 @section('page_content')
     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-    <div class="portlet light bpurchaseed">
+    <div class="portlet light bordered">
         @if (count($errors) > 0)
             <div class="alert alert-danger fade in">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -25,7 +25,7 @@
         <div class="portlet-title">
             <div class="caption font-red-sunglo">
                 <i class="icon-settings font-red-sunglo"></i>
-                <span class="caption-subject bold uppercase"> Tạo đơn hàng mới</span>
+                <span class="caption-subject bold uppercase">Nhập hàng</span>
             </div>
             <div class="actions">
                 <div class="btn-group">
@@ -64,7 +64,7 @@
                             <div class="form-group form-md-line-input">
                                 <div class="input-group date form_datetime">
                                     <input type="text" readonly size="16" class="form-control" name="datetime">
-                                    <label for="category">Ngày hóa đơn</label>
+                                    <label for="category">Ngày nhập</label>
 
                                     <span class="input-group-btn">
                                     <button class="btn default date-reset" type="button"><i
@@ -86,7 +86,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        <label for="category">Khách hàng</label>
+                                        <label for="category">Nhà cung cấp</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -302,14 +302,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-1 col-xs-2">
-                        <div id="addsection" class="form-actions nobpurchase pull-right">
+                        <div id="addsection" class="form-actions noborder pull-right">
                             <a class="btn disabled btn-circle btn-icon-only blue addsection">
                                 <i class="fa fa-plus"></i>
                             </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-xs-10">
-                        <div class="form-actions nobpurchase">
+                        <div class="form-actions noborder">
                             <button id="createNewPurchase" class="btn yellow">
                                 Tạo mới
                             </button>
@@ -387,7 +387,7 @@
                 return e.id == el.value;
             });
             var rowSection = $(el).closest('.row.section');
-            rowSection.find("input[name^='price']").val(selectedItem[0].price_out_hint);
+            rowSection.find("input[name^='price']").val(selectedItem[0].price_in_hint);
             var quantityEl = rowSection.find("input[name^='quantity']");
             quantityEl.val(1);
             quantityEl.parent().find('.unit').text(selectedItem[0].unit);
@@ -492,7 +492,7 @@
                     "note": form.find("textarea[name='note']").val(),
                     "items": rowData
                 };
-
+console.log(data);
                 $.ajax({
                     url:"/ajax/purchase/store",
                     data: data,
