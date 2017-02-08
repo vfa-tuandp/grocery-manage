@@ -24,11 +24,11 @@ class FillDatatableTsk
         \DB::enableQueryLog();
         $query = $this->purchaseReceiptRepo->scopeQuery(
             function ($scope) use ($request, $companyId) {
-                return $scope->where('purchaseReceipts.company_id', $companyId);
+                return $scope->where('purchase_receipts.company_id', $companyId);
             }
         )->makeQueryBuilder(
             [
-                'purchaseReceipts.id',
+                'purchase_receipts.id',
                 'datetime',
                 'other_cost',
                 'reduction',
@@ -36,7 +36,7 @@ class FillDatatableTsk
                 'vat',
                 'total',
                 'supplier_id',
-                'purchaseReceipts.created_at'
+                'purchase_receipts.created_at'
             ]
         );
 
@@ -44,7 +44,7 @@ class FillDatatableTsk
 
         $totalQuery = clone $query;
 
-        $query->with('supplier')->purchaseReceiptBy('purchaseReceipts.id', 'desc');
+        $query->with('supplier')->orderBy('purchase_receipts.id', 'desc');
 
         $allTotal = $totalQuery->select([\DB::raw('sum(total) as all_total')])->get()->toArray()[0]['all_total'];
 
@@ -77,15 +77,15 @@ class FillDatatableTsk
         }
 
         if (!empty($request['purchase_receipt_id'])) {
-            $query->where('purchaseReceipts.id', '=', $request['purchase_receipt_id']);
+            $query->where('purchase_receipts.id', '=', $request['purchase_receipt_id']);
         }
 
-        if (!empty($request['purchaseReceipt_date_from'])) {
-            $query->where('datetime', '>=', Carbon::createFromFormat('d/m/Y', $request['purchaseReceipt_date_from'])->startOfDay());
+        if (!empty($request['purchase_date_from'])) {
+            $query->where('datetime', '>=', Carbon::createFromFormat('d/m/Y', $request['purchase_date_from'])->startOfDay());
         }
 
-        if (!empty($request['purchaseReceipt_date_to'])) {
-            $query->where('datetime', '<=', Carbon::createFromFormat('d/m/Y', $request['purchaseReceipt_date_to'])->endOfDay());
+        if (!empty($request['purchase_date_to'])) {
+            $query->where('datetime', '<=', Carbon::createFromFormat('d/m/Y', $request['purchase_date_to'])->endOfDay());
         }
 
         return $query;

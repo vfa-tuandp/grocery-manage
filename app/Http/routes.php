@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ajax/purchase', 'PurchaseReceiptController@fillDatatable')->name('purchase.data');
     Route::get('/purchase/create', 'PurchaseReceiptController@create')->name('purchase.create');
     Route::post('/ajax/purchase/store', 'PurchaseReceiptController@store')->name('purchase.store');
-    Route::get('/ajax/purchase/{id}/purchase_detail', 'PurchaseReceiptController@getPurchaseDetail');
+    Route::get('/ajax/purchase/{id}/purchase_detail', 'PurchaseReceiptController@getPurchaseReceiptDetail');
     Route::get('/purchase/{id}/edit', 'PurchaseReceiptController@edit');
     Route::put('/ajax/purchase/{id}', 'PurchaseReceiptController@update');
     Route::delete('/ajax/purchase/{id}', 'PurchaseReceiptController@destroy');

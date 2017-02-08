@@ -14,7 +14,7 @@
     <div class="portlet">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-shopping-cart"></i>Purchase Listing
+                <i class="fa fa-shopping-cart"></i> Listing
             </div>
             <div class="actions">
                 <a href="javascript:;" class="btn default yellow-stripe">
@@ -66,7 +66,7 @@
                     </select>
                     <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
                 </div>
-                <table class="table table-striped table-bpurchaseed table-hover" id="datatable_ajax">
+                <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
                     <thead>
                     <tr role="row" class="heading">
                         <th width="10%">
@@ -97,7 +97,7 @@
                     </tr>
                     <tr role="row" class="filter">
                         <td>
-                            <input type="text" class="form-control form-filter input-sm" name="purchase_id">
+                            <input type="text" class="form-control form-filter input-sm" name="purchase_receipt_id">
                         </td>
                         <td>
                             <input type="text" class="form-control form-filter input-sm" name="supplier_name">
@@ -153,7 +153,7 @@
 @section('my_scripts')
     <script>
         jQuery(document).ready(function() {
-            TableAjax.init();
+            PurchaseTableAjax.init();
         });
     </script>
 @endsection
