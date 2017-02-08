@@ -21,8 +21,8 @@ class CreateItemsTable extends Migration
             $table->string('unit', 100);
             $table->boolean('check_in_stock')->default(1);
             $table->integer('in_stock')->default(0)->unsigned();
-            $table->float('price_in_hint')->nullable();
-            $table->float('price_out_hint')->nullable();
+            $table->integer('price_in_hint')->nullable();
+            $table->integer('price_out_hint')->nullable();
             $table->timestamps();
         });
     }

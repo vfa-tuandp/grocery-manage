@@ -16,12 +16,12 @@ class CreatePurchaseReceiptDetailsTable extends Migration
             $table->increments('id');
             $table->integer('purchase_receipt_id')->unsigned();
             $table->integer('item_id')->unsigned();
-            $table->float('quantity');
-            $table->float('price');
-            $table->float('reduction_on_item')->nullable();
-            $table->float('other_cost_on_item')->nullable();
+            $table->integer('quantity');
+            $table->integer('price');
+            $table->integer('reduction_on_item')->nullable();
+            $table->integer('other_cost_on_item')->nullable();
             $table->text('note_on_item')->nullable();
-            $table->float('sum');
+            $table->integer('sum');
             $table->timestamps();
         });
     }
