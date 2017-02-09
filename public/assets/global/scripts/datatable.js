@@ -205,6 +205,11 @@ var Datatable = function() {
                 the.submitFilter();
             });
 
+            // handle filter submit button click
+            table.on('click', '.chck-filter-submit', function(e) {
+                the.chckSubmitFilter();
+            });
+
             // handle filter cancel button click
             table.on('click', '.filter-cancel', function(e) {
                 e.preventDefault();
@@ -229,12 +234,34 @@ var Datatable = function() {
             $('input.form-filter[type="radio"]:checked', table).each(function() {
                 the.setAjaxParam($(this).attr("name"), $(this).val());
             });
-
             dataTable.ajax.reload();
         },
 
+        chckSubmitFilter: function() {
+            the.clearAjaxParams();
+            the.setAjaxParam("action", tableOptions.filterApplyAction);
+
+            // get all typeable inputs
+            $('textarea.form-filter, select.form-filter, input.form-filter:not([type="radio"],[type="checkbox"])', table).each(function() {
+                the.setAjaxParam($(this).attr("name"), $(this).val());
+            });
+
+            // get all checkboxes
+            $('input.form-filter[type="checkbox"]:checked', table).each(function() {
+                the.addAjaxParam($(this).attr("name"), $(this).val());
+            });
+
+            // get all radio buttons
+            $('input.form-filter[type="radio"]:checked', table).each(function() {
+                the.setAjaxParam($(this).attr("name"), $(this).val());
+            });
+            console.log(ajaxParams);
+            dataTable.ajax.reload();
+
+        },
+
         resetFilter: function() {
-            $('textarea.form-filter, select.form-filter, input.form-filter', table).each(function() {
+            $('textarea.form-filter, select.form-filter, input.form-filter:not([type="checkbox"])', table).each(function() {
                 $(this).val("");
             });
             $('input.form-filter[type="checkbox"]', table).each(function() {

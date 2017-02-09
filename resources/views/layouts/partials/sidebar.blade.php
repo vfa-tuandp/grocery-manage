@@ -114,7 +114,10 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    {{--code herre --}}
+                    <li>
+                        <a href="{{ route('item.stock') }}">
+                            QL kho</a>
+                    </li>
                 </ul>
             </li>
 

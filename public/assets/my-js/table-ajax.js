@@ -14,15 +14,14 @@ var TableAjax = function () {
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid, response) {
-                console.log(grid, response);
                 $('#all_total strong').text(response.all_total);
             },
             onError: function (grid) {
+                grid.clearAjaxParams();
                 console.log('error roi');
                 // execute some code on network or other general error  
             },
             onDataLoad: function(grid) {
-                console.log(grid);
                 // execute some code on ajax data load
             },
             loadingMessage: 'Loading...',

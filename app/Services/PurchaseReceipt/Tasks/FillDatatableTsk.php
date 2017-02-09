@@ -21,7 +21,6 @@ class FillDatatableTsk
     public function byCompanyId($request = null, $companyId = null)
     {
         $companyId = $companyId ?: auth()->user()->company_id;
-        \DB::enableQueryLog();
         $query = $this->purchaseReceiptRepo->scopeQuery(
             function ($scope) use ($request, $companyId) {
                 return $scope->where('purchase_receipts.company_id', $companyId);
