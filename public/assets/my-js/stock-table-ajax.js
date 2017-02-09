@@ -14,7 +14,9 @@ var StockTableAjax = function () {
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid, response) {
-                $('#all_total strong').text(response.all_total);
+                console.log(response);
+                $('#quantity_count strong:first').text('Tổng nhập: ' + response.quantity_in);
+                $('#quantity_count strong:last').text('Tổng bán: ' + response.quantity_out);
             },
             onError: function (grid) {
                 grid.clearAjaxParams();

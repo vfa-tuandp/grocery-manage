@@ -112,7 +112,12 @@
                         <td>
                             <input type="text" class="form-control form-filter input-sm" name="item_name">
                         </td>
-                        <td></td>
+                        <td>
+                            <div id="quantity_count">
+                                <p><strong></strong></p>
+                                <p><strong></strong></p>
+                            </div>
+                        </td>
                         <td>
                             <div class="form-group">
                                 <div class="input-group">

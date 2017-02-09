@@ -9,6 +9,9 @@ use Yajra\Datatables\Datatables;
 
 class GetStockTsk
 {
+    private $quantityIn = 0;
+    private $quantityOut = 0;
+
     /**
      * @var OrderRepo
      */
@@ -32,73 +35,25 @@ class GetStockTsk
     
     public function run($request = null, $companyId = null)
     {
-//        dd($request);
         $companyId = $companyId ?: auth()->user()->company_id;
         $refreshQuery = false;
         if (empty($request['action']) || $request['action'] == ['filter_cancel']) {//"action" only present when we do a filter
             $refreshQuery = true;
         }
 
-        $orderQuery = $this->orderRepo->scopeQuery(
-            function ($scope) use ($request, $companyId) {
-                return $scope->leftJoin('customers', function($join) {
-                    $join->on('orders.customer_id', '=', 'customers.id');
-                })->leftJoin('order_details', function($join) {
-                    $join->on('orders.id', '=', 'order_details.order_id');
-                })->join('items', function($join) {
-                    $join->on('items.id', '=', 'order_details.item_id');
-                })->join('categories', function($join) {
-                    $join->on('items.category_id', '=', 'categories.id');
-                })->where('orders.company_id', '=', $companyId);
-            }
-        )
-            ->makeQueryBuilder(
-            [
-                'datetime',
-                'categories.name as category_name',
-                'items.name as item_name',
-                'items.unit as unit',
-                'order_details.quantity',
-                'customers.name as target_name',
-                \DB::raw("'Bán' as kind")
-            ]
-        );
+        $orderQuery = $this->orderRepo->getOrderQuery($companyId);
 
-        $purchaseQuery = $this->purchaseReceiptRepo->scopeQuery(
-            function ($scope) use ($request, $companyId) {
-                return $scope->leftJoin('suppliers', function($join) {
-                    $join->on('purchase_receipts.supplier_id', '=', 'suppliers.id');
-                    })->leftJoin('purchase_receipt_details', function($join) {
-                         $join->on('purchase_receipts.id', '=', 'purchase_receipt_details.purchase_receipt_id');
-                    })->join('items', function($join) {
-                        $join->on('items.id', '=', 'purchase_receipt_details.item_id');
-                    })->join('categories', function($join) {
-                        $join->on('items.category_id', '=', 'categories.id');
-                    })->where('purchase_receipts.company_id', '=', $companyId);
-            })->makeQueryBuilder(
-             [
-                 'datetime',
-                 'categories.name as category_name',
-                 'items.name as item_name',
-                 'items.unit as unit',
-                 'purchase_receipt_details.quantity',
-                 'suppliers.name as target_name',
-                 \DB::raw("'Nhập' as kind")
-             ]
-         );
+        $purchaseQuery = $this->purchaseReceiptRepo->getPurchaseQuery($companyId);
 
-        $query = $this->getQuery($refreshQuery, $request, $orderQuery, $purchaseQuery);
-
-//
-//        $totalQuery = clone $query;
-//
-//        $query->with('customer')->orderBy('orders.id', 'desc');
-//
-//        $allTotal = $totalQuery->select([\DB::raw('sum(total) as all_total')])->get()->toArray()[0]['all_total'];
+        $prepareQuery = $this->getQuery($refreshQuery, $request, $orderQuery, $purchaseQuery);
+        $querySql = $prepareQuery->toSql();
+        $query = \DB::table(\DB::raw("($querySql) as a"))
+            ->mergeBindings($prepareQuery)
+            ->orderBy('datetime', 'desc');
 
         $result = Datatables::of($query)
                 ->editColumn('datetime', function ($query) {
-                    return $query->datetime->format('d/m/Y H:i:s');
+                    return Carbon::parse($query->datetime)->format('d/m/Y H:i:s');
                 })
                 ->editColumn('quantity', function ($query) {
                     return $query->quantity . ' ' . $query->unit;
@@ -106,7 +61,7 @@ class GetStockTsk
                 ->addColumn('detail', function ($query) {
                     return '<td><a class="detail" href="javascript:;"><i class="glyphicon glyphicon-th-list"></i></a></td>';
                 })
-//                ->with(['all_total' => number_format($allTotal, 0, ",", ".") . ' đ'])
+                ->with(['quantity_in' => (int) $this->quantityIn, 'quantity_out' => (int) $this->quantityOut])
                 ->make(true);
 
         return $result;
@@ -115,11 +70,11 @@ class GetStockTsk
     private function filterParams(&$query, $request)
     {
         if (!empty($request['target_name'])) {
-            if ($request['kind'] == [1]) {
-                $query->where('customer_name', 'like', '%' . $request['target_name'] . '%');
-            }
             if ($request['kind'] == [2]) {
-                $query->where('supplier_name', 'like', '%' . $request['target_name'] . '%');
+                $query->where('customers.name', 'like', '%' . $request['target_name'] . '%');
+            }
+            if ($request['kind'] == [1]) {
+                $query->where('suppliers.name', 'like', '%' . $request['target_name'] . '%');
             }
         }
 
@@ -143,29 +98,43 @@ class GetStockTsk
     }
 
     private function getQuery($refreshQuery, $request, $orderQuery, $purchaseQuery) {
-//        dd($refreshQuery, $request);
         if (!$refreshQuery && empty($request['kind'])) {
             return $orderQuery->unionAll($purchaseQuery->where('items.id', '<', '0'))->where('items.id', '<', '0');
         }
 
         if (!$refreshQuery && $request['kind'] == [1, 2]) {
             $this->filterParams($orderQuery, $request);
+            $orderQuery->where('customers.name', 'like', '%' . $request['target_name'] . '%');
+            $quantityCount = clone $orderQuery;
+            $this->quantityOut = $quantityCount->select(\DB::raw("sum(quantity) as q"))->first()->q;
             $this->filterParams($purchaseQuery, $request);
+            $purchaseQuery->where('suppliers.name', 'like', '%' . $request['target_name'] . '%');
+            $quantityCount = clone $purchaseQuery;
+            $this->quantityIn = $quantityCount->select(\DB::raw("sum(quantity) as q"))->first()->q;
             return $orderQuery->unionAll($purchaseQuery);
         }
 
         if (!$refreshQuery && $request['kind'] == [2]) {
             $this->filterParams($orderQuery, $request);
+            $quantityCount = clone $orderQuery;
+            $this->quantityOut = $quantityCount->select(\DB::raw("sum(quantity) as q"))->first()->q;
             return $orderQuery;
 
         }
 
         if (!$refreshQuery && $request['kind'] == [1]) {
             $this->filterParams($purchaseQuery, $request);
+            $quantityCount = clone $purchaseQuery;
+            $this->quantityIn = $quantityCount->select(\DB::raw("sum(quantity) as q"))->first()->q;
             return $purchaseQuery;
         }
 
         if ($refreshQuery) {
+            $quantityCount = clone $orderQuery;
+            $this->quantityOut = $quantityCount->select(\DB::raw("sum(quantity) as q"))->first()->q;
+
+            $quantityCount = clone $purchaseQuery;
+            $this->quantityIn = $quantityCount->select(\DB::raw("sum(quantity) as q"))->first()->q;
             return $orderQuery->unionAll($purchaseQuery);
         }
     }
