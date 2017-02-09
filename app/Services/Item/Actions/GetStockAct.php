@@ -11,7 +11,7 @@ class GetStockAct
      */
     private $getStockTsk;
 
-    public function __construct (GetStockTsk $getStockTsk)
+    public function __construct(GetStockTsk $getStockTsk)
     {
         $this->getStockTsk = $getStockTsk;
     }

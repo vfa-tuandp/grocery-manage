@@ -24,13 +24,13 @@ class PurchaseReceiptRepoEloquent extends MyBaseRepository implements PurchaseRe
     public function getPurchaseQuery($companyId)
     {
         return \DB::table('purchase_receipts')
-            ->leftJoin('suppliers', function($join) {
+            ->leftJoin('suppliers', function ($join) {
                 $join->on('purchase_receipts.supplier_id', '=', 'suppliers.id');
-            })->leftJoin('purchase_receipt_details', function($join) {
+            })->leftJoin('purchase_receipt_details', function ($join) {
                 $join->on('purchase_receipts.id', '=', 'purchase_receipt_details.purchase_receipt_id');
-            })->join('items', function($join) {
+            })->join('items', function ($join) {
                 $join->on('items.id', '=', 'purchase_receipt_details.item_id');
-            })->join('categories', function($join) {
+            })->join('categories', function ($join) {
                 $join->on('items.category_id', '=', 'categories.id');
             })->where('purchase_receipts.company_id', '=', $companyId)
             ->select([

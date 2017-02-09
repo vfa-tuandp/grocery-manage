@@ -27,7 +27,7 @@ class GetStockTsk
      * @param OrderRepo           $orderRepo
      * @param PurchaseReceiptRepo $purchaseReceiptRepo
      */
-    public function __construct (OrderRepo $orderRepo, PurchaseReceiptRepo $purchaseReceiptRepo)
+    public function __construct(OrderRepo $orderRepo, PurchaseReceiptRepo $purchaseReceiptRepo)
     {
         $this->orderRepo = $orderRepo;
         $this->purchaseReceiptRepo = $purchaseReceiptRepo;
@@ -97,7 +97,8 @@ class GetStockTsk
         return $query;
     }
 
-    private function getQuery($refreshQuery, $request, $orderQuery, $purchaseQuery) {
+    private function getQuery($refreshQuery, $request, $orderQuery, $purchaseQuery)
+    {
         if (!$refreshQuery && empty($request['kind'])) {
             return $orderQuery->unionAll($purchaseQuery->where('items.id', '<', '0'))->where('items.id', '<', '0');
         }
@@ -119,7 +120,6 @@ class GetStockTsk
             $quantityCount = clone $orderQuery;
             $this->quantityOut = $quantityCount->select(\DB::raw("sum(quantity) as q"))->first()->q;
             return $orderQuery;
-
         }
 
         if (!$refreshQuery && $request['kind'] == [1]) {
