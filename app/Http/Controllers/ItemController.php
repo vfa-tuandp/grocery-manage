@@ -9,10 +9,12 @@ use App\Services\Item\Actions\DeleteItemAct;
 use App\Services\Item\Actions\EditItemAct;
 use App\Services\Item\Actions\FillDatatableByCompanyAct;
 use App\Services\Item\Actions\GetItemsByCategoryIdAct;
+use App\Services\Item\Actions\GetStockAct;
 use App\Services\Item\Actions\StoreItemAct;
 use App\Services\Item\Actions\UpdateItemAct;
 
 use App\Http\Requests;
+use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
@@ -63,5 +65,15 @@ class ItemController extends Controller
             $items = $listItemAct->run($categoryId);
             return $items;
         }
+    }
+
+    public function stock()
+    {
+        return view('items.stock');
+    }
+
+    public function getStock(Request $request, GetStockAct $getStockAct)
+    {
+        return $getStockAct->run($request->all());
     }
 }

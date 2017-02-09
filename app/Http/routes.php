@@ -20,6 +20,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/ajax/item/{id}', 'ItemController@destroy');
     Route::get('/item/create', 'ItemController@create')->name('item.create');
     Route::post('/item', 'ItemController@store')->name('item.store');
+    Route::get('/item/stock', 'ItemController@stock')->name('item.stock');
+    Route::get('/ajax/item/stock', 'ItemController@getStock');
 
     Route::get('/customer', 'CustomerController@index')->name('customer.index');
     Route::get('/ajax/customer', 'CustomerController@fillDatatable')->name('customer.data');

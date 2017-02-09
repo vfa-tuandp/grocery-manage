@@ -1,4 +1,4 @@
-var PurchaseTableAjax = function () {
+var StockTableAjax = function () {
 
     var initPickers = function () {
         //init date pickers
@@ -14,7 +14,6 @@ var PurchaseTableAjax = function () {
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid, response) {
-                grid.clearAjaxParams();
                 $('#all_total strong').text(response.all_total);
             },
             onError: function (grid) {
@@ -22,7 +21,6 @@ var PurchaseTableAjax = function () {
                 // execute some code on network or other general error
             },
             onDataLoad: function(grid) {
-                grid.clearAjaxParams();
                 // execute some code on ajax data load
             },
             loadingMessage: 'Loading...',
@@ -41,21 +39,17 @@ var PurchaseTableAjax = function () {
                 ],
                 "pageLength": 10, // default record count per page
                 "ajax": {
-                    "url": "/ajax/purchase", // ajax source
+                    "url": "/ajax/item/stock", // ajax source
                     "type": "GET"
                 },
-                "order": [
-                    [2, "asc"]
-                ], // set first column as a default sort by asc
+                "ordering": false,
                 "columns": [
-                    {data: "id"},
-                    {data: "supplier.name"},
                     {data: "datetime"},
-                    {data: "other_cost"},
-                    {data: "reduction"},
-                    {data: "vat"},
-                    {data: "total"},
-                    {data: "note"},
+                    {data: "category_name"},
+                    {data: "item_name"},
+                    {data: "quantity"},
+                    {data: "kind"},
+                    {data: "target_name"},
                     {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control"}
                 ],
             }
@@ -77,11 +71,11 @@ var PurchaseTableAjax = function () {
                 detailRows.splice( idx, 1 );
             }
             else {
-                var purchaseDetail = {};
+                var orderDetail = {};
                 tr.addClass( 'details' );
-                $.when(getPurchaseDetail(row.data().id)).done(function (data) {
-                    purchaseDetail = data;
-                    row.child( format( row.data(), purchaseDetail ) ).show();
+                $.when(getOrderDetail(row.data().id)).done(function (data) {
+                    orderDetail = data;
+                    row.child( format( row.data(), orderDetail ) ).show();
                 });
 
 
@@ -92,9 +86,19 @@ var PurchaseTableAjax = function () {
             }
         });
 
-        function format ( d, purchaseDetail ) {
+        $('#datatable_ajax thead').on('click', 'tr td .filter-cancel', function() {
+            var set = $('input.form-filter[type="checkbox"]');
+            setTimeout(function () {
+                $(set).each(function () {
+                    $(this).attr("checked", true);
+                });
+                $.uniform.update(set)
+            }, 300);
+        });
+
+        function format ( d, orderDetail ) {
             var tbody = '';
-             $(purchaseDetail).each(function (index, value) {
+             $(orderDetail).each(function (index, value) {
                  tbody += '<tr>' +
                      '<td>' + value.item.name + '</td>' +
                      '<td>' + value.quantity + '</td>' +
@@ -124,9 +128,9 @@ var PurchaseTableAjax = function () {
                 '</table>';
         }
 
-        function getPurchaseDetail(purchase_id) {
+        function getOrderDetail(order_id) {
             return $.ajax({
-                url:"/ajax/purchase/" + purchase_id + "/purchase_detail",
+                url:"/ajax/order/" + order_id + "/order_detail",
                 type: "GET",
                 success:function(data) {
                 },
