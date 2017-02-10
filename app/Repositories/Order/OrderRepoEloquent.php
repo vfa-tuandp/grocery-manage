@@ -40,7 +40,8 @@ class OrderRepoEloquent extends MyBaseRepository implements OrderRepo
                 'items.unit as unit',
                 'order_details.quantity',
                 'customers.name as target_name',
-                \DB::raw("'Bán' as kind")
+                \DB::raw("'Bán' as kind"),
+                'orders.id as detail_id'
             ]);
     }
 }

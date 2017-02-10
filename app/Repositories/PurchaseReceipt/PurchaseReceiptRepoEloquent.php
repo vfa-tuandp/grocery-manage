@@ -40,7 +40,8 @@ class PurchaseReceiptRepoEloquent extends MyBaseRepository implements PurchaseRe
                 'items.unit as unit',
                 'purchase_receipt_details.quantity',
                 'suppliers.name as target_name',
-                \DB::raw("'Nhập' as kind")
+                \DB::raw("'Nhập' as kind"),
+                'purchase_receipts.id as detail_id'
             ]);
     }
 }

@@ -59,7 +59,7 @@ class GetStockTsk
                     return $query->quantity . ' ' . $query->unit;
                 })
                 ->addColumn('detail', function ($query) {
-                    return '<td><a class="detail" href="javascript:;"><i class="glyphicon glyphicon-th-list"></i></a></td>';
+                    return '<td><a class="detail" href="javascript:;">Chi tiết #' . $query->detail_id .'</a></td>';
                 })
                 ->with(['quantity_in' => (int) $this->quantityIn, 'quantity_out' => (int) $this->quantityOut])
                 ->make(true);
