@@ -75,7 +75,7 @@ var StockTableAjax = function () {
             else {
                 var orderDetail = {};
                 tr.addClass( 'details' );
-                $.when(getOrderDetail(row.data().id)).done(function (data) {
+                $.when(getOrderDetail(row.data())).done(function (data) {
                     orderDetail = data;
                     row.child( format( row.data(), orderDetail ) ).show();
                 });
@@ -130,9 +130,18 @@ var StockTableAjax = function () {
                 '</table>';
         }
 
-        function getOrderDetail(order_id) {
+        function getOrderDetail(params) {
+            var url = '';
+            if (params.kind == 'Nhập') {
+               url = "/ajax/purchase/" + params.detail_id + "/purchase_detail";
+            }
+
+            if (params.kind == 'Bán') {
+                url = "/ajax/order/" + params.detail_id + "/order_detail";
+            }
+
             return $.ajax({
-                url:"/ajax/order/" + order_id + "/order_detail",
+                url: url,
                 type: "GET",
                 success:function(data) {
                 },
