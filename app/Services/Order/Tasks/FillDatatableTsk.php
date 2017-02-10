@@ -43,7 +43,8 @@ class FillDatatableTsk
 
         $totalQuery = clone $query;
 
-        $query->with('customer')->orderBy('orders.id', 'desc');
+        $query->with('customer');
+//        ->orderBy('orders.id', 'desc');
 
         $allTotal = $totalQuery->select([\DB::raw('sum(total) as all_total')])->get()->toArray()[0]['all_total'];
 

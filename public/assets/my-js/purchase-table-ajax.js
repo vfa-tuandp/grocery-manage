@@ -14,7 +14,6 @@ var PurchaseTableAjax = function () {
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid, response) {
-                grid.clearAjaxParams();
                 $('#all_total strong').text(response.all_total);
             },
             onError: function (grid) {
@@ -22,7 +21,6 @@ var PurchaseTableAjax = function () {
                 // execute some code on network or other general error
             },
             onDataLoad: function(grid) {
-                grid.clearAjaxParams();
                 // execute some code on ajax data load
             },
             loadingMessage: 'Loading...',
@@ -45,10 +43,10 @@ var PurchaseTableAjax = function () {
                     "type": "GET"
                 },
                 "order": [
-                    [2, "asc"]
+                    [0, "desc"]
                 ], // set first column as a default sort by asc
                 "columns": [
-                    {data: "id"},
+                    {data: "id", orderable: true},
                     {data: "supplier.name"},
                     {data: "datetime"},
                     {data: "other_cost"},

@@ -15,6 +15,7 @@ var TableAjax = function () {
             src: $("#datatable_ajax"),
             onSuccess: function (grid, response) {
                 $('#all_total strong').text(response.all_total);
+                console.log('hehe');
             },
             onError: function (grid) {
                 grid.clearAjaxParams();
@@ -44,16 +45,16 @@ var TableAjax = function () {
                     "type": "GET"
                 },
                 "order": [
-                    [2, "asc"]
-                ], // set first column as a default sort by asc
+                    [0, 'desc']
+                ],
                 "columns": [
-                    {data: "id"},
-                    {data: "customer.name"},
-                    {data: "datetime"},
-                    {data: "other_cost"},
-                    {data: "reduction"},
-                    {data: "vat"},
-                    {data: "total"},
+                    {data: "id", orderable: true},
+                    {data: "customer.name", orderable: true},
+                    {data: "datetime", orderable: true},
+                    {data: "other_cost", orderable: true},
+                    {data: "reduction", orderable: true},
+                    {data: "vat", orderable: true},
+                    {data: "total", orderable: true},
                     {data: "note"},
                     {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control"}
                 ],

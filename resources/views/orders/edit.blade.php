@@ -743,7 +743,7 @@
                                 'Đơn hàng này đã được cập nhật thành công',
                                 'success'
                         ).then(function () {
-                            location.href = '/order';
+//                            location.href = '/order';
                         });
                     },
                     error: function(xhr,status,error) {

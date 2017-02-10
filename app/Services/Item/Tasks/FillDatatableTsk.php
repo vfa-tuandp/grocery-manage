@@ -22,8 +22,8 @@ class FillDatatableTsk
         $companyId = $companyId ? : auth()->user()->company_id;
         $query = $this->itemRepo->with('category')
             ->scopeQuery(function ($scope) use ($companyId) {
-                return $scope->where('company_id', $companyId)
-                ->orderBy('created_at', 'desc');
+                return $scope->where('items.company_id', $companyId)
+                ->orderBy('items.created_at', 'desc');
             })->makeQueryBuilder();
 
         $result = Datatables::of($query)

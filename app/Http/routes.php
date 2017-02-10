@@ -52,6 +52,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/purchase/{id}/edit', 'PurchaseReceiptController@edit');
     Route::put('/ajax/purchase/{id}', 'PurchaseReceiptController@update');
     Route::delete('/ajax/purchase/{id}', 'PurchaseReceiptController@destroy');
+
+    Route::get('/cash_flow/create', 'CashFlowController@create')->name('cash_flow.create');
+    Route::post('/cash_flow', 'CashFlowController@store')->name('cash_flow.store');
 });
 
 Route::auth();

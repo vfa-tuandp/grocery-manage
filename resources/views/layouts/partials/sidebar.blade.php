@@ -103,6 +103,10 @@
                         <a href="{{ route('item.create') }}">
                             Thêm sản phẩm mới</a>
                     </li>
+                    <li>
+                        <a href="{{ route('cash_flow.create') }}">
+                            Thêm thu/chi</a>
+                    </li>
 
                 </ul>
             </li>
