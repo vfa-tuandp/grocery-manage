@@ -738,11 +738,12 @@
                     data: data,
                     type: "PUT",
                     success:function(data) {
-                        swal(
-                                'Cập nhật thành công!',
-                                'Đơn hàng này đã được cập nhật thành công',
-                                'success'
-                        ).then(function () {
+                        swal({
+                            allowOutsideClick: false,
+                            title: 'Cập nhật thành công!',
+                            text: 'Đơn hàng này đã được cập nhật thành công',
+                            type: 'success'
+                        }).then(function () {
                             location.href = '/order';
                         });
                     },
