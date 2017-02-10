@@ -18,6 +18,11 @@ class CreatePurchaseReceiptDetailTsk
 
     public function run($data, $purchaseReceiptId)
     {
-        return $this->purchaseReceiptDetailRepo->insertMany($data, true, ['purchase_receipt_id' => $purchaseReceiptId]);
+        foreach ($data as $value) {
+            $orderDetail = $this->purchaseReceiptDetailRepo->create(array_merge($value, ['purchase_receipt_id' => $purchaseReceiptId]));
+            if($orderDetail->item->check_in_stock) {
+                $orderDetail->item->increment('in_stock', $value['quantity']);
+            };
+        }
     }
 }

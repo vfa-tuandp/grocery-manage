@@ -18,6 +18,13 @@ class DeleteOrderAct
 
     public function run($orderId)
     {
-        $this->deleteOrderTsk->run($orderId);
+        try {
+            \DB::beginTransaction();
+            $this->deleteOrderTsk->run($orderId);
+            \DB::commit();
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            throw new \RuntimeException();
+        }
     }
 }

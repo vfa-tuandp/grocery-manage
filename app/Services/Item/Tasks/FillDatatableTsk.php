@@ -27,6 +27,9 @@ class FillDatatableTsk
             })->makeQueryBuilder();
 
         $result = Datatables::of($query)
+            ->editColumn('in_stock', function ($query) {
+                return $query->check_in_stock ? $query->in_stock : 'Không tính';
+            })
             ->addColumn('edit', '<td><a class="edit" href="javascript:;">Edit </a></td>')
             ->addColumn('delete', '<td><a class="delete" href="javascript:;">Delete </a></td>')
             ->make(true);

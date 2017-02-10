@@ -18,6 +18,13 @@ class DeletePurchaseReceiptAct
 
     public function run($purchaseReceiptId)
     {
-        $this->deletePurchaseReceiptTsk->run($purchaseReceiptId);
+        try {
+            \DB::beginTransaction();
+            $this->deletePurchaseReceiptTsk->run($purchaseReceiptId);
+            \DB::commit();
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            throw new \RuntimeException();
+        }
     }
 }

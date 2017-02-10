@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group form-md-line-input">
                                 <input type="text" class="form-control" id="product_name" name="name"
                                        placeholder="Nhập vào tên sản phẩm">
@@ -77,7 +77,7 @@
                                 <span class="help-block">Nhập tên sản phẩm</span>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group form-md-line-input">
                                 <input type="text" class="form-control" id="unit" name="unit"
                                        placeholder="Đvt">
@@ -103,16 +103,16 @@
                                 <span class="help-block">Có thể bỏ qua</span>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        {{--<div class="col-md-2">--}}
 
-                            <div class="form-group form-md-line-input">
-                                <input type="number" class="form-control" id="in_stock" name="in_stock"
-                                       placeholder="SL tồn kho">
-                                <label for="in_stock">Tồn kho</label>
-                                <span class="help-block">SL tồn kho</span>
-                            </div>
+                            {{--<div class="form-group form-md-line-input">--}}
+                                {{--<input type="number" class="form-control" id="in_stock" name="in_stock"--}}
+                                       {{--placeholder="SL tồn kho">--}}
+                                {{--<label for="in_stock">Tồn kho</label>--}}
+                                {{--<span class="help-block">SL tồn kho</span>--}}
+                            {{--</div>--}}
 
-                        </div>
+                        {{--</div>--}}
                         <div class="col-md-2">
                             <div class="md-checkbox md-checkbox-inline">
                                 <input type="checkbox" id="check_in_stock" name="check_in_stock" class="md-check" checked>
