@@ -30,4 +30,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class);
     }
+
+    public function cashFlow()
+    {
+        return $this->morphOne(CashFlow::class, 'cashflowable');
+    }
 }

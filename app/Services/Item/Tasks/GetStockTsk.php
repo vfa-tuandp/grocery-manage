@@ -48,8 +48,7 @@ class GetStockTsk
         $prepareQuery = $this->getQuery($refreshQuery, $request, $orderQuery, $purchaseQuery);
         $querySql = $prepareQuery->toSql();
         $query = \DB::table(\DB::raw("($querySql) as a"))
-            ->mergeBindings($prepareQuery)
-            ->orderBy('datetime', 'desc');
+            ->mergeBindings($prepareQuery);
 
         $result = Datatables::of($query)
                 ->editColumn('datetime', function ($query) {

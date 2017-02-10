@@ -14,7 +14,6 @@ var StockTableAjax = function () {
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid, response) {
-                console.log(response);
                 $('#quantity_count strong:first').text('Tổng nhập: ' + response.quantity_in);
                 $('#quantity_count strong:last').text('Tổng bán: ' + response.quantity_out);
             },
@@ -44,9 +43,11 @@ var StockTableAjax = function () {
                     "url": "/ajax/item/stock", // ajax source
                     "type": "GET"
                 },
-                "ordering": false,
+                "order": [
+                    [0, 'desc']
+                ],
                 "columns": [
-                    {data: "datetime"},
+                    {data: "datetime", orderable: true},
                     {data: "category_name"},
                     {data: "item_name"},
                     {data: "quantity"},

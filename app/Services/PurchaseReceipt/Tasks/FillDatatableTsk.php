@@ -43,7 +43,7 @@ class FillDatatableTsk
 
         $totalQuery = clone $query;
 
-        $query->with('supplier')->orderBy('purchase_receipts.id', 'desc');
+        $query->with('supplier');
 
         $allTotal = $totalQuery->select([\DB::raw('sum(total) as all_total')])->get()->toArray()[0]['all_total'];
 

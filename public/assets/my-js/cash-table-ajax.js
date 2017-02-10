@@ -1,4 +1,4 @@
-var PurchaseTableAjax = function () {
+var CashTableAjax = function () {
 
     var initPickers = function () {
         //init date pickers
@@ -14,7 +14,8 @@ var PurchaseTableAjax = function () {
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid, response) {
-                $('#all_total strong').text(response.all_total);
+                $('#total strong:first').text('Thu: ' + response.total_in + ' đ');
+                $('#total strong:last').text('Chi: ' + response.total_out + ' đ');
             },
             onError: function (grid) {
                 grid.clearAjaxParams();
@@ -39,23 +40,28 @@ var PurchaseTableAjax = function () {
                 ],
                 "pageLength": 10, // default record count per page
                 "ajax": {
-                    "url": "/ajax/purchase", // ajax source
+                    "url": "/ajax/cash_flow", // ajax source
                     "type": "GET"
                 },
                 "order": [
-                    [0, "desc"]
-                ], // set first column as a default sort by asc
+                    [0, 'desc']
+                ],
+                stripeClasses:[],
                 "columns": [
-                    {data: "id", orderable: true},
-                    {data: "supplier.name"},
-                    {data: "datetime"},
-                    {data: "other_cost"},
-                    {data: "reduction"},
-                    {data: "vat"},
-                    {data: "total"},
+                    {data: "datetime", orderable: true},
+                    {data: "content"},
+                    {data: "value"},
+                    {data: "type"},
                     {data: "note"},
                     {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control"}
                 ],
+                "createdRow": function( row, data, dataIndex ) {
+                    if ( data['type'] == "Thu" ) {
+                        $(row).addClass( 'info' );
+                    } else {
+                        $(row).addClass( 'warning' );
+                    }
+                }
             }
         });
 
@@ -75,24 +81,39 @@ var PurchaseTableAjax = function () {
                 detailRows.splice( idx, 1 );
             }
             else {
-                var purchaseDetail = {};
-                tr.addClass( 'details' );
-                $.when(getPurchaseDetail(row.data().id)).done(function (data) {
-                    purchaseDetail = data;
-                    row.child( format( row.data(), purchaseDetail ) ).show();
-                });
+                var orderDetail = {};
+                if (row.data().cashflowable_id) {
+                    tr.addClass( 'details' );
+                    $.when(getOrderDetail(row.data())).done(function (data) {
+                        orderDetail = data;
+                        row.child( format( row.data(), orderDetail ) ).show();
+                    });
 
 
-                // Add to the 'open' array
-                if ( idx === -1 ) {
-                    detailRows.push( tr.attr('id') );
+                    // Add to the 'open' array
+                    if ( idx === -1 ) {
+                        detailRows.push( tr.attr('id') );
+                    }
+                } else {
+                    location.href = '/cash_flow/' + row.data().id + '/edit';
                 }
+
             }
         });
 
-        function format ( d, purchaseDetail ) {
+        $('#datatable_ajax thead').on('click', 'tr td .filter-cancel', function() {
+            var set = $('input.form-filter[type="checkbox"]');
+            setTimeout(function () {
+                $(set).each(function () {
+                    $(this).attr("checked", true);
+                });
+                $.uniform.update(set)
+            }, 300);
+        });
+
+        function format ( d, orderDetail ) {
             var tbody = '';
-             $(purchaseDetail).each(function (index, value) {
+             $(orderDetail).each(function (index, value) {
                  tbody += '<tr>' +
                      '<td>' + value.item.name + '</td>' +
                      '<td>' + value.quantity + '</td>' +
@@ -122,9 +143,18 @@ var PurchaseTableAjax = function () {
                 '</table>';
         }
 
-        function getPurchaseDetail(purchase_id) {
+        function getOrderDetail(params) {
+            var url = '';
+            if (params.type == 'Chi') {
+               url = "/ajax/purchase/" + params.cashflowable_id + "/purchase_detail";
+            }
+
+            if (params.type == 'Thu') {
+                url = "/ajax/order/" + params.cashflowable_id + "/order_detail";
+            }
+
             return $.ajax({
-                url:"/ajax/purchase/" + purchase_id + "/purchase_detail",
+                url: url,
                 type: "GET",
                 success:function(data) {
                 },

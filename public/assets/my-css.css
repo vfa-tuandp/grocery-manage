@@ -23,3 +23,10 @@ hr { display: block;
     background: #96ffff;
     background-repeat:no-repeat;
 }
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: unset;
+}
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: unset;
+}

@@ -2,6 +2,7 @@
 
 namespace App\Services\PurchaseReceipt\Tasks;
 
+use App\Models\CashFlow;
 use App\Repositories\PurchaseReceipt\PurchaseReceiptRepo;
 
 class CreatePurchaseReceiptTsk
@@ -21,6 +22,17 @@ class CreatePurchaseReceiptTsk
         $data['datetime'] = parseFromDateTimePicker($data['datetime']);
         $data['company_id'] = auth()->user()->company_id;
 
-        return $this->purchaseReceiptRepo->create($data);
+        $newPurchase = $this->purchaseReceiptRepo->create($data);
+
+        $cashFlowData = [
+            'datetime' => $data['datetime'],
+            'type' => CashFlow::CHI,
+            'content' => 'Nhập hàng #' . $newPurchase->id,
+            'value' => $data['total'],
+            'company_id' => $data['company_id']
+        ];
+        $newPurchase->cashFlow()->create($cashFlowData);
+
+        return $newPurchase;
     }
 }

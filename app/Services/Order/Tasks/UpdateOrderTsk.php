@@ -20,6 +20,13 @@ class UpdateOrderTsk
     {
         $data['datetime'] = parseFromDateTimePicker($data['datetime']);
 
-        return $this->orderRepo->update($data, $id);
+        $updatedOrder = $this->orderRepo->update($data, $id);
+
+        $cashFlow = $updatedOrder->cashFlow;
+        $cashFlow->datetime = $data['datetime'];
+        $cashFlow->value = $data['total'];
+        $cashFlow->save();
+        
+        return $updatedOrder;
     }
 }

@@ -21,7 +21,7 @@ class FillDatatableTsk
     {
         $companyId = $companyId ? : auth()->user()->company_id;
         $query = $this->categoryRepo->scopeQuery(function ($scope) use ($companyId) {
-            return $scope->where('company_id', $companyId)->orderBy('created_at', 'desc');
+            return $scope->where('categories.company_id', $companyId)->orderBy('categories.created_at', 'desc');
         })->makeQueryBuilder(['id', 'name', 'created_at', 'updated_at']);
         $result = Datatables::of($query)
             ->addColumn('edit', '<td><a class="edit" href="javascript:;">Edit </a></td>')

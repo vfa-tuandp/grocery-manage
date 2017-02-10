@@ -20,6 +20,13 @@ class UpdatePurchaseReceiptTsk
     {
         $data['datetime'] = parseFromDateTimePicker($data['datetime']);
 
-        return $this->purchaseReceiptRepo->update($data, $id);
+        $purchaseReceipt = $this->purchaseReceiptRepo->update($data, $id);
+
+        $cashFlow = $purchaseReceipt->cashFlow;
+        $cashFlow->datetime = $data['datetime'];
+        $cashFlow->value = $data['total'];
+        $cashFlow->save();
+
+        return $purchaseReceipt;
     }
 }

@@ -30,4 +30,9 @@ class PurchaseReceipt extends Model
     {
         return $this->hasMany(PurchaseReceiptDetail::class);
     }
+
+    public function cashFlow()
+    {
+        return $this->morphOne(CashFlow::class, 'cashflowable');
+    }
 }

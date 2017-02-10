@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="portlet-body form">
-            <form id="createNewOrderForm" role="form" action="{{ route('order.store') }}" method="POST">
+            <form id="createNewOrderForm" role="form">
                 {{ csrf_field() }}
                 <div class="form-body" id="create-order-form">
                     <div class="row">

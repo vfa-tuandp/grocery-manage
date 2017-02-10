@@ -14,12 +14,14 @@ class CreateCashFlowsTable extends Migration
     {
         Schema::create('cash_flows', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('type');
+            $table->integer('company_id')->unsigned();
             $table->dateTime('datetime');
-            $table->string('cashflowable_type');
-            $table->integer('cashflowable_id')->unsigned();
+            $table->tinyInteger('type');
+            $table->string('cashflowable_type')->nullable();
+            $table->integer('cashflowable_id')->unsigned()->nullable();
             $table->string('content');
-            $table->string('note');
+            $table->integer('value');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }
