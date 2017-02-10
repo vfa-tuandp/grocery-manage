@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Requests\StoreCashFlowRequest;
+use App\Http\Requests\UpdateCashFlowRequest;
+use App\Services\CashFlow\Actions\DeleteCashFlowAct;
+use App\Services\CashFlow\Actions\EditCashFlowAct;
 use App\Services\CashFlow\Actions\FillCashFlowAct;
 use App\Services\CashFlow\Actions\StoreCashFlowAct;
+use App\Services\CashFlow\Actions\UpdateCashFlowAct;
 use Illuminate\Http\Request;
 
 class CashFlowController extends Controller
@@ -20,22 +24,22 @@ class CashFlowController extends Controller
         return $fillCashFlowAct->run($request->all());
     }
 
-//    public function edit($id, EditItemAct $editItemAct)
-//    {
-//        list($item, $categories) = $editItemAct->run($id);
-//        return view('items.edit', ['item' => $item, 'categories' => $categories]);
-//    }
-//
-//    public function update(UpdateItemRequest $request, $id, UpdateItemAct $updateItemAct)
-//    {
-//        $updateItemAct->run($id, $request->all());
-//        return redirect()->back()->with('success', 'Cập nhật thành công!!');
-//    }
-//
-//    public function destroy($id, DeleteItemAct $deleteItemAct)
-//    {
-//        $deleteItemAct->run($id);
-//    }
+    public function edit($id, EditCashFlowAct $editCashFlowAct)
+    {
+        $cashFlow = $editCashFlowAct->run($id);
+        return view('cash_flows.edit', compact('cashFlow'));
+    }
+
+    public function update(UpdateCashFlowRequest $request, $id, UpdateCashFlowAct $updateCashFlowAct)
+    {
+        $updateCashFlowAct->run($id, $request->all());
+        return redirect()->route('cash_flow.index')->with('success', 'Cập nhật thành công!!');
+    }
+
+    public function destroy($id, DeleteCashFlowAct $deleteCashFlowAct)
+    {
+        $deleteCashFlowAct->run($id);
+    }
 
     public function create()
     {

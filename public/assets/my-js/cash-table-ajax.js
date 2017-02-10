@@ -46,6 +46,7 @@ var CashTableAjax = function () {
                 "order": [
                     [0, 'desc']
                 ],
+                stripeClasses:[],
                 "columns": [
                     {data: "datetime", orderable: true},
                     {data: "content"},
@@ -54,6 +55,13 @@ var CashTableAjax = function () {
                     {data: "note"},
                     {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control"}
                 ],
+                "createdRow": function( row, data, dataIndex ) {
+                    if ( data['type'] == "Thu" ) {
+                        $(row).addClass( 'info' );
+                    } else {
+                        $(row).addClass( 'warning' );
+                    }
+                }
             }
         });
 
@@ -86,6 +94,8 @@ var CashTableAjax = function () {
                     if ( idx === -1 ) {
                         detailRows.push( tr.attr('id') );
                     }
+                } else {
+                    location.href = '/cash_flow/' + row.data().id + '/edit';
                 }
 
             }
