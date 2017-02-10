@@ -4,21 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Requests\StoreCashFlowRequest;
+use App\Services\CashFlow\Actions\FillCashFlowAct;
 use App\Services\CashFlow\Actions\StoreCashFlowAct;
 use Illuminate\Http\Request;
 
 class CashFlowController extends Controller
 {
-//    public function index()
-//    {
-//        return view('items.index');
-//    }
-//
-//    public function fillDatatable(FillDatatableByCompanyAct $datatable)
-//    {
-//        return $datatable->run();
-//    }
-//
+    public function index()
+    {
+        return view('cash_flows.index');
+    }
+
+    public function fillCashFlow(Request $request, FillCashFlowAct $fillCashFlowAct)
+    {
+        return $fillCashFlowAct->run($request->all());
+    }
+
 //    public function edit($id, EditItemAct $editItemAct)
 //    {
 //        list($item, $categories) = $editItemAct->run($id);

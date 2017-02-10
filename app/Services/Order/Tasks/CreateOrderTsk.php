@@ -27,7 +27,7 @@ class CreateOrderTsk
         $cashFlowData = [
             'datetime' => $data['datetime'],
             'type' => CashFlow::THU,
-            'content' => 'Bán hàng',
+            'content' => 'Bán hàng #' . $newOrder->id,
             'value' => $data['total'],
             'company_id' => $data['company_id']
         ];

@@ -14,6 +14,10 @@ class CashFlow extends Model
 
     protected $fillable = ['company_id', 'datetime', 'content', 'value', 'note', 'type'];
 
+    protected $dates = [
+        'datetime'
+    ];
+    
     public function cashflowable()
     {
         return $this->morphTo();

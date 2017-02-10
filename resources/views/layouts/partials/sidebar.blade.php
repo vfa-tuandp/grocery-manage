@@ -122,6 +122,10 @@
                         <a href="{{ route('item.stock') }}">
                             QL kho</a>
                     </li>
+                    <li>
+                        <a href="{{ route('cash_flow.index') }}">
+                            QL dòng tiền</a>
+                    </li>
                 </ul>
             </li>
 

@@ -130,6 +130,7 @@
 <script src="{{ asset('assets/my-js/table-ajax.js') }}"></script>
 <script src="{{ asset('assets/my-js/purchase-table-ajax.js') }}"></script>
 <script src="{{ asset('assets/my-js/stock-table-ajax.js') }}"></script>
+<script src="{{ asset('assets/my-js/cash-table-ajax.js') }}"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

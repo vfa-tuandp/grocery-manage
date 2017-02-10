@@ -27,7 +27,7 @@ class CreatePurchaseReceiptTsk
         $cashFlowData = [
             'datetime' => $data['datetime'],
             'type' => CashFlow::CHI,
-            'content' => 'Nhập hàng',
+            'content' => 'Nhập hàng #' . $newPurchase->id,
             'value' => $data['total'],
             'company_id' => $data['company_id']
         ];
