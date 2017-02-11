@@ -1,4 +1,4 @@
-<div class="page-header navbar navbar-fixed-top">
+﻿<div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
     <div class="page-header-inner">
         <!-- BEGIN LOGO -->
@@ -10,6 +10,7 @@
                 <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
             </div>
         </div>
+ 	<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
         <div class="hor-menu hidden-sm hidden-xs">
             <h2 style="font-weight: bold; color: white; margin-top: 10px; margin-left: 300px;">CÔNG TY TNHH THÀNH ĐẠT</h2>
         </div>
@@ -56,6 +57,11 @@
                         </li>
                     </ul>
                 </li>
+		<li class="dropdown dropdown-quick-sidebar-toggler">		
+                     <a href="javascript:;" class="dropdown-toggle">		
+                         <i class="icon-logout"></i>		
+                     </a>		
+                 </li>
             </ul>
         </div>
         <!-- END TOP NAVIGATION MENU -->
