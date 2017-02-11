@@ -49,7 +49,7 @@ class UpdatePurchaseReceiptDetailTsk
         }
         foreach ($newPurchaseReceiptDetailData as $data) {
             $purchaseReceiptDetail = $purchaseReceipt->purchaseReceiptDetails()->create($data);
-            if($purchaseReceiptDetail->item->check_in_stock) {
+            if ($purchaseReceiptDetail->item->check_in_stock) {
                 $purchaseReceiptDetail->item->increment('in_stock', $data['quantity']);
             };
         }

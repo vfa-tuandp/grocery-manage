@@ -31,7 +31,7 @@ class FillCashFlowTsk
         }
 
         $baseQuery = $this->cashFlowRepo->scopeQuery(function ($scope) use ($companyId) {
-           return $scope->where('company_id', '=', $companyId);
+            return $scope->where('company_id', '=', $companyId);
         })->makeQueryBuilder();
 
         $query = $this->getQuery($refreshQuery, $request, $baseQuery);
@@ -109,6 +109,4 @@ class FillCashFlowTsk
         $this->totalOut = $totalOut->select([\DB::raw('sum(value) as total_out')])->where('type', '=', '1')->first(
         )->total_out;
     }
-
-
 }

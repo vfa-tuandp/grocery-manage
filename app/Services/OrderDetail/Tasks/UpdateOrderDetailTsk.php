@@ -49,7 +49,7 @@ class UpdateOrderDetailTsk
         }
         foreach ($newOrderDetailData as $data) {
             $orderDetail = $order->orderDetails()->create($data);
-            if($orderDetail->item->check_in_stock) {
+            if ($orderDetail->item->check_in_stock) {
                 $orderDetail->item->decrement('in_stock', $data['quantity']);
             };
         }

@@ -20,7 +20,7 @@ class CreateOrderDetailTsk
     {
         foreach ($data as $value) {
             $orderDetail = $this->orderDetailRepo->create(array_merge($value, ['order_id' => $orderId]));
-            if($orderDetail->item->check_in_stock) {
+            if ($orderDetail->item->check_in_stock) {
                 $orderDetail->item->decrement('in_stock', $value['quantity']);
             };
         }

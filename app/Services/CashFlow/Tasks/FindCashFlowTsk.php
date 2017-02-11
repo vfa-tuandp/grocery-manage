@@ -25,5 +25,4 @@ class FindCashFlowTsk
         }
         return $cashflow;
     }
-
 }

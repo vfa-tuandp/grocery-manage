@@ -1,10 +1,15 @@
 <?php
 
-Route::get('/', function () {
-        return view('index');
-});
-
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/', function () {
+        return redirect()->route('order.create');
+    });
+
+    Route::get('/logout', function () {
+        return \Auth::logout();
+    });
+
     Route::get('/category', 'CategoryController@index')->name('category.index');
     Route::get('/ajax/category', 'CategoryController@fillDatatable')->name('category.data');
     Route::delete('/ajax/category/{id}', 'CategoryController@destroy');

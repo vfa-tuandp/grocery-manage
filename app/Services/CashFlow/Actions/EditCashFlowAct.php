@@ -8,7 +8,7 @@ class EditCashFlowAct
 {
     private $findCashFlowTsk;
 
-    public function __construct (FindCashFlowTsk $findCashFlowTsk)
+    public function __construct(FindCashFlowTsk $findCashFlowTsk)
     {
         $this->findCashFlowTsk = $findCashFlowTsk;
     }

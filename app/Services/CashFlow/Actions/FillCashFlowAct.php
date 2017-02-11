@@ -12,7 +12,7 @@ class FillCashFlowAct
      */
     private $fillCashFlowTsk;
 
-    public function __construct (FillCashFlowTsk $fillCashFlowTsk)
+    public function __construct(FillCashFlowTsk $fillCashFlowTsk)
     {
         $this->fillCashFlowTsk = $fillCashFlowTsk;
     }

@@ -19,7 +19,6 @@ class DeleteCashFlowTsk
 
     public function run($cashFlowId)
     {
-       return $this->cashFlowRepo->delete($cashFlowId);
+        return $this->cashFlowRepo->delete($cashFlowId);
     }
-
 }
