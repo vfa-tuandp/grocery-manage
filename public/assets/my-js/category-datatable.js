@@ -47,8 +47,8 @@ var TableEditable = function () {
             },
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "All"] // change per page values here
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
             ],
 
             // Or you can use remote translation file
@@ -57,7 +57,7 @@ var TableEditable = function () {
             //},
 
             // set the initial value
-            "pageLength": 5,
+            "pageLength": 10,
 
             "ordering": true,
 
@@ -119,23 +119,55 @@ var TableEditable = function () {
 
         table.on('click', '.delete', function (e) {
             e.preventDefault();
-            if (confirm("Are you sure to delete this row ?") == false) {
-                return;
-            }
-
             var nRow = $(this).parents('tr')[0];
             var categoryId = oTable.fnGetData(nRow)[0];
-            $.ajax({
-                type: "DELETE",
-                url: "/ajax/category/" + categoryId,
-                success: function(msg) {
-                    alert("Deleted");
-                    oTable.fnDeleteRow(nRow);
-                },
-                error: function(xhr, status, error) {
-                    alert('Có lỗi');
+
+            swal({
+                title: 'Xóa danh mục này?',
+                text: "Xóa danh mục sẽ xóa hết tất cả những thứ liên quan!!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ok xóa!',
+                cancelButtonText: 'Chờ tí, để xem lại',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-cancel',
+                buttonsStyling: false
+            }).then(function () {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/ajax/category/" + categoryId,
+                    success: function(msg) {
+                        swal({
+                            allowOutsideClick: false,
+                            title: 'Đã xóa!',
+                            text:  'Danh mục đã được xóa',
+                            type: 'success'
+                        }).then(function () {
+                            oTable.fnDeleteRow(nRow);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        swal(
+                            'Đệt, có lỗi',
+                            'Lỗi cmnr',
+                            'error'
+                        )
+                    }
+                });
+            }, function (dismiss) {
+                // dismiss can be 'cancel', 'overlay',
+                // 'close', and 'timer'
+                if (dismiss === 'cancel') {
+                    swal(
+                        'Ok',
+                        'Hãy kiểm tra cẩn thận',
+                        'error'
+                    )
                 }
-            });
+            })
+
         });
 
         table.on('click', '.cancel', function (e) {

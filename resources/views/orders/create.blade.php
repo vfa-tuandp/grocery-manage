@@ -25,7 +25,7 @@
         <div class="portlet-title">
             <div class="caption font-red-sunglo">
                 <i class="icon-settings font-red-sunglo"></i>
-                <span class="caption-subject bold uppercase"> Tạo đơn hàng mới</span>
+                <span class="caption-subject bold uppercase">Bán hàng!</span>
             </div>
             <div class="actions">
                 <div class="btn-group">
@@ -64,7 +64,7 @@
                             <div class="form-group form-md-line-input">
                                 <div class="input-group date form_datetime">
                                     <input type="text" readonly size="16" class="form-control" name="datetime">
-                                    <label for="category">Ngày hóa đơn</label>
+                                    <label for="category">Ngày bán</label>
 
                                     <span class="input-group-btn">
                                     <button class="btn default date-reset" type="button"><i
@@ -311,7 +311,7 @@
                     <div class="col-md-3 col-xs-10">
                         <div class="form-actions noborder">
                             <button id="createNewOrder" class="btn yellow">
-                                Tạo mới
+                                Lưu hóa đơn bán hàng!
                             </button>
                         </div>
                     </div>
@@ -498,11 +498,12 @@
                     data: data,
                     type: "POST",
                     success:function(data) {
-                        swal(
-                                'Đã tạo mới!',
-                                'Đơn hàng này đã được tạo thành công',
-                                'success'
-                        ).then(function () {
+                        swal({
+                            allowOutsideClick: false,
+                            title: 'Đã tạo mới!',
+                            text: 'Đơn hàng này đã được tạo thành công',
+                            type: 'success'
+                        }).then(function () {
                             location.reload();
                         })
                     },

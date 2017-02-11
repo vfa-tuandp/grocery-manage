@@ -24,7 +24,16 @@ class DeletePurchaseReceiptTsk
 
     public function run($purchaseReceiptId)
     {
-        $this->purchaseReceiptRepo->delete($purchaseReceiptId);
+        $purchaseReceipt = $this->purchaseReceiptRepo->with(['purchaseReceiptDetails', 'purchaseReceiptDetails.item'])->find($purchaseReceiptId);
+
+        foreach ($purchaseReceipt->purchaseReceiptDetails as $purchaseReceiptDetail) {
+            if ($purchaseReceiptDetail->item->check_in_stock) {
+                $purchaseReceiptDetail->item->decrement('in_stock', $purchaseReceiptDetail->quantity);
+            }
+        }
+
+        $purchaseReceipt->delete();
+
         $this->cashFlowRepo->deleteReceipt($purchaseReceiptId, CashFlow::TYPE_PURCHASE);
     }
 }

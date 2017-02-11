@@ -26,9 +26,9 @@ class UpdateSupplierRequest extends Request
         return [
             'data.1' => 'required',
             'data.2' => 'required',
-            'data.3' => 'required',
-            'data.4' => 'required',
-            'data.5' => 'required'
+//            'data.3' => 'required',
+//            'data.4' => 'required',
+//            'data.5' => 'required'
         ];
     }
 }

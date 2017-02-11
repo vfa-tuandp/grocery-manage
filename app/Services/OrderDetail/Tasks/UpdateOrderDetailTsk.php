@@ -19,14 +19,25 @@ class UpdateOrderDetailTsk
     public function run($data, $order)
     {
         $existsOrderDetails = $order->orderDetails;
-
         foreach ($existsOrderDetails as $existsOrderDetail) {
             $dataToUpdate = array_where($data, function ($key, $value) use ($existsOrderDetail) {
                 return $value['id'] == $existsOrderDetail->id;
             });
             if ($dataToUpdate) {
-                $existsOrderDetail->update(reset($dataToUpdate));
+                $dataToUpdate = reset($dataToUpdate);
+                if ($existsOrderDetail->item->check_in_stock) {
+                    $existsOrderDetail->item->in_stock = $existsOrderDetail->item->in_stock
+                        + $existsOrderDetail->quantity
+                        - $dataToUpdate['quantity'];
+
+                    $existsOrderDetail->item->save();
+                }
+                $existsOrderDetail->update($dataToUpdate);
                 continue;
+            }
+
+            if ($existsOrderDetail->item->check_in_stock) {
+                $existsOrderDetail->item->increment('in_stock', $existsOrderDetail->quantity);
             }
             $existsOrderDetail->delete();
         }
@@ -37,7 +48,10 @@ class UpdateOrderDetailTsk
             return;
         }
         foreach ($newOrderDetailData as $data) {
-            $order->orderDetails()->create($data);
+            $orderDetail = $order->orderDetails()->create($data);
+            if ($orderDetail->item->check_in_stock) {
+                $orderDetail->item->decrement('in_stock', $data['quantity']);
+            };
         }
     }
 }

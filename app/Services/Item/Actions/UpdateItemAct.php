@@ -19,8 +19,9 @@ class UpdateItemAct
 
     public function run($itemId, $data)
     {
-        $data = $this->customizeItemDataTsk->reformatCheckInStockAttribute($data);
-        $data = $this->customizeItemDataTsk->verifyInStockAttribute($data);
+        if (!empty($data['check_in_stock'])) {
+            $data['check_in_stock'] = 1;
+        }
         $this->updateItemTsk->run($itemId, $data);
     }
 }

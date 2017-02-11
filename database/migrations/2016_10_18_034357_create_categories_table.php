@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('parent_id');
             $table->integer('company_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

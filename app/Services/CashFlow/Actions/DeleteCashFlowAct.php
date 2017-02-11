@@ -8,7 +8,7 @@ class DeleteCashFlowAct
 {
     private $deleteCashFlowTsk;
 
-    public function __construct (DeleteCashFlowTsk $deleteCashFlowTsk)
+    public function __construct(DeleteCashFlowTsk $deleteCashFlowTsk)
     {
         $this->deleteCashFlowTsk = $deleteCashFlowTsk;
     }

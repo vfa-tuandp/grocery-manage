@@ -19,14 +19,25 @@ class UpdatePurchaseReceiptDetailTsk
     public function run($data, $purchaseReceipt)
     {
         $existsPurchaseReceiptDetails = $purchaseReceipt->purchaseReceiptDetails;
-
         foreach ($existsPurchaseReceiptDetails as $existsPurchaseReceiptDetail) {
             $dataToUpdate = array_where($data, function ($key, $value) use ($existsPurchaseReceiptDetail) {
                 return $value['id'] == $existsPurchaseReceiptDetail->id;
             });
             if ($dataToUpdate) {
-                $existsPurchaseReceiptDetail->update(reset($dataToUpdate));
+                $dataToUpdate = reset($dataToUpdate);
+                if ($existsPurchaseReceiptDetail->item->check_in_stock) {
+                    $existsPurchaseReceiptDetail->item->in_stock = $existsPurchaseReceiptDetail->item->in_stock
+                        - $existsPurchaseReceiptDetail->quantity
+                        + $dataToUpdate['quantity'];
+
+                    $existsPurchaseReceiptDetail->item->save();
+                }
+                $existsPurchaseReceiptDetail->update($dataToUpdate);
                 continue;
+            }
+
+            if ($existsPurchaseReceiptDetail->item->check_in_stock) {
+                $existsPurchaseReceiptDetail->item->decrement('in_stock', $existsPurchaseReceiptDetail->quantity);
             }
             $existsPurchaseReceiptDetail->delete();
         }
@@ -37,7 +48,10 @@ class UpdatePurchaseReceiptDetailTsk
             return;
         }
         foreach ($newPurchaseReceiptDetailData as $data) {
-            $purchaseReceipt->purchaseReceiptDetails()->create($data);
+            $purchaseReceiptDetail = $purchaseReceipt->purchaseReceiptDetails()->create($data);
+            if ($purchaseReceiptDetail->item->check_in_stock) {
+                $purchaseReceiptDetail->item->increment('in_stock', $data['quantity']);
+            };
         }
     }
 }

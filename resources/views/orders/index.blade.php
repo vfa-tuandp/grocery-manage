@@ -14,13 +14,13 @@
     <div class="portlet">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-shopping-cart"></i>Order Listing
+                <i class="fa fa-shopping-cart"></i>Thống kê bán hàng
             </div>
             <div class="actions">
-                <a href="javascript:;" class="btn default yellow-stripe">
+                <a href="/order/create" class="btn default yellow-stripe">
                     <i class="fa fa-plus"></i>
 								<span class="hidden-480">
-								New Order </span>
+								Đơn hàng mới</span>
                 </a>
                 <div class="btn-group">
                     <a class="btn default yellow-stripe" href="javascript:;" data-toggle="dropdown">
@@ -70,7 +70,7 @@
                     <thead>
                     <tr role="row" class="heading">
                         <th width="10%">
-                            Mã
+                            Mã ĐH
                         </th>
                         <th width="25%">
                             Khách hàng
@@ -87,7 +87,7 @@
                         <th width="3%">
                             VAT?
                         </th>
-                        <th width="20%">
+                        <th width="15%">
                             Tổng cộng
                         </th>
                         <th width="10%">
@@ -119,13 +119,13 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>
-                            <div id="all_total">
+                        <td class="dt-right">
+                            <div id="all_total" >
                                 <strong></strong>
                             </div>
                         </td>
                         <td></td>
-                        <td>
+                        <td class="dt-center">
                             <div class="margin-bottom-5">
                                 <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i></button>
                             </div>

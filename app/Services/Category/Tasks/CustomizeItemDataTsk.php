@@ -15,7 +15,9 @@ class CustomizeItemDataTsk
 
     public function verifyInStockAttribute($data)
     {
-        $data['check_in_stock'] ? : $data['in_stock'] = 0;
+//        $data['check_in_stock'] ? : $data['in_stock'] = 0;
+        $data['in_stock'] = 0;
+
         return $data;
     }
 }

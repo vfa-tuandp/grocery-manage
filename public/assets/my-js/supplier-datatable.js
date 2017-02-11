@@ -124,22 +124,44 @@ var TableSupplier = function () {
 
         table.on('click', '.delete', function (e) {
             e.preventDefault();
-            if (confirm("Are you sure to delete this row ?") == false) {
-                return;
-            }
 
             var nRow = $(this).parents('tr')[0];
             var supplierId = oTable.fnGetData(nRow)[0];
-            $.ajax({
-                type: "DELETE",
-                url: "/ajax/supplier/" + supplierId,
-                success: function(msg) {
-                    alert("Deleted");
-                    oTable.fnDeleteRow(nRow);
-                },
-                error: function(xhr, status, error) {
-                    alert('Có lỗi');
-                }
+
+            swal({
+                title: 'Xóa nhà cung cấp này?',
+                text: "Sẽ xóa hết dữ liệu liên quan, không khuyến khích xóa!!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ok xóa!',
+                cancelButtonText: 'Chờ tí, để xem lại',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-cancel',
+                buttonsStyling: false
+            }).then(function () {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/ajax/supplier/" + supplierId,
+                    success: function (msg) {
+                        swal({
+                            allowOutsideClick: false,
+                            title: 'Đã xóa!',
+                            text: 'Nhà cung cấp đã được xóa',
+                            type: 'success'
+                        }).then(function () {
+                            oTable.fnDeleteRow(nRow);
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        swal(
+                            'Đệt, có lỗi',
+                            'Lỗi cmnr',
+                            'error'
+                        )
+                    }
+                });
             });
         });
 
@@ -185,7 +207,8 @@ var TableSupplier = function () {
                         data: {data: aData},
                         error: function(xhr, status, error) {
                             alert('Có lỗi');
-                            location.reload();
+                            
+                            // location.reload();
                         },
                         success: function (newSupplierId) {
                             oTable.fnUpdate(newSupplierId, nRow, 0, false);

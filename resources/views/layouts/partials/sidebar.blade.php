@@ -22,130 +22,104 @@
                 <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
                 <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
                 <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-                <form class="sidebar-search " action="extra_search.html" method="POST">
-                    <a href="javascript:;" class="remove">
-                        <i class="icon-close"></i>
-                    </a>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search...">
-							<span class="input-group-btn">
-							<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
-							</span>
-                    </div>
-                </form>
                 <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
             <li class="heading">
-                <h3 class="uppercase">Bảng quản lý</h3>
+                <h3 class="uppercase">Bảng quản lý Admin</h3>
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="icon-settings"></i>
-                    <span class="title">Khách hàng</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="{{ route('customer.index') }}">
-                            <span class="badge badge-roundless badge-danger">new</span>Thêm khách hàng<br>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="javascript:;">
-                    <i class="icon-briefcase"></i>
-                    <span class="title">Nhà cung cấp</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="{{ route('supplier.index') }}">
-                            <span class="badge badge-roundless badge-danger">new</span>Thêm nhà cung cấp<br>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="javascript:;">
-                    <i class="icon-briefcase"></i>
-                    <span class="title">Hàng hóa</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="{{ route('order.create') }}">
-                            Bán hàng!</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('purchase.create') }}">
-                            Nhập hàng!</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('category.index') }}">
-                            QL mặt hàng</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('item.index') }}">
-                            QL sản phẩm</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('order.index') }}">
-                            QL đơn hàng</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('purchase.index') }}">
-                            QL nhập hàng</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('item.create') }}">
-                            Thêm sản phẩm mới</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('cash_flow.create') }}">
-                            Thêm thu/chi</a>
-                    </li>
-
-                </ul>
-            </li>
-
-            <li>
-                <a href="javascript:;">
-                    <i class="icon-briefcase"></i>
+                    <i class="icon-bar-chart"></i>
                     <span class="title">Thống kê</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
                     <li>
+                        <a href="{{ route('order.index') }}">
+                            Bán hàng</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('purchase.index') }}">
+                            Nhập hàng</a>
+                    </li>
+                    <li>
                         <a href="{{ route('item.stock') }}">
-                            QL kho</a>
+                            Kho hàng</a>
                     </li>
                     <li>
                         <a href="{{ route('cash_flow.index') }}">
-                            QL dòng tiền</a>
+                            Dòng tiền</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-briefcase"></i>
+                    <span class="title">Quản lý</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="{{ route('category.index') }}">
+                            Các loại mặt hàng</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('item.index') }}">
+                            Sản phẩm</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('item.create') }}">
+                            Thêm sản phẩm mới</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="heading">
+                <h3 class="uppercase">Tác vụ cho member</h3>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-basket"></i>
+                    <span class="title">Mua/bán</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="{{ route('order.create') }}">
+                            <span class="badge badge-roundless badge-danger">new</span>Bán hàng</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('purchase.create') }}">
+                            <span class="badge badge-roundless badge-danger">new</span>Nhập hàng</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('cash_flow.create') }}">
+                            Phát sinh thu/chi</a>
                     </li>
                 </ul>
             </li>
 
             <li>
                 <a href="javascript:;">
-                    <i class="icon-wallet"></i>
-                    <span class="title">Dịch vụ đi kèm sp</span>
+                    <i class="icon-user"></i>
+                    <span class="title">Khách hàng/Nơi nhập</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="portlet_general.html">
-                            General Portlets</a>
+                        <a href="{{ route('customer.index') }}">
+                            Khách hàng<br>
+                        </a>
                     </li>
                     <li>
-                        <a href="portlet_general2.html">
-                            <span class="badge badge-roundless badge-danger">new</span>New Portlets #1</a>
+                        <a href="{{ route('supplier.index') }}">
+                            Nhà cung cấp<br>
+                        </a>
                     </li>
                 </ul>
             </li>
+
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>

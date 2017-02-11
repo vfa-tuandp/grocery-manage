@@ -19,11 +19,11 @@ var TableAdvanced = function () {
                 {data: "category.name"},
                 {data: "name"},
                 {data: "unit"},
-                {data: "price_in_hint"},
-                {data: "price_out_hint"},
-                {data: "in_stock"},
-                {data: "edit", orderable: false, searchable: false},
-                {data: "delete", orderable: false, searchable: false}
+                {data: "price_in_hint", className: "dt-right"},
+                {data: "price_out_hint", className: "dt-right"},
+                {data: "in_stock", className: "dt-right"},
+                {data: "edit", orderable: false, searchable: false, className: "dt-center"},
+                {data: "delete", orderable: false, searchable: false, className: "dt-center"}
             ],
 
             "order": [
@@ -46,23 +46,53 @@ var TableAdvanced = function () {
 
         table.on('click', '.delete', function (e) {
             e.preventDefault();
-            if (confirm("Are you sure to delete this row ?") == false) {
-                return;
-            }
-
             var nRow = $(this).parents('tr')[0];
             var itemId = oTable.fnGetData(nRow).id;
-            $.ajax({
-                type: "DELETE",
-                url: "/ajax/item/" + itemId,
-                success: function(msg) { 
-                    alert("Deleted");
-                    oTable.fnDeleteRow(nRow);
-                },
-                error: function(xhr, status, error) {
-                    alert('Có lỗi');
+            swal({
+                title: 'Xóa sản phẩm này?',
+                text: "Xóa sp sẽ xóa hết tất cả những thứ liên quan!!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ok xóa!',
+                cancelButtonText: 'Chờ tí, để xem lại',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-cancel',
+                buttonsStyling: false
+            }).then(function () {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/ajax/item/" + itemId,
+                    success: function(msg) {
+                        swal({
+                            allowOutsideClick: false,
+                            title: 'Đã xóa!',
+                            text:  'Sản phẩm đã được xóa',
+                            type: 'success'
+                        }).then(function () {
+                            oTable.fnDeleteRow(nRow);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        swal(
+                            'Đệt, có lỗi',
+                            'Lỗi cmnr',
+                            'error'
+                        )
+                    }
+                });
+            }, function (dismiss) {
+                // dismiss can be 'cancel', 'overlay',
+                // 'close', and 'timer'
+                if (dismiss === 'cancel') {
+                    swal(
+                        'Ok',
+                        'Hãy kiểm tra cẩn thận',
+                        'error'
+                    )
                 }
-            });
+            })
         });
         
         var tableWrapper = $('#sample_3_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper

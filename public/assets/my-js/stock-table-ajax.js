@@ -50,10 +50,10 @@ var StockTableAjax = function () {
                     {data: "datetime", orderable: true},
                     {data: "category_name"},
                     {data: "item_name"},
-                    {data: "quantity"},
-                    {data: "kind"},
+                    {data: "quantity", className: "dt-right"},
+                    {data: "kind", className: "dt-center"},
                     {data: "target_name"},
-                    {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control"}
+                    {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control dt-center"}
                 ],
             }
         });
@@ -120,7 +120,7 @@ var StockTableAjax = function () {
                     '<th>Sản phẩm</th>' +
                     '<th>Số lượng</th>' +
                     '<th>ĐVT</th>' +
-                    '<th>Giá bán</th>' +
+                    '<th>Giá</th>' +
                     '<th>CP khác</th>' +
                     '<th>Giảm giá</th>' +
                     '<th>Tổng</th>' +

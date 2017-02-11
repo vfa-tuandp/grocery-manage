@@ -24,7 +24,13 @@ class DeleteOrderTsk
 
     public function run($orderId)
     {
-        $this->orderRepo->delete($orderId);
+        $order = $this->orderRepo->with(['orderDetails', 'orderDetails.item'])->find($orderId);
+        foreach ($order->orderDetails as $orderDetail) {
+            if ($orderDetail->item->check_in_stock) {
+                $orderDetail->item->increment('in_stock', $orderDetail->quantity);
+            }
+        }
+        $order->delete();
         $this->cashFlowRepo->deleteReceipt($orderId, CashFlow::TYPE_ORDER);
     }
 }
