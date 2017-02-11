@@ -46,15 +46,15 @@ var PurchaseTableAjax = function () {
                     [0, "desc"]
                 ], // set first column as a default sort by asc
                 "columns": [
-                    {data: "id", orderable: true},
+                    {data: "id", orderable: true, className: "dt-center"},
                     {data: "supplier.name"},
                     {data: "datetime"},
-                    {data: "other_cost"},
-                    {data: "reduction"},
+                    {data: "other_cost", className: "dt-right"},
+                    {data: "reduction", className: "dt-right"},
                     {data: "vat"},
-                    {data: "total"},
+                    {data: "total", className: "dt-right"},
                     {data: "note"},
-                    {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control"}
+                    {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control dt-center"}
                 ],
             }
         });
@@ -111,7 +111,7 @@ var PurchaseTableAjax = function () {
                     '<th>Sản phẩm</th>' +
                     '<th>Số lượng</th>' +
                     '<th>ĐVT</th>' +
-                    '<th>Giá bán</th>' +
+                    '<th>Giá nhập</th>' +
                     '<th>CP khác</th>' +
                     '<th>Giảm giá</th>' +
                     '<th>Tổng</th>' +

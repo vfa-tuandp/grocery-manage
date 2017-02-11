@@ -62,11 +62,10 @@
             @include('layouts.partials.modal_form')
             <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
             <!-- BEGIN STYLE CUSTOMIZER -->
-            @include('layouts.partials.style_customizer')
+{{--            @include('layouts.partials.style_customizer')--}}
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
             @section('page_header')
-            @include('layouts.partials.page_header')
             @show
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->

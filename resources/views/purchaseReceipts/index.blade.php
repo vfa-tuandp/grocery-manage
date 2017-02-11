@@ -14,13 +14,13 @@
     <div class="portlet">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-shopping-cart"></i> Listing
+                <i class="fa fa-shopping-cart"></i>Thống kê nhập hàng
             </div>
             <div class="actions">
-                <a href="javascript:;" class="btn default yellow-stripe">
+                <a href="/purchase/create" class="btn default yellow-stripe">
                     <i class="fa fa-plus"></i>
 								<span class="hidden-480">
-								New Purchase </span>
+								Nhập hàng</span>
                 </a>
                 <div class="btn-group">
                     <a class="btn default yellow-stripe" href="javascript:;" data-toggle="dropdown">
@@ -70,13 +70,13 @@
                     <thead>
                     <tr role="row" class="heading">
                         <th width="10%">
-                            Mã
+                            Mã nhập hàng
                         </th>
                         <th width="25%">
-                            Khách hàng
+                            Nơi cung cấp
                         </th>
                         <th width="15%">
-                            Ngày hóa đơn
+                            Ngày nhập
                         </th>
                         <th width="5%">
                             CP khác
@@ -87,7 +87,7 @@
                         <th width="3%">
                             VAT?
                         </th>
-                        <th width="20%">
+                        <th width="15%">
                             Tổng cộng
                         </th>
                         <th width="10%">
@@ -119,13 +119,13 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>
+                        <td class="dt-right">
                             <div id="all_total">
                                 <strong></strong>
                             </div>
                         </td>
                         <td></td>
-                        <td>
+                        <td class="dt-center">
                             <div class="margin-bottom-5">
                                 <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i></button>
                             </div>

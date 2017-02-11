@@ -19,36 +19,21 @@
                 <i class="fa fa-shopping-cart"></i>Thống kê kho
             </div>
             <div class="actions">
-                <a href="javascript:;" class="btn default yellow-stripe">
-                    <i class="fa fa-plus"></i>
-								<span class="hidden-480">
-								New Order </span>
-                </a>
                 <div class="btn-group">
                     <a class="btn default yellow-stripe" href="javascript:;" data-toggle="dropdown">
                         <i class="fa fa-share"></i>
 									<span class="hidden-480">
-									Tools </span>
+									Công cụ</span>
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu pull-right">
                         <li>
-                            <a href="javascript:;">
-                                Export to Excel </a>
+                            <a href="/order/create">
+                                Bán hàng</a>
                         </li>
                         <li>
-                            <a href="javascript:;">
-                                Export to CSV </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                Export to XML </a>
-                        </li>
-                        <li class="divider">
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                Print Invoices </a>
+                            <a href="/purchase/create">
+                                Nhập hàng</a>
                         </li>
                     </ul>
                 </div>
@@ -83,11 +68,11 @@
                         <th width="15%">
                             Số lượng
                         </th>
-                        <th width="15%">
+                        <th width="10%">
                             Loại
                         </th>
                         <th width="15%">
-                            Nơi đến
+                            Khách hàng/Người cung cấp
                         </th>
                         <th width="10%">Tools</th>
                     </tr>
@@ -112,7 +97,7 @@
                         <td>
                             <input type="text" class="form-control form-filter input-sm" name="item_name">
                         </td>
-                        <td>
+                        <td class="dt-center">
                             <div id="quantity_count">
                                 <p><strong></strong></p>
                                 <p><strong></strong></p>
@@ -123,9 +108,13 @@
                                 <div class="input-group">
                                     <div class="icheck-list">
                                         <label>
-                                            <input type="checkbox" name="kind[]" checked value="1" class="form-control form-filter chck-filter-submit">Nhập</label>
+                                            <input type="checkbox" name="kind[]" checked value="1" class="form-control form-filter chck-filter-submit">
+                                            Nhập
+                                        </label>
                                         <label>
-                                            <input type="checkbox" name="kind[]" checked value="2" class="form-control form-filter chck-filter-submit">Bán</label>
+                                            <input type="checkbox" name="kind[]" checked value="2" class="form-control form-filter chck-filter-submit">
+                                            Bán
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +122,7 @@
                         <td>
                             <input type="text" class="form-control form-filter input-sm" name="target_name">
                         </td>
-                        <td>
+                        <td class="dt-center">
                             <div class="margin-bottom-5">
                                 <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i></button>
                             </div>

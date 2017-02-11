@@ -14,15 +14,34 @@
 @section('page_content')
     <!-- BEGIN EXAMPLE TABLE PORTLET-->
     <div class="portlet">
+        @if (count($errors) > 0)
+            <div class="alert alert-danger fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (Session::has('success'))
+            <div class="alert alert-success fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>
+                    {{ Session::get('success') }}
+                </strong>
+            </div>
+        @endif
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-shopping-cart"></i>Thống kê dòng tiền
             </div>
             <div class="actions">
-                <a href="javascript:;" class="btn default yellow-stripe">
+                <a href="/cash_flow/create" class="btn default yellow-stripe">
                     <i class="fa fa-plus"></i>
 								<span class="hidden-480">
-								New Order </span>
+								Thêm thu/chi</span>
                 </a>
                 <div class="btn-group">
                     <a class="btn default yellow-stripe" href="javascript:;" data-toggle="dropdown">
@@ -71,16 +90,16 @@
                 <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
                     <thead>
                     <tr role="row" class="heading">
-                        <th width="15%">
+                        <th width="10%">
                             Ngày phát sinh
                         </th>
-                        <th width="15%">
+                        <th width="20%">
                             Nội dung
                         </th>
-                        <th width="15%">
+                        <th width="10%">
                             Số tiền
                         </th>
-                        <th width="15%">
+                        <th width="7%">
                             Loại
                         </th>
                         <th width="15%">
@@ -106,7 +125,7 @@
                         <td>
                             <input type="text" class="form-control form-filter input-sm" name="content">
                         </td>
-                        <td id="total">
+                        <td id="total" class="dt-right">
                                 <p><strong></strong></p>
                                 <p><strong></strong></p>
                         </td>
@@ -125,7 +144,7 @@
 
                         <td>
                         </td>
-                        <td>
+                        <td class="dt-center">
                             <div class="margin-bottom-5">
                                 <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i></button>
                             </div>

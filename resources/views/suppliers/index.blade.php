@@ -7,10 +7,17 @@
 
 @section('page_content')
     <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-user"></i>Nhà cung cấp
+            </div>
+        </div>
+    </div>
     <div class="portlet box blue">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-edit"></i>Editable Table
+                <i class="fa fa-edit"></i>Danh sách nhà cung cấp
             </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse">
@@ -29,7 +36,7 @@
                     <div class="col-md-6">
                         <div class="btn-group">
                             <button id="supplier_table_new" class="btn green">
-                                Add New <i class="fa fa-plus"></i>
+                                Nhà cung cấp mới <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>

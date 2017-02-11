@@ -24,6 +24,7 @@ class CreateItemsTable extends Migration
             $table->integer('price_in_hint')->nullable();
             $table->integer('price_out_hint')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

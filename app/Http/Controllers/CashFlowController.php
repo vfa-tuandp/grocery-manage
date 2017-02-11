@@ -50,7 +50,7 @@ class CashFlowController extends Controller
     {
         $storeCashFLowAct->run($request->all());
 
-        return redirect()->route('cash_flow.create')->with('success', 'Thêm thành công!!');
+        return redirect()->route('cash_flow.create')->with('success', 'Lưu thành công!!');
     }
 //
 //    public function getItemByCategoryId($categoryId, GetItemsByCategoryIdAct $listItemAct)

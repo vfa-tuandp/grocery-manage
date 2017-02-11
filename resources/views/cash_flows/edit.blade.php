@@ -24,7 +24,7 @@
         <div class="portlet-title">
             <div class="caption font-red-sunglo">
                 <i class="icon-settings font-red-sunglo"></i>
-                <span class="caption-subject bold uppercase"> Tạo mới sản phẩm</span>
+                <span class="caption-subject bold uppercase">Sửa thu/chi</span>
             </div>
             <div class="actions">
                 <div class="btn-group">

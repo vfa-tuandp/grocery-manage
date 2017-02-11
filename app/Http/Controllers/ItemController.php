@@ -37,7 +37,7 @@ class ItemController extends Controller
     public function update(UpdateItemRequest $request, $id, UpdateItemAct $updateItemAct)
     {
         $updateItemAct->run($id, $request->all());
-        return redirect()->back()->with('success', 'Cập nhật thành công!!');
+        return redirect()->route('item.index')->with('success', 'Cập nhật thành công!!');
     }
 
     public function destroy($id, DeleteItemAct $deleteItemAct)

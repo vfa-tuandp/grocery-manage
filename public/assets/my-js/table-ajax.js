@@ -15,7 +15,6 @@ var TableAjax = function () {
             src: $("#datatable_ajax"),
             onSuccess: function (grid, response) {
                 $('#all_total strong').text(response.all_total);
-                console.log('hehe');
             },
             onError: function (grid) {
                 grid.clearAjaxParams();
@@ -48,15 +47,15 @@ var TableAjax = function () {
                     [0, 'desc']
                 ],
                 "columns": [
-                    {data: "id", orderable: true},
+                    {data: "id", orderable: true, className: "dt-center"},
                     {data: "customer.name", orderable: true},
                     {data: "datetime", orderable: true},
-                    {data: "other_cost", orderable: true},
-                    {data: "reduction", orderable: true},
+                    {data: "other_cost", orderable: true, className: "dt-right"},
+                    {data: "reduction", orderable: true, className: "dt-right"},
                     {data: "vat", orderable: true},
-                    {data: "total", orderable: true},
+                    {data: "total", orderable: true, className: "dt-right"},
                     {data: "note"},
-                    {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control"}
+                    {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control dt-center"}
                 ],
             }
         });

@@ -50,10 +50,10 @@ var CashTableAjax = function () {
                 "columns": [
                     {data: "datetime", orderable: true},
                     {data: "content"},
-                    {data: "value"},
-                    {data: "type"},
+                    {data: "value", className: "dt-right"},
+                    {data: "type", className: "dt-center"},
                     {data: "note"},
-                    {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control"}
+                    {data: 'detail', name: 'detail', orderable: false, searchable: false, class: "details-control dt-center"}
                 ],
                 "createdRow": function( row, data, dataIndex ) {
                     if ( data['type'] == "Thu" ) {
@@ -132,7 +132,7 @@ var CashTableAjax = function () {
                     '<th>Sản phẩm</th>' +
                     '<th>Số lượng</th>' +
                     '<th>ĐVT</th>' +
-                    '<th>Giá bán</th>' +
+                    '<th>Giá</th>' +
                     '<th>CP khác</th>' +
                     '<th>Giảm giá</th>' +
                     '<th>Tổng</th>' +

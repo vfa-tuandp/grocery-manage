@@ -55,6 +55,12 @@ class FillDatatableTsk
                 ->editColumn('vat', function ($query) {
                     return $query->vat ? 'Có' : 'Không';
                 })
+                ->editColumn('other_cost', function ($query) {
+                    return number_format($query->other_cost, 0, ",", ".") . ' đ';
+                })
+                ->editColumn('reduction', function ($query) {
+                    return number_format($query->reduction, 0, ",", ".") . ' đ';
+                })
                 ->editColumn('total', function ($query) {
                     return number_format($query->total, 0, ",", ".") . ' đ';
                 })

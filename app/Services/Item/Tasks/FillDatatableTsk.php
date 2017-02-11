@@ -30,6 +30,12 @@ class FillDatatableTsk
             ->editColumn('in_stock', function ($query) {
                 return $query->check_in_stock ? $query->in_stock : 'Không tính';
             })
+            ->editColumn('price_in_hint', function ($query) {
+                return number_format($query->price_in_hint, 0, ",", ".") . ' đ';
+            })
+            ->editColumn('price_out_hint', function ($query) {
+                return number_format($query->price_out_hint, 0, ",", ".") . ' đ';
+            })
             ->addColumn('edit', '<td><a class="edit" href="javascript:;">Edit </a></td>')
             ->addColumn('delete', '<td><a class="delete" href="javascript:;">Delete </a></td>')
             ->make(true);

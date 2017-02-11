@@ -311,7 +311,7 @@
                     <div class="col-md-3 col-xs-10">
                         <div class="form-actions noborder">
                             <button id="createNewPurchase" class="btn yellow">
-                                Tạo mới
+                                Lưu hóa đơn nhập hàng!
                             </button>
                         </div>
                     </div>
@@ -492,17 +492,17 @@
                     "note": form.find("textarea[name='note']").val(),
                     "items": rowData
                 };
-console.log(data);
                 $.ajax({
                     url:"/ajax/purchase/store",
                     data: data,
                     type: "POST",
                     success:function(data) {
-                        swal(
-                                'Đã tạo mới!',
-                                'Đơn hàng này đã được tạo thành công',
-                                'success'
-                        ).then(function () {
+                        swal({
+                            allowOutsideClick: false,
+                            title: 'Đã tạo mới!',
+                            text: 'Nhập hàng thành công',
+                            type: 'success'
+                        }).then(function () {
                             location.reload();
                         })
                     },
